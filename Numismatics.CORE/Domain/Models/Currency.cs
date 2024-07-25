@@ -10,7 +10,7 @@ namespace Numismatics
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string hunderthPartName { get; set; }
+        public string HunderthPartName { get; set; }
         public string Code {  get; set; }
         public int Number {  get; set; }
 
@@ -18,7 +18,7 @@ namespace Numismatics
         {
             Id = id;
             Name = name;
-            this.hunderthPartName = hunderthPartName;
+            HunderthPartName = hunderthPartName;
             Code = code;
             Number = number;
         }

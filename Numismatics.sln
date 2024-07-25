@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numismatics", "Numismatics\Numismatics.csproj", "{1BBDA184-079E-44FB-96E6-B835C2CF751F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numismatics.WPF", "Numismatics.WPF\Numismatics.WPF.csproj", "{49C17223-99D3-4A4C-8D84-11E25385CECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numismatics.CORE", "Numismatics.CORE\Numismatics.CORE.csproj", "{801A85E3-DB13-470C-BF4F-1F449181E120}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C17223-99D3-4A4C-8D84-11E25385CECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C17223-99D3-4A4C-8D84-11E25385CECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C17223-99D3-4A4C-8D84-11E25385CECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C17223-99D3-4A4C-8D84-11E25385CECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
