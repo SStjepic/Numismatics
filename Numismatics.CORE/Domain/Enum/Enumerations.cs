@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numismatics
+namespace Numismatics.CORE.Domain.Enum
 {
     public enum BanknoteQuality
     {

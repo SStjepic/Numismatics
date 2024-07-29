@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Home page" Height="450" Width="800">
+    <Window.Resources>
+    </Window.Resources>
     <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
+        <!-- Sidebar -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="#FFBBB140">
+            <Button Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowBanknotesCommand}"/>
+            <Button Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCoinsCommand}" />
+            <Button Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCountriesCommand}"/>
+            <Button Content="Currencies" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCurrenciesCommand}"/>
+        </StackPanel>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Search Box -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="390" Background="#FFBBB140">
+
+                <Button Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
+                <Button Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.HomeCRUDView.Update}"/>
+                <Button  Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.HomeCRUDView.Delete}"/>
+            </StackPanel>
+
+            <!-- Scrollable ListView -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding CurrentAdminItems.CurrentItems,UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding CurrentAdminItems.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

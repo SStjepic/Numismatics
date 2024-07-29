@@ -1,0 +1,50 @@
+﻿<Window x:Class="Numismatics.WPF.Views.CountryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Numismatics.WPF.Views"
+        mc:Ignorable="d"
+        Title="CountryView" Height="450" Width="800">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+
+        <Label Content="Capital" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+
+        <Label Content="Bank" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+
+        <Label Content="Start date" Grid.Row="4" Style="{DynamicResource LabelStyle}" ></Label>
+        <DatePicker Grid.Row="4" Grid.Column="1"></DatePicker>
+
+        <Label Content="End date" Grid.Row="5"  Style="{DynamicResource LabelStyle}"></Label>
+        <DatePicker Grid.Row="5" Grid.Column="1"></DatePicker>
+
+
+        <Button Content="Save" Grid.Row="6" Grid.Column="1" Style="{DynamicResource SaveButtonStyle}" Margin="0,37,133,37" Grid.RowSpan="3"/>
+        <Button Content="Exit" Grid.Row="6" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Margin="128,37,0,37" Grid.RowSpan="3"></Button>
+    </Grid>
+</Window>

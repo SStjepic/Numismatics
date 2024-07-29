@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Numismatics.CORE.Domain.Enum;
+using Numismatics.CORE.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numismatics.DTO
+namespace Numismatics.CORE.DTO
 {
     public class BanknoteDTO
     {
@@ -16,7 +18,7 @@ namespace Numismatics.DTO
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public string Description { get; set; }
-        public Dictionary<string, BanknoteQuality> Banknotes {  get; set; }
+        public Dictionary<string, BanknoteQuality> Banknotes { get; set; }
         public BanknoteDTO(int id, Country country, Currency currency, double denomination, DateTime releaseDate, string obversePicture, string reversePicture, string description)
         {
             Id = id;

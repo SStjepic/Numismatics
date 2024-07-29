@@ -9,13 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Controllers\**" />
+    <EmbeddedResource Remove="ViewModels\Controllers\**" />
+    <None Remove="ViewModels\Controllers\**" />
+    <Page Remove="ViewModels\Controllers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Numismatics.CORE\Numismatics.CORE.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Controllers\" />
     <Folder Include="ViewModels\Presentations\" />
-    <Folder Include="Views\Styles\" />
   </ItemGroup>
 
 </Project>

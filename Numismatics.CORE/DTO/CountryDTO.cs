@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numismatics.DTO
+namespace Numismatics.CORE.DTO
 {
-    internal class CountryDTO
+    public class CountryDTO
     {
     }
 }

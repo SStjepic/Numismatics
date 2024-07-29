@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Numismatics.CORE.Domain.Enum;
+using Numismatics.CORE.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numismatics.DTO
+namespace Numismatics.CORE.DTO
 {
     public class CoinDTO
     {

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Numismatics.WPF.ViewModels.Home;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,12 @@ namespace Numismatics.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public HomePageViewModel HomeViewModel { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            HomeViewModel = new HomePageViewModel();
+            DataContext = this;
         }
     }
 }

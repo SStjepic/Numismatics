@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Numismatics
+namespace Numismatics.CORE.Domain.Models
 {
-    public class Coin 
+    public class Coin
     {
         public int Id { get; set; }
         public int CountryId { get; set; }

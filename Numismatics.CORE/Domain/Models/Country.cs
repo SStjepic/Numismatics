@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Numismatics
+namespace Numismatics.CORE.Domain.Models
 {
     public class Country
     {
@@ -12,10 +12,10 @@ namespace Numismatics
         public string Name { get; set; }
         public string Capital { get; set; }
         public string Bank { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set;}
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
 
-        public Country(int id, string name, string capital, string bank, DateTime startDate, DateTime endDate)
+        public Country(int id, string name, string capital, string bank, DateOnly startDate, DateOnly endDate)
         {
             Id = id;
             Name = name;
