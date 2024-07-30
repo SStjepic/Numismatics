@@ -39,12 +39,40 @@
 
         <Label Content="Start date" Grid.Row="4" Style="{DynamicResource LabelStyle}" ></Label>
         <DatePicker Grid.Row="4" Grid.Column="1"></DatePicker>
+        <Grid Grid.Row="4" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Era" Grid.Row="0" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+            <ComboBox Grid.Row="0" Grid.Column="1"></ComboBox>
+        </Grid>
+       
 
         <Label Content="End date" Grid.Row="5"  Style="{DynamicResource LabelStyle}"></Label>
         <DatePicker Grid.Row="5" Grid.Column="1"></DatePicker>
+        <Grid Grid.Row="5" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Era" Grid.Row="0" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+            <ComboBox Grid.Row="0" Grid.Column="1"></ComboBox>
+        </Grid>
+
+        
 
 
-        <Button Content="Save" Grid.Row="6" Grid.Column="1" Style="{DynamicResource SaveButtonStyle}" Margin="0,37,133,37" Grid.RowSpan="3"/>
-        <Button Content="Exit" Grid.Row="6" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Margin="128,37,0,37" Grid.RowSpan="3"></Button>
+        <Grid Grid.Row="7" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}"/>
+            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}"></Button>
+        </Grid>
     </Grid>
 </Window>
