@@ -13,22 +13,22 @@ namespace Numismatics.CORE.DTO
         public int Id { get; set; }
         public Country Country { get; set; }
         public Currency Currency { get; set; }
-        public double Denomination { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public double Value { get; set; }
+        public Date IssueDate { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public string Description { get; set; }
         public Dictionary<string, BanknoteQuality> Banknotes { get; set; }
-        public BanknoteDTO(int id, Country country, Currency currency, double denomination, DateTime releaseDate, string obversePicture, string reversePicture, string description)
+        public BanknoteDTO(int id, Country country, Currency currency, double value, string obversePicture, string reversePicture, string description, Date issueDate)
         {
             Id = id;
             Country = country;
             Currency = currency;
-            Denomination = denomination;
-            ReleaseDate = releaseDate;
+            Value = value;
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             Description = description;
+            IssueDate = issueDate;
         }
 
     }

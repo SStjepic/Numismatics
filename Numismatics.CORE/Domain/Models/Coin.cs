@@ -12,7 +12,8 @@ namespace Numismatics.CORE.Domain.Models
         public int Id { get; set; }
         public int CountryId { get; set; }
         public int CurrencyId { get; set; }
-        public double Denomination { get; set; }
+        public double Value { get; set; }
+        public Date IssueDate {  get; set; }
         public string Description { get; set; }
         public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
@@ -20,16 +21,17 @@ namespace Numismatics.CORE.Domain.Models
 
         public Coin() { }
 
-        public Coin(int id, int countryId, int currencyId, double denomination, string description, int numberOfCoins, string obversePicture, string reversePicture)
+        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate)
         {
             Id = id;
             CountryId = countryId;
             CurrencyId = currencyId;
-            Denomination = denomination;
+            Value = value;
             Description = description;
             NumberOfCoins = numberOfCoins;
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
+            IssueDate = issueDate;
         }
     }
 }

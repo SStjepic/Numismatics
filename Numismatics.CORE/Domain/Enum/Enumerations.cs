@@ -15,4 +15,10 @@ namespace Numismatics.CORE.Domain.Enum
         XF,
         UNC
     }
+
+    public enum Era
+    {
+        BC,
+        AC
+    }
 }

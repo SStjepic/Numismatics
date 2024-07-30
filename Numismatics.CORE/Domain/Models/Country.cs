@@ -12,10 +12,10 @@ namespace Numismatics.CORE.Domain.Models
         public string Name { get; set; }
         public string Capital { get; set; }
         public string Bank { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public Date StartDate { get; set; }
+        public Date EndDate { get; set; }
 
-        public Country(int id, string name, string capital, string bank, DateOnly startDate, DateOnly endDate)
+        public Country(int id, string name, string capital, string bank, Date startDate, Date endDate)
         {
             Id = id;
             Name = name;
