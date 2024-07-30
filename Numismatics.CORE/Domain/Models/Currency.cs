@@ -12,15 +12,13 @@ namespace Numismatics.CORE.Domain.Models
         public string Name { get; set; }
         public string HunderthPartName { get; set; }
         public string Code { get; set; }
-        public int Number { get; set; }
 
-        public Currency(int id, string name, string hunderthPartName, string code, int number)
+        public Currency(int id, string name, string hunderthPartName, string code)
         {
             Id = id;
             Name = name;
             HunderthPartName = hunderthPartName;
             Code = code;
-            Number = number;
         }
     }
 }
