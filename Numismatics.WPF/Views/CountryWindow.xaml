@@ -30,16 +30,24 @@
         <Label Grid.Row="0" Grid.Column="1" Content="Country information" Style="{DynamicResource LabelStyle}"></Label>
 
         <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Text="{Binding Path=CurrentCountry.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
         <Label Content="Capital" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1"
+                 Text="{Binding Path=CurrentCountry.Capital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
         <Label Content="Bank" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1"
+                 Text="{Binding Path=CurrentCountry.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
         <Label Content="Start year" Grid.Row="4" Style="{DynamicResource LabelStyle}" ></Label>
-        <TextBox Grid.Row="4" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1"
+                 Text="{Binding Path=CurrentCountry.StartYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
         <Grid Grid.Row="4" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -52,7 +60,9 @@
        
 
         <Label Content="End year" Grid.Row="5"  Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="5" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1"
+                 Text="{Binding Path=CurrentCountry.EndYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
         <Grid Grid.Row="5" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -72,8 +82,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}"/>
-            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}"></Button>
+            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Click="AddCountry"/>
+            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" ></Button>
         </Grid>
     </Grid>
 </Window>

@@ -4,9 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF"
+        xmlns:cdata ="clr-namespace:Numismatics.WPF.ViewModels.CountryViewModel"
         mc:Ignorable="d"
         Title="Home page" Height="450" Width="800">
     <Window.Resources>
+        <DataTemplate DataType="{x:Type cdata:CountryDataViewModel}">
+            <StackPanel Orientation="Horizontal" Margin="10" >
+                <StackPanel Orientation="Horizontal" IsEnabled="False">
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                        <Run Text="Id: "></Run>
+                        <Run Text="{Binding Id}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                        <Run Text="Name: "></Run>
+                        <Run Text="{Binding Name}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                        <Run Text="Capital: "></Run>
+                        <Run Text="{Binding Capital}"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         
@@ -44,8 +63,8 @@
 
             <!-- Scrollable ListView -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <ListBox ItemsSource="{Binding CurrentAdminItems.CurrentItems,UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding CurrentAdminItems.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox ItemsSource="{Binding HomeViewModel.CurrentItems,UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding HomeViewModel.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
 
                 </ListBox>
             </ScrollViewer>

@@ -1,0 +1,58 @@
+﻿<Window x:Class="Numismatics.WPF.Views.CoinWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Numismatics.WPF.Views"
+        mc:Ignorable="d"
+        Title="Coin" Height="450" Width="1000">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Coin information" Style="{DynamicResource LabelTitleStyle}" Grid.ColumnSpan="3"></Label>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Value" Grid.Row="0" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Issue date"  Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Description"  Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Number of coins"  Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Obverse picture"  Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Reverse picture"  Grid.Row="5" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Country" Grid.Row="6" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Label Content="Currency" Grid.Row="7" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+        </Grid>
+
+
+        <Grid Grid.Row="1" Grid.Column="1">
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="2">
+        </Grid>
+    </Grid>
+</Window>

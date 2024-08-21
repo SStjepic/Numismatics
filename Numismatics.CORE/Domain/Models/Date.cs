@@ -22,6 +22,12 @@ namespace Numismatics.CORE.Domain.Models
             Era = era;
         }
 
+        public Date(int year, Era era)
+        {
+            Year = year;
+            Era = era;
+        }
+
 
 
 

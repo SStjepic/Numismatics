@@ -12,17 +12,18 @@ namespace Numismatics.CORE.Domain.Models
         public string Name { get; set; }
         public string Capital { get; set; }
         public string Bank { get; set; }
-        public Date StartDate { get; set; }
-        public Date EndDate { get; set; }
+        public Date StartYear { get; set; }
+        public Date EndYear { get; set; }
 
-        public Country(int id, string name, string capital, string bank, Date startDate, Date endDate)
+        public Country() { }
+        public Country(int id, string name, string capital, string bank, Date startYear, Date endYear)
         {
             Id = id;
             Name = name;
             Capital = capital;
             Bank = bank;
-            StartDate = startDate;
-            EndDate = endDate;
+            StartYear = startYear;
+            EndYear = endYear;
         }
     }
 }

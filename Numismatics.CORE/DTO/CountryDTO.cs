@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Numismatics.CORE.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,37 @@ namespace Numismatics.CORE.DTO
 {
     public class CountryDTO
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Capital { get; set; }
+        public string Bank { get; set; }
+        public Date StartYear { get; set; }
+        public Date EndYear { get; set; }
+
+        public CountryDTO() { }
+        public CountryDTO(Country country)
+        {
+            Id = country.Id;
+            Name = country.Name;
+            Capital = country.Capital;
+            Bank = country.Bank;
+            StartYear = country.StartYear;
+            EndYear = country.EndYear;
+        }
+
+        public CountryDTO(int id, string name, string capital, string bank, Date startYear, Date endYear)
+        {
+            Id = id;
+            Name = name;
+            Capital = capital;
+            Bank = bank;
+            StartYear = startYear;
+            EndYear = endYear;
+        }
+
+        public Country ToCountry()
+        {
+            return new Country(Id, Name, Capital, Bank, StartYear, EndYear);
+        }
     }
 }
