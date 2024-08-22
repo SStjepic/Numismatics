@@ -34,5 +34,59 @@
       "Year": 2100,
       "Era": 0
     }
+  },
+  {
+    "Id": 2141865338,
+    "Name": "wdwaf",
+    "Capital": "fafwa",
+    "Bank": null,
+    "StartYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 0
+    },
+    "EndYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 0
+    }
+  },
+  {
+    "Id": 1232700734,
+    "Name": "c\\ac\\",
+    "Capital": "cc",
+    "Bank": null,
+    "StartYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 0
+    },
+    "EndYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 0
+    }
+  },
+  {
+    "Id": 1507126886,
+    "Name": "fawfa",
+    "Capital": "wfaf",
+    "Bank": null,
+    "StartYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 1
+    },
+    "EndYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 0
+    }
   }
 ]

@@ -19,9 +19,9 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
         private string _name;
         private string _capital;
         private string _bank;
-        private int _startYear;
+        private string _startYear;
         private Era _startYearEra;
-        private int _endYear;
+        private string _endYear;
         private Era _endYearEra;
 
         public string Name
@@ -54,7 +54,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
             }
         }
 
-        public int StartYear
+        public string StartYear
         {
             get { return _startYear; }
             set
@@ -74,7 +74,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
             }
         }
 
-        public int EndYear
+        public string EndYear
         {
             get { return _endYear; }
             set
@@ -102,13 +102,16 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
                 Name = country.Name;
                 Capital = country.Capital;
                 Bank = country.Bank;
-                StartYear = country.StartYear.Year;
-                EndYear = country.EndYear.Year; 
+                SetYears(country.StartYear.Year, country.EndYear.Year);
+            }
+            else
+            {
+                SetYears(-1, -1);
             }
         }
         public CountryDTO ToCountryDTO()
         {
-            return new CountryDTO(Id, Name, Capital, Bank, new Date(StartYear, SrartYearEra), new Date(EndYear, EndYearEra));
+            return new CountryDTO(Id, Name, Capital, Bank, new Date(StringToInt(StartYear), SrartYearEra), new Date(StringToInt(EndYear), EndYearEra));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -124,7 +127,40 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
         {
             get
             {
+                if(columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                    {
+                        return "Enter country name";
+                    }
+                }
 
+                if(columnName == "Capital")
+                {
+                    if (string.IsNullOrEmpty(Capital))
+                    {
+                        return "Enter country capital";
+                    }
+
+                }
+
+                if (columnName == "StartYear")
+                {
+                    var year = StringToInt(StartYear);
+                    if (StartYear != "now" && year == -1)
+                    {
+                        return "Enter correct year";
+                    }
+                }
+
+                if (columnName == "EndYear")
+                {
+                    var year = StringToInt(EndYear);
+                    if (EndYear != "now" && year == -1)
+                    {
+                        return "Enter correct year";
+                    }
+                }
                 return null;
             }
         }
@@ -143,6 +179,25 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
 
                 return true;
             }
+        }
+
+
+        private int StringToInt(string str)
+        {
+            try
+            {
+                return int.Parse(str);
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        private void SetYears(int startYear, int endYear)
+        {
+            StartYear = startYear == -1 ? "now" : startYear.ToString();
+            EndYear = endYear == -1? "now": endYear.ToString();
         }
     }
 }

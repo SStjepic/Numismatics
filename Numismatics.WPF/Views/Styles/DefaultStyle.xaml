@@ -79,7 +79,7 @@
     </Style>
 
 
-    <ControlTemplate x:Key="ValidationTemplate" TargetType="TextBox">
+    <ControlTemplate x:Key="ValidationTemplate">
         <StackPanel>
             <AdornedElementPlaceholder />
             <TextBlock Padding="0" Margin="0" Text="{Binding [0].ErrorContent}" Foreground="Red"/>

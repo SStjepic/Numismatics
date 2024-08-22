@@ -1,4 +1,5 @@
-﻿using Numismatics.CORE.DTO;
+﻿using Numismatics.CORE.Domain.Enum;
+using Numismatics.CORE.DTO;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,11 @@ namespace Numismatics.WPF.Views
         public CountryView(CountryDTO? country)
         {
             InitializeComponent();
+            SetComboBox();
             CountryViewModel = new CountryViewModel();
             CurrentCountry = new CountryDataViewModel(country);
             DataContext = this;
+            
         }
 
         private void AddCountry(object sender, RoutedEventArgs e)
@@ -48,6 +51,16 @@ namespace Numismatics.WPF.Views
         private void Exit(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void SetComboBox()
+        {
+            foreach(Era era in Enum.GetValues(typeof(Era)))
+            {
+                StartYearEraCB.Items.Add(era);
+                EndYearEraCB.Items.Add(era);
+            }
+
         }
     }
 }
