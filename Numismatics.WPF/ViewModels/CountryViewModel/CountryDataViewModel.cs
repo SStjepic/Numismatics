@@ -64,13 +64,13 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
             }
         }
 
-        public Era SrartYearEra
+        public Era StartYearEra
         {
             get { return _startYearEra; }
             set
             {
                 _startYearEra = value;
-                OnPropertyChanged(nameof(SrartYearEra));
+                OnPropertyChanged(nameof(StartYearEra));
             }
         }
 
@@ -103,6 +103,9 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
                 Capital = country.Capital;
                 Bank = country.Bank;
                 SetYears(country.StartYear.Year, country.EndYear.Year);
+                StartYearEra = country.StartYear.Era;
+                EndYearEra = country.EndYear.Era;
+
             }
             else
             {
@@ -111,7 +114,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
         }
         public CountryDTO ToCountryDTO()
         {
-            return new CountryDTO(Id, Name, Capital, Bank, new Date(StringToInt(StartYear), SrartYearEra), new Date(StringToInt(EndYear), EndYearEra));
+            return new CountryDTO(Id, Name, Capital, Bank, new Date(StringToInt(StartYear), StartYearEra), new Date(StringToInt(EndYear), EndYearEra));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -198,6 +201,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
         {
             StartYear = startYear == -1 ? "now" : startYear.ToString();
             EndYear = endYear == -1? "now": endYear.ToString();
+            
         }
     }
 }

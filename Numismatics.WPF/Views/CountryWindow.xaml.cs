@@ -25,21 +25,32 @@ namespace Numismatics.WPF.Views
 
         public CountryViewModel CountryViewModel { get; set; }
         public CountryDataViewModel CurrentCountry {  get; set; }
+        private bool _update;
         public CountryView(CountryDTO? country)
         {
             InitializeComponent();
-            SetComboBox();
             CountryViewModel = new CountryViewModel();
             CurrentCountry = new CountryDataViewModel(country);
             DataContext = this;
-            
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            _update = country == null ? false : true;
+            SetComboBox();
         }
 
         private void AddCountry(object sender, RoutedEventArgs e)
         {
+            
             if (CurrentCountry.IsValid)
             {
-                CountryViewModel.CreateCountry(CurrentCountry.ToCountryDTO());
+                if(_update)
+                {
+                    CountryViewModel.UpdateCountry(CurrentCountry.ToCountryDTO());
+                }
+                else
+                {
+                    CountryViewModel.CreateCountry(CurrentCountry.ToCountryDTO());
+                }
                 Close();
             }
             else
@@ -59,6 +70,11 @@ namespace Numismatics.WPF.Views
             {
                 StartYearEraCB.Items.Add(era);
                 EndYearEraCB.Items.Add(era);
+            }
+            if (_update)
+            {
+                StartYearEraCB.SelectedItem = CurrentCountry.StartYearEra;
+                EndYearEraCB.SelectedItem = CurrentCountry.EndYearEra;
             }
 
         }

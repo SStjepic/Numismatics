@@ -26,7 +26,8 @@ namespace Numismatics.CORE.Services.CountryService
 
         public CountryDTO? Delete(CountryDTO entity)
         {
-            throw new NotImplementedException();
+            _countryRepository.Delete(entity.ToCountry());
+            return entity;
         }
 
         public CountryDTO? Get(CountryDTO entity)
@@ -48,7 +49,8 @@ namespace Numismatics.CORE.Services.CountryService
 
         public CountryDTO? Update(CountryDTO entity)
         {
-            throw new NotImplementedException();
+            _countryRepository.Update(entity.ToCountry());
+            return entity;
         }
     }
 }

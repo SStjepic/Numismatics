@@ -23,7 +23,10 @@ namespace Numismatics.CORE.Repositories
 
         public Country? Delete(Country entity)
         {
-            throw new NotImplementedException();
+            var countries = Load();
+            countries.RemoveAll(c => c.Id == entity.Id);
+            Save(countries);
+            return entity;
         }
 
         public Country? Get(int id)
@@ -38,7 +41,11 @@ namespace Numismatics.CORE.Repositories
 
         public Country? Update(Country entity)
         {
-            throw new NotImplementedException();
+            var countries = Load();
+            countries.RemoveAll(c => c.Id == entity.Id);
+            countries.Add(entity);
+            Save(countries);
+            return entity;
         }
     }
 }

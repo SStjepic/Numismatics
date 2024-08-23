@@ -15,7 +15,19 @@ namespace Numismatics.WPF.ViewModels.Home
 {
     public class HomePageViewModel : INotifyPropertyChanged
     {
+        
         private CountryService _countryService;
+
+        private object _selectedItem;
+        public object SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
         public IHomeCRUDView HomeCRUDView { get; set; }
         public ICommand ShowBanknotesCommand { get; set; }
         public ICommand ShowCoinsCommand { get; set; }
@@ -30,6 +42,28 @@ namespace Numismatics.WPF.ViewModels.Home
             {
                 _addItemCommand = value;
                 OnPropertyChanged(nameof(AddItemCommand));
+            }
+        }
+
+        private ICommand _updateItemCommand;
+        public ICommand UpdateItemCommand
+        {
+            get { return _updateItemCommand; }
+            set
+            {
+                _updateItemCommand = value;
+                OnPropertyChanged(nameof(UpdateItemCommand));
+            }
+        }
+
+        private ICommand _deleteItemCommand;
+        public ICommand DeleteItemCommand
+        {
+            get { return _deleteItemCommand; }
+            set
+            {
+                _deleteItemCommand = value;
+                OnPropertyChanged(nameof(DeleteItemCommand));
             }
         }
 
@@ -73,11 +107,22 @@ namespace Numismatics.WPF.ViewModels.Home
         private void SetCommands()
         {
             AddItemCommand = new RelayCommand(a => AddItem());
+            UpdateItemCommand = new RelayCommand(u => UpdateItem());
+            DeleteItemCommand = new RelayCommand(d => DeleteItem());
 
         }
         private void AddItem()
         {
             HomeCRUDView.Add();
+        }
+
+        private void UpdateItem()
+        {
+            HomeCRUDView.Update(SelectedItem);
+        }
+        private void DeleteItem()
+        {
+            HomeCRUDView.Delete(SelectedItem);
         }
 
 
