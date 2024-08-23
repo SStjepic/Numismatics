@@ -20,13 +20,17 @@ namespace Numismatics.WPF.ViewModels.Home
         {
             _countryService = new CountryService();
         }
-        public void Add()
+        public object Add()
         {
             CountryView countryView = new CountryView(null);
             countryView.Show();
+
+            return countryView.CurrentCountry;
+
+
         }
 
-        public void Delete(object entity)
+        public object Delete(object entity)
         {
             if(entity != null)
             {
@@ -41,13 +45,16 @@ namespace Numismatics.WPF.ViewModels.Home
             {
                 MessageBox.Show("Please, select country you want to delete", "Delete");
             }
+            return entity;
         }
 
-        public void Update(object entity)
+        public object Update(object entity)
         {
             var countryData = entity as CountryDataViewModel;
             CountryView countryView = new CountryView(countryData.ToCountryDTO());
             countryView.Show();
+
+            return countryView.CurrentCountry;
         }
     }
 }

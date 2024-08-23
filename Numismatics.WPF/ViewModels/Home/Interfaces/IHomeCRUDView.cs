@@ -8,9 +8,9 @@ namespace Numismatics.WPF.ViewModels.Home.Interfaces
 {
     public interface IHomeCRUDView
     {
-        public void Add();
-        public void Update(object entity);
-        public void Delete(object entity);
+        public object Add();
+        public object Update(object entity);
+        public object Delete(object entity);
 
     }
 }

@@ -113,16 +113,21 @@ namespace Numismatics.WPF.ViewModels.Home
         }
         private void AddItem()
         {
-            HomeCRUDView.Add();
+            var newItem = HomeCRUDView.Add();
+            CurrentItems.Add(newItem);
         }
 
         private void UpdateItem()
         {
-            HomeCRUDView.Update(SelectedItem);
+            
+            var newItem = HomeCRUDView.Update(SelectedItem);
+            CurrentItems.Remove(SelectedItem);
+            CurrentItems.Add(newItem);
         }
         private void DeleteItem()
         {
-            HomeCRUDView.Delete(SelectedItem);
+            var oldItem = HomeCRUDView.Delete(SelectedItem);
+            CurrentItems.Remove(oldItem);
         }
 
 
