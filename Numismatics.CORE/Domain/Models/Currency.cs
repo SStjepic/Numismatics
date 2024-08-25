@@ -13,6 +13,7 @@ namespace Numismatics.CORE.Domain.Models
         public string HunderthPartName { get; set; }
         public string Code { get; set; }
 
+        public Currency() { }
         public Currency(int id, string name, string hunderthPartName, string code)
         {
             Id = id;

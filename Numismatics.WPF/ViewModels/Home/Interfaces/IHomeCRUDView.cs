@@ -11,6 +11,5 @@ namespace Numismatics.WPF.ViewModels.Home.Interfaces
         public object Add();
         public object Update(object entity);
         public object Delete(object entity);
-
     }
 }

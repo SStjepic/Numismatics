@@ -1,6 +1,8 @@
 ﻿using Numismatics.CORE.DTO;
+using Numismatics.CORE.Services;
 using Numismatics.CORE.Services.CountryService;
 using Numismatics.WPF.ViewModels.CountryViewModel;
+using Numismatics.WPF.ViewModels.CurrencyViewModel;
 using Numismatics.WPF.ViewModels.Home.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace Numismatics.WPF.ViewModels.Home
     {
         
         private CountryService _countryService;
+        private CurrencyService _currencyService;
 
         private object _selectedItem;
         public object SelectedItem
@@ -84,12 +87,11 @@ namespace Numismatics.WPF.ViewModels.Home
         {
             CurrentItems = new ObservableCollection<object>();
             ShowCountriesCommand = new RelayCommand(c => ShowCountries());
+            ShowCurrenciesCommand = new RelayCommand(c => ShowCurrencies());
             _countryService = new CountryService();
+            _currencyService = new CurrencyService();   
 
-        }
 
-        private void ShowBanknotes()
-        {
         }
 
         private void ShowCountries()
@@ -102,6 +104,19 @@ namespace Numismatics.WPF.ViewModels.Home
                 CurrentItems.Add(new CountryDataViewModel(country));
             }
             SetCommands();
+        }
+
+        private void ShowCurrencies()
+        {
+            HomeCRUDView = new HomeCurrencyViewModel();
+            CurrentItems.Clear();
+            var currencies = _currencyService.GetAll();
+            foreach (var currency in currencies)
+            {
+                CurrentItems.Add(new CurrencyDataViewModel(currency));
+            }
+            SetCommands();
+
         }
 
         private void SetCommands()

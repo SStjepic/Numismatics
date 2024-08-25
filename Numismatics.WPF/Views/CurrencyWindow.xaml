@@ -8,35 +8,39 @@
         Title="Currency" Height="450" Width="800">
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1.8*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="1" Content="Currency information" Style="{DynamicResource LabelStyle}"></Label>
+        <Label Grid.Row="0" Grid.Column="1" Content="Currency information" Style="{DynamicResource LabelTitleStyle}"></Label>
 
-        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-        <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
-        
-        <Label Content="Hunderth part name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
-        
-        <Label Content="Currency code" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,15"
+                 Text="{Binding Path=CurrentCurrency.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
+
+        <Label Content="Hunderth part name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,45,0,16" Grid.RowSpan="2"
+                 Text="{Binding Path=CurrentCurrency.HunderthPartName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
+
+        <Label Content="Currency code" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" ></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,15"
+                 Text="{Binding Path=CurrentCurrency.Code, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
         <Grid Grid.Row="5" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -44,8 +48,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}"/>
-            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}"></Button>
+            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Click="AddCurrency"/>
+            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit"></Button>
         </Grid>
     </Grid>
 </Window>

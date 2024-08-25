@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Numismatics.CORE.DTO;
+using Numismatics.WPF.ViewModels.CurrencyViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,40 @@ namespace Numismatics.WPF.Views
     /// </summary>
     public partial class CurrencyWindow : Window
     {
-        public CurrencyWindow()
+        public CurrencyViewModel CurrencyViewModel { get; set; }
+        public CurrencyDataViewModel CurrentCurrency { get; set; }
+        private bool _update;
+        public CurrencyWindow(CurrencyDTO? currencyDTO)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            CurrencyViewModel = new CurrencyViewModel();
+            CurrentCurrency = new CurrencyDataViewModel(currencyDTO);
+            DataContext = this;
+            _update = currencyDTO == null? false : true;
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void AddCurrency(object sender, RoutedEventArgs e)
+        {
+            if (CurrentCurrency.IsValid)
+            {
+                if(_update)
+                {
+                    CurrencyViewModel.UpdateCurrency(CurrentCurrency.ToCurrencyDTO());
+                }
+                else
+                {
+                    CurrencyViewModel.CreateCurrency(CurrentCurrency.ToCurrencyDTO());
+                }
+                Close();
+                
+            }
+
         }
     }
 }

@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF"
         xmlns:cdata ="clr-namespace:Numismatics.WPF.ViewModels.CountryViewModel"
+        xmlns:curdata ="clr-namespace:Numismatics.WPF.ViewModels.CurrencyViewModel"
         mc:Ignorable="d"
         Title="Home page" Height="450" Width="800">
     <Window.Resources>
+        <!--Country-->
         <DataTemplate DataType="{x:Type cdata:CountryDataViewModel}">
             <StackPanel Orientation="Horizontal" Margin="10" >
                 <StackPanel Orientation="Horizontal" IsEnabled="False">
@@ -22,6 +24,26 @@
                     <TextBlock  FontWeight="Bold" Margin="10">
                         <Run Text="Capital: "></Run>
                         <Run Text="{Binding Capital}"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+
+        <!--Currency-->
+        <DataTemplate DataType="{x:Type curdata:CurrencyDataViewModel}">
+            <StackPanel Orientation="Horizontal" Margin="10" >
+                <StackPanel Orientation="Horizontal" IsEnabled="False">
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="Id: "></Run>
+                <Run Text="{Binding Id}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="Name: "></Run>
+                <Run Text="{Binding Name}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="HunderthPartName: "></Run>
+                <Run Text="{Binding HunderthPartName}"></Run>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
