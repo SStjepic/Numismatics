@@ -24,13 +24,16 @@
                                    RecognizesAccessKey="True"/>
                         </Border>
                         <Border x:Name="overlayBorder"
-                     Background="White"
-                     Opacity="0"
-                     BorderBrush="{TemplateBinding BorderBrush}"
-                     BorderThickness="{TemplateBinding BorderThickness}"/>
+                                Background="White"
+                                Opacity="0"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="overlayBorder" Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="overlayBorder" Property="Opacity" Value="0.6"/>
                         </Trigger>
                     </ControlTemplate.Triggers>

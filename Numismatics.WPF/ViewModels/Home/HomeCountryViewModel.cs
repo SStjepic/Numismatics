@@ -24,9 +24,11 @@ namespace Numismatics.WPF.ViewModels.Home
         {
             CountryView countryView = new CountryView(null);
             countryView.Show();
-
-            return countryView.CurrentCountry;
-
+            if (countryView.CurrentCountry.IsValid)
+            {
+                return countryView.CurrentCountry;
+            }
+            return null;
 
         }
 
@@ -50,11 +52,23 @@ namespace Numismatics.WPF.ViewModels.Home
 
         public object Update(object entity)
         {
-            var countryData = entity as CountryDataViewModel;
-            CountryView countryView = new CountryView(countryData.ToCountryDTO());
-            countryView.Show();
+            if(entity == null)
+            {
+                MessageBox.Show("Please, select country you want to update", "Update");
+            }
+            else
+            {
+                var countryData = entity as CountryDataViewModel;
+                CountryView countryView = new CountryView(countryData.ToCountryDTO());
+                countryView.Show();
 
-            return countryView.CurrentCountry;
+                if (countryView.CurrentCountry.IsValid)
+                {
+                    return countryView.CurrentCountry;
+                }
+                return null;
+            }
+            return null;
         }
     }
 }
