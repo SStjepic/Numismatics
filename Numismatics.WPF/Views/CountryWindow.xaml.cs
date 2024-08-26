@@ -45,11 +45,13 @@ namespace Numismatics.WPF.Views
             {
                 if(_update)
                 {
-                    CountryViewModel.UpdateCountry(CurrentCountry.ToCountryDTO());
+                    var newCountry =  CountryViewModel.UpdateCountry(CurrentCountry.ToCountryDTO());
+                    CurrentCountry = new CountryDataViewModel(newCountry);
                 }
                 else
                 {
-                    CountryViewModel.CreateCountry(CurrentCountry.ToCountryDTO());
+                    var newCountry = CountryViewModel.CreateCountry(CurrentCountry.ToCountryDTO());
+                    CurrentCountry = new CountryDataViewModel(newCountry);
                 }
                 Close();
             }

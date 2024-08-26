@@ -23,7 +23,7 @@ namespace Numismatics.WPF.ViewModels.Home
         public object? Add()
         {
             CountryView countryView = new CountryView(null);
-            countryView.Show();
+            countryView.ShowDialog();
             if (countryView.CurrentCountry.IsValid)
             {
                 return countryView.CurrentCountry;

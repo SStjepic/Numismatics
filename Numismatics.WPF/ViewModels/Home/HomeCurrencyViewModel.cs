@@ -23,7 +23,7 @@ namespace Numismatics.WPF.ViewModels.Home
         public object? Add()
         {
             CurrencyWindow currencyWindow = new CurrencyWindow(null);
-            currencyWindow.Show();
+            currencyWindow.ShowDialog();
 
             if (currencyWindow.CurrentCurrency.IsValid)
             {

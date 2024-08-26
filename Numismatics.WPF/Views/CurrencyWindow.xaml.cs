@@ -45,11 +45,13 @@ namespace Numismatics.WPF.Views
             {
                 if(_update)
                 {
-                    CurrencyViewModel.UpdateCurrency(CurrentCurrency.ToCurrencyDTO());
+                    var newCurrency = CurrencyViewModel.UpdateCurrency(CurrentCurrency.ToCurrencyDTO());
+                    CurrentCurrency = new CurrencyDataViewModel(newCurrency);
                 }
                 else
                 {
-                    CurrencyViewModel.CreateCurrency(CurrentCurrency.ToCurrencyDTO());
+                    var newCurrency =  CurrencyViewModel.CreateCurrency(CurrentCurrency.ToCurrencyDTO());
+                    CurrentCurrency = new CurrencyDataViewModel(newCurrency);
                 }
                 Close();
                 
