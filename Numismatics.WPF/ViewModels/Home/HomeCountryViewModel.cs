@@ -8,7 +8,7 @@ using Numismatics.CORE.DTO;
 using Numismatics.WPF.Views;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using System.Windows;
-using Numismatics.CORE.Services.CountryService;
+using Numismatics.CORE.Services;
 
 namespace Numismatics.WPF.ViewModels.Home
 {

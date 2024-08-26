@@ -1,6 +1,5 @@
 ﻿using Numismatics.CORE.DTO;
 using Numismatics.CORE.Services;
-using Numismatics.CORE.Services.CountryService;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using Numismatics.WPF.ViewModels.CurrencyViewModel;
 using Numismatics.WPF.ViewModels.Home.Interfaces;
