@@ -24,7 +24,7 @@ namespace Numismatics.CORE.Repositories
         public Country? Delete(Country entity)
         {
             var countries = Load();
-            countries.RemoveAll(c => c.Id == entity.Id);
+            countries.Remove(entity);
             Save(countries);
             return entity;
         }

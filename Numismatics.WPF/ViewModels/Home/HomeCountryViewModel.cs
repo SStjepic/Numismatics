@@ -20,7 +20,7 @@ namespace Numismatics.WPF.ViewModels.Home
         {
             _countryService = new CountryService();
         }
-        public object Add()
+        public object? Add()
         {
             CountryView countryView = new CountryView(null);
             countryView.Show();
@@ -29,10 +29,9 @@ namespace Numismatics.WPF.ViewModels.Home
                 return countryView.CurrentCountry;
             }
             return null;
-
         }
 
-        public object Delete(object entity)
+        public object? Delete(object entity)
         {
             if(entity != null)
             {
@@ -50,7 +49,7 @@ namespace Numismatics.WPF.ViewModels.Home
             return entity;
         }
 
-        public object Update(object entity)
+        public object? Update(object entity)
         {
             if(entity == null)
             {

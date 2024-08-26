@@ -24,7 +24,10 @@ namespace Numismatics.CORE.Repositories
 
         public Currency? Delete(Currency entity)
         {
-            throw new NotImplementedException();
+            var currencies = Load();
+            currencies.Remove(entity);
+            Save(currencies);
+            return entity;
         }
 
         public Currency? Get(int id)

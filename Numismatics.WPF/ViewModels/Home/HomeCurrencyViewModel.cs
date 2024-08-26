@@ -1,4 +1,5 @@
 ﻿using Numismatics.CORE.Services;
+using Numismatics.CORE.Services.CountryService;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using Numismatics.WPF.ViewModels.CurrencyViewModel;
 using Numismatics.WPF.ViewModels.Home.Interfaces;
@@ -19,10 +20,11 @@ namespace Numismatics.WPF.ViewModels.Home
         {
             _currencyService = new CurrencyService();
         }
-        public object Add()
+        public object? Add()
         {
             CurrencyWindow currencyWindow = new CurrencyWindow(null);
             currencyWindow.Show();
+
             if (currencyWindow.CurrentCurrency.IsValid)
             {
                 return currencyWindow.CurrentCurrency;
@@ -30,12 +32,25 @@ namespace Numismatics.WPF.ViewModels.Home
             return null;
         }
 
-        public object Delete(object entity)
+        public object? Delete(object entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected currency?", "Delete", MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    var currencyData = entity as CurrencyDataViewModel;
+                    _currencyService.Delete(currencyData.ToCurrencyDTO());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please, select currency you want to delete", "Delete");
+            }
+            return entity;
         }
 
-        public object Update(object entity)
+        public object? Update(object entity)
         {
             if (entity == null)
             {

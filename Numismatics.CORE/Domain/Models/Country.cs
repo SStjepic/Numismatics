@@ -25,5 +25,11 @@ namespace Numismatics.CORE.Domain.Models
             StartYear = startYear;
             EndYear = endYear;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Country country &&
+                   Id == country.Id;
+        }
     }
 }

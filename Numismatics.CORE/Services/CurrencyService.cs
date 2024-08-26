@@ -26,7 +26,8 @@ namespace Numismatics.CORE.Services
 
         public CurrencyDTO? Delete(CurrencyDTO entity)
         {
-            throw new NotImplementedException();
+            _currencyRepository.Delete(entity.ToCurrency());
+            return entity;
         }
 
         public CurrencyDTO? Get(CurrencyDTO entity)
