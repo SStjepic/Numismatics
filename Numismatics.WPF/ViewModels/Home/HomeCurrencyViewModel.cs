@@ -41,12 +41,13 @@ namespace Numismatics.WPF.ViewModels.Home
                     var currencyData = entity as CurrencyDataViewModel;
                     _currencyService.Delete(currencyData.ToCurrencyDTO());
                 }
+                return null;
             }
             else
             {
                 MessageBox.Show("Please, select currency you want to delete", "Delete");
+                return null;
             }
-            return entity;
         }
 
         public object? Update(object entity)
@@ -54,6 +55,7 @@ namespace Numismatics.WPF.ViewModels.Home
             if (entity == null)
             {
                 MessageBox.Show("Please, select currency you want to update", "Update");
+                return null;
             }
             else
             {
@@ -66,7 +68,6 @@ namespace Numismatics.WPF.ViewModels.Home
                 }
                 return null;
             }
-            return null;
         }
     }
 }

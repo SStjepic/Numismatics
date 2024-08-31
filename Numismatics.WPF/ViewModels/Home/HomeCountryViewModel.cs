@@ -40,13 +40,15 @@ namespace Numismatics.WPF.ViewModels.Home
                 {
                     var countryData = entity as CountryDataViewModel;
                     _countryService.Delete(countryData.ToCountryDTO());
+                    return entity;
                 }
+                return null;
             }
             else
             {
                 MessageBox.Show("Please, select country you want to delete", "Delete");
+                return null;
             }
-            return entity;
         }
 
         public object? Update(object entity)
@@ -54,6 +56,7 @@ namespace Numismatics.WPF.ViewModels.Home
             if(entity == null)
             {
                 MessageBox.Show("Please, select country you want to update", "Update");
+                return null;
             }
             else
             {
@@ -67,7 +70,6 @@ namespace Numismatics.WPF.ViewModels.Home
                 }
                 return null;
             }
-            return null;
         }
     }
 }
