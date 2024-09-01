@@ -33,6 +33,9 @@ namespace Numismatics.WPF.ViewModels.CountryViewModel
             return _countryService.Delete(countryDTO);
         }
 
-
+        public List<CountryDTO> GetAllCountries()
+        {
+            return _countryService.GetAll();
+        }
     }
 }

@@ -87,7 +87,7 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModel
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "HunderthPartName", "Code" };
+        private readonly string[] _validatedProperties = { "Name", "HunderthPartName", "Code", "Country" };
 
         public bool IsValid
         {

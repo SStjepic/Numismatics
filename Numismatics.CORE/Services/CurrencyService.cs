@@ -30,7 +30,7 @@ namespace Numismatics.CORE.Services
             return entity;
         }
 
-        public CurrencyDTO? Get(CurrencyDTO entity)
+        public CurrencyDTO? Get(int entityId)
         {
             throw new NotImplementedException();
         }

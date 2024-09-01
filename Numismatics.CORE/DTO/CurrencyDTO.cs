@@ -33,5 +33,11 @@ namespace Numismatics.CORE.DTO
         {
             return new Currency(Id, Name, HunderthPartName, Code);
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CurrencyDTO dTO &&
+                   Id == dTO.Id;
+        }
     }
 }

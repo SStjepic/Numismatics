@@ -31,7 +31,8 @@ namespace Numismatics.CORE.Repositories
 
         public Country? Get(int id)
         {
-            throw new NotImplementedException();
+            var countries = Load();
+            return countries.Find(c => c.Id == id);
         }
 
         public List<Country> GetAll()

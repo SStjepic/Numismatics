@@ -16,5 +16,23 @@
       "Year": -1,
       "Era": 1
     }
+  },
+  {
+    "Id": 686463107,
+    "Name": "Ruska Federacija",
+    "Capital": "Moskva",
+    "Bank": "Nacionalna Banka Rusije",
+    "StartYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": 1992,
+      "Era": 1
+    },
+    "EndYear": {
+      "Day": 0,
+      "Month": 0,
+      "Year": -1,
+      "Era": 1
+    }
   }
 ]

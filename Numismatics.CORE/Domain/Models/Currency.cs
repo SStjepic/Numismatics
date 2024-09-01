@@ -27,5 +27,9 @@ namespace Numismatics.CORE.Domain.Models
             return obj is Currency currency &&
                    Id == currency.Id;
         }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Code);
+        }
     }
 }

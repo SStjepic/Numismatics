@@ -41,5 +41,11 @@ namespace Numismatics.CORE.DTO
         {
             return new Country(Id, Name, Capital, Bank, StartYear, EndYear);
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CountryDTO dTO &&
+                   Id == dTO.Id;
+        }
     }
 }
