@@ -11,10 +11,11 @@ namespace Numismatics.CORE.Services
     public class NationalCurrencyService
     {
         private NationalCurrencyRepository _repository;
-        
+        private CurrencyRepository _currencyRepository;
         public NationalCurrencyService() 
         {
             _repository = new NationalCurrencyRepository();
+            _currencyRepository = new CurrencyRepository();
         }
 
         public NationalCurrencyDTO? Create(NationalCurrencyDTO? nationalCurrencyDTO)
@@ -40,6 +41,21 @@ namespace Numismatics.CORE.Services
             }
 
             return countryIds;
+        }
+
+        public List<CurrencyDTO> GetCurrencies(int countryId)
+        {
+            var currencies = new List<CurrencyDTO>();
+            foreach(var nationalCurrency in _repository.GetAll())
+            {
+                if (nationalCurrency.Countries.Contains(countryId))
+                {
+                    var currency = _currencyRepository.Get(nationalCurrency.CurrencyId);
+                    currencies.Add(new CurrencyDTO(currency));
+                }
+            }
+
+            return currencies;
         }
     }
 }

@@ -11,16 +11,18 @@ namespace Numismatics.CORE.DTO
     public class CoinDTO
     {
         public int Id { get; set; }
-        public Country Country { get; set; }
-        public Currency Currency { get; set; }
+        public CountryDTO Country { get; set; }
+        public CurrencyDTO Currency { get; set; }
         public double Value { get; set; }
         public Date IssueDate { get; set; }
         public string Description { get; set; }
         public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
+        public bool HundertPart {  get; set; }
         public Dictionary<BanknoteQuality, int> Coins { get; set; }
-        public CoinDTO(int id, Country country, Currency currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate)
+        public CoinDTO() { }
+        public CoinDTO(int id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<BanknoteQuality, int> coins)
         {
             Id = id;
             Country = country;
@@ -31,8 +33,34 @@ namespace Numismatics.CORE.DTO
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IssueDate = issueDate;
+            HundertPart = hundertPart;
+            Coins = coins;
         }
 
+        public CoinDTO(Coin coin, Country country, Currency currency)
+        {
+            Id = coin.Id;
+            Value = coin.Value;
+            Description = coin.Description;
+            NumberOfCoins = coin.NumberOfCoins;
+            ObversePicture = coin.ObversePicture;
+            ReversePicture = coin.ReversePicture;
+            IssueDate = coin.IssueDate;
+            Country = new CountryDTO(country);
+            Currency = new CurrencyDTO(currency);
+            HundertPart = coin.HundertPart;
+            Coins = coin.Coins;
+        }
 
+        public Coin ToCoin()
+        {
+            return new Coin(Id, Country.Id, Currency.Id, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, HundertPart, Coins);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CoinDTO dTO &&
+                   Id == dTO.Id;
+        }
     }
 }

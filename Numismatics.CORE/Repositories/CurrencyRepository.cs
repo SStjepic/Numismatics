@@ -32,7 +32,8 @@ namespace Numismatics.CORE.Repositories
 
         public Currency? Get(int id)
         {
-            throw new NotImplementedException();
+            var currencies = Load();
+            return currencies.Find(c => c.Id == id);
         }
 
         public List<Currency> GetAll()

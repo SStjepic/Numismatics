@@ -5,54 +5,140 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.Views"
         mc:Ignorable="d"
-        Title="Coin" Height="450" Width="1000">
-    <Grid Margin="15">
+        Title="Coin" Height="800" Width="1300" Background="#FF151735">
+    <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <GroupBox Grid.Row="0" Margin="5" Grid.Column="1" Foreground="White" Header="Osnovne informacije" FontSize="16" FontWeight="Bold">
+            <Grid>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Coin information" Style="{DynamicResource LabelTitleStyle}" Grid.ColumnSpan="3"></Label>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Country"  Style="{DynamicResource LabelStyle}" Foreground="White"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True" Margin="5"
+                          ItemsSource="{Binding Countries}" DisplayMemberPath="Name"
+                          SelectedItem="{Binding CurrentCoin.Country}"
+                          SelectionChanged="CountryIsSelected"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}" Foreground="White"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True" Margin="5"
+                          ItemsSource="{Binding Currencies}" DisplayMemberPath="Name"
+                          SelectedItem="{Binding CurrentCoin.Currency}" SelectionChanged="CurrencyIsSelected"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Value" FontWeight="Bold" Style="{DynamicResource LabelStyle}" Foreground="White"/>
+                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
+                        Text="{Binding Path=CurrentCoin.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
+                <ComboBox Margin="5" Grid.Row="3" Grid.Column="3" SelectedItem="{Binding CurrentCoin.HundertPart}"  ItemsSource="{Binding CurrencyHundredthPart}" ></ComboBox>
+
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" Foreground="White"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox" Margin="5"
+                         Text="{Binding Path=CurrentCoin.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}" Foreground="White"/>
+                <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Name="EraComboBox"
+                          SelectedItem="{Binding CurrentCoin.Era}">
+                </ComboBox>
+
+
+            </Grid>
+        </GroupBox>
+
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Margin="5" Foreground="White" Header="Dodatne informacije" FontSize="16" FontWeight="Bold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}" Foreground="White" Margin="5"/>
+                <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" Text="{Binding CurrentCoin.Description, UpdateSourceTrigger=PropertyChanged}" />
+
+                <ComboBox x:Name="CoinQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
+                <Button Grid.Row="3" Grid.Column="2" Margin="0,46,0,131" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddCoinQuality">Add coin</Button>
+
+                <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
+                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          SelectionMode="Single" AutoGenerateColumns="False"
+                          CanUserAddRows="False">
+                          
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding Value}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="7*"></RowDefinition>
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Value" Grid.Row="0" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Issue date"  Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Description"  Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Number of coins"  Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Obverse picture"  Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Reverse picture"  Grid.Row="5" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Country" Grid.Row="6" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-            <Label Content="Currency" Grid.Row="7" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+            <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add obverse picture" Click="AddObversePicture"/>
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Foreground="AliceBlue" FontWeight="Bold" Background="Red" Click="DeleteObversePicture" />
+            <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+                <Image x:Name="ObversePicture" Source="{Binding CurrentCoin.ObversePicture}"/>
+            </Grid>
         </Grid>
 
+        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="7*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+            <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add reverse picture" Click="AddReversePicture" />
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Foreground="AliceBlue" FontWeight="Bold" Background="Red" Click="DeleteReversePicture"/>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+                <Image x:Name="ReversePicture"  Source="{Binding CurrentCoin.ReversePicture}"/>
+            </Grid>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="2">
-        </Grid>
+        <Button Grid.Row="2" Grid.Column="0" Content="Save"  Width="176"  FontSize="20" BorderBrush="{x:Null}" Background="#FF46B100" Foreground="White" Click="AddCoin"/>
+        <Button  Grid.Row="2" Grid.Column="0" Content="Exit" Width="176"  FontSize="20" BorderBrush="{x:Null}" Background="red" Foreground="White" Margin="450,0,0,0" Click="Exit"/>
+
+
     </Grid>
 </Window>

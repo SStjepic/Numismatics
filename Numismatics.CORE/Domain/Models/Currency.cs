@@ -21,7 +21,6 @@ namespace Numismatics.CORE.Domain.Models
             HunderthPartName = hunderthPartName;
             Code = code;
         }
-
         public override bool Equals(object? obj)
         {
             return obj is Currency currency &&

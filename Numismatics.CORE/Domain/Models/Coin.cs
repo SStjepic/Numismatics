@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Numismatics.CORE.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,12 @@ namespace Numismatics.CORE.Domain.Models
         public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
+        public bool HundertPart {  get; set; }
+        public Dictionary<BanknoteQuality, int> Coins;
 
         public Coin() { }
 
-        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate)
+        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<BanknoteQuality, int> coins)
         {
             Id = id;
             CountryId = countryId;
@@ -32,6 +35,8 @@ namespace Numismatics.CORE.Domain.Models
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IssueDate = issueDate;
+            HundertPart = hundertPart;
+            Coins = coins;  
         }
     }
 }
