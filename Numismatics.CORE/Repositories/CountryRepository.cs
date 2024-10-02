@@ -21,12 +21,13 @@ namespace Numismatics.CORE.Repositories
             return country;
         }
 
-        public Country? Delete(Country entity)
+        public Country? Delete(Country oldCountry)
         {
             var countries = Load();
-            countries.Remove(entity);
+            var oldInstance = Get(oldCountry.Id);
+            countries.Remove(oldInstance);
             Save(countries);
-            return entity;
+            return oldCountry;
         }
 
         public Country? Get(int id)

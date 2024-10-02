@@ -21,12 +21,13 @@ namespace Numismatics.CORE.Repositories
             return entity;
         }
 
-        public NationalCurrency? Delete(NationalCurrency entity)
+        public NationalCurrency? Delete(NationalCurrency oldNationalCurrency)
         {
             var nationalCurrencies = Load();
-            nationalCurrencies.Remove(entity);
+            var oldInstance = Get(oldNationalCurrency.Id);
+            nationalCurrencies.Remove(oldInstance);
             Save(nationalCurrencies);
-            return entity;
+            return oldNationalCurrency;
         }
 
         public NationalCurrency? Get(int id)
