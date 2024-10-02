@@ -38,5 +38,11 @@ namespace Numismatics.CORE.Domain.Models
             HundertPart = hundertPart;
             Coins = coins;  
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Coin coin &&
+                   Id == coin.Id;
+        }
     }
 }

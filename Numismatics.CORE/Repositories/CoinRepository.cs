@@ -25,7 +25,8 @@ namespace Numismatics.CORE.Repositories
         public Coin? Delete(Coin oldCoin)
         {
             var coins = Load();
-            coins.Remove(oldCoin);
+            var oldInstance = Get(oldCoin.Id);
+            coins.Remove(oldInstance);
             Save(coins);
             return oldCoin;
         }

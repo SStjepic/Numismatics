@@ -89,7 +89,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <StackPanel Grid.Row="0" Grid.Column="0" Background="#FFBBB140">
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="#FF151735">
             <Button Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowBanknotesCommand}"/>
             <Button Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCoinsCommand}" />
             <Button Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCountriesCommand}"/>
@@ -104,8 +104,7 @@
             </Grid.RowDefinitions>
 
             <!-- Search Box -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="390" Background="#FFBBB140">
-
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="390" Background="#FF151735">
                 <Button Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
                 <Button Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
                 <Button  Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
