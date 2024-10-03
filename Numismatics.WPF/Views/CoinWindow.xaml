@@ -91,7 +91,7 @@
                 <Button Grid.Row="3" Grid.Column="2" Margin="0,46,0,131" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddCoinQuality">Add coin</Button>
 
                 <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
-                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
                           SelectionMode="Single" AutoGenerateColumns="False"
                           CanUserAddRows="False">
                           

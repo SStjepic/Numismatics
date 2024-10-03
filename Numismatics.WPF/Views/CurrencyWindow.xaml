@@ -7,7 +7,7 @@
         xmlns:beh="clr-namespace:Numismatics.WPF.ViewModels"
         mc:Ignorable="d"
         Title="Currency" Height="450" Width="800">
-    <Grid Margin="15">
+    <Grid  Background="#FF151735">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
@@ -21,31 +21,31 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3.5*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="1" Content="Currency information" Style="{DynamicResource LabelTitleStyle}"></Label>
+        <Label Grid.Row="0" Grid.Column="1" Content="Currency" Style="{DynamicResource LabelTitleStyle}"></Label>
 
         <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,15"
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,19"
                  Text="{Binding Path=CurrentCurrency.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
 
         <Label Content="Hunderth part name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,45,0,16" Grid.RowSpan="2"
+        <TextBox Grid.Row="2" Grid.Column="1" 
                  Text="{Binding Path=CurrentCurrency.HunderthPartName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
+                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" Margin="0,0,0,19"></TextBox>
 
         <Label Content="Currency code" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" ></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,15"
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,19"
                  Text="{Binding Path=CurrentCurrency.Code, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
         
         <Label Content="Country" Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" ></Label>
-        <ComboBox Name="CountryComboBox" Grid.Column="1" Grid.Row="4" ItemsSource="{Binding Countries}" DisplayMemberPath="Name"></ComboBox>
-        <Button x:Name="SelectCountryButton" Grid.Column="2" Grid.Row="4" Style="{DynamicResource SaveButtonStyle}" Click="SelectCountry" >Select</Button>
+        <ComboBox Name="CountryComboBox" Grid.Column="1" Grid.Row="4" ItemsSource="{Binding Countries}" DisplayMemberPath="Name" Margin="0,0,0,19"></ComboBox>
+        <Button  x:Name="SelectCountryButton" Grid.Column="2" Grid.Row="4" Style="{DynamicResource SaveButtonStyle}" Click="SelectCountry" Margin="0,0,0,19" >Select</Button>
         <ListBox x:Name="CountryLB" Grid.Row="5" Grid.Column="1" Margin="0,0,0,15" Grid.RowSpan="3" 
                  ItemsSource="{Binding SelectedCountries}"
                 DisplayMemberPath="Name" SelectionMode="Single" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}">

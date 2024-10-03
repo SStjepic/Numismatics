@@ -46,12 +46,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
     </Style>
 
     <Style x:Key="LabelTitleStyle" TargetType="Label">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="FontSize" Value="17"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
     </Style>
 
 

@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Numismatics.WPF.Views"
         mc:Ignorable="d"
         Title="Country" Height="450" Width="800">
-    <Grid Margin="20">
+    <Grid Background="#FF151735">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -26,56 +26,56 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Label Grid.Row="0" Grid.Column="1" Content="Country Information" 
+        <Label Grid.Row="0" Grid.Column="1" Content="Country" 
                Style="{DynamicResource LabelTitleStyle}" HorizontalAlignment="Center" Margin="0,0,0,20" />
 
         <!-- Country Name -->
         <Label Content="Name:" Grid.Column="0" Grid.Row="1"
                Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Column="1" Margin="0,53,0,15"
+        <TextBox Grid.Column="1" Margin="0,0,0,19" Grid.Row="1"
                  Text="{Binding Path=CurrentCountry.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" Grid.RowSpan="2" />
+                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
 
         <!-- Capital -->
         <Label Content="Capital:" Grid.Row="2" Grid.Column="0" 
                Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,15"
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,19"
                  Text="{Binding Path=CurrentCountry.Capital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
 
         <!-- Bank -->
         <Label Content="Bank:" Grid.Row="3" Grid.Column="0" 
                Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,44,0,15"
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,19"
                  Text="{Binding Path=CurrentCountry.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" Grid.RowSpan="2" />
+                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
 
         <!-- Start Year -->
         <Label Content="Start Year:" Grid.Row="4" Grid.Column="0" 
                Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,0,10">
+        <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,0,19">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="0,0,10,4"
+            <TextBox Grid.Column="0" Margin="0,0,2,0"
                      Text="{Binding Path=CurrentCountry.StartYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
-            <ComboBox x:Name="StartYearEraCB" Grid.Column="1" Margin="0,0,0,10" SelectedIndex="{Binding Path=CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
+            <ComboBox x:Name="StartYearEraCB" Grid.Column="1"  SelectedIndex="{Binding Path=CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
         </Grid>
 
         <!-- End Year -->
         <Label Content="End Year:" Grid.Row="5" Grid.Column="0" 
                Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <Grid Grid.Row="5" Grid.Column="1" Margin="0,0,0,10">
+        <Grid Grid.Row="5" Grid.Column="1" Margin="0,0,0,19">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="0,0,10,4"
+            <TextBox Grid.Column="0"  Margin="0,0,2,0"
                      Text="{Binding Path=CurrentCountry.EndYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                      Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
-            <ComboBox x:Name="EndYearEraCB" Grid.Column="1" Margin="0,0,0,10" SelectedIndex="{Binding Path=CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
+            <ComboBox x:Name="EndYearEraCB" Grid.Column="1" SelectedIndex="{Binding Path=CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
         </Grid>
 
         <!-- Buttons -->
@@ -84,8 +84,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Content="Save" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Click="AddCountry"/>
-            <Button Content="Exit" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" />
+            <Button Margin="10" Content="Save" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Click="AddCountry"/>
+            <Button Margin="10" Content="Exit" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" />
         </Grid>
     </Grid>
 </Window>

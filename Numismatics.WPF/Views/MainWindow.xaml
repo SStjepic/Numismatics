@@ -90,10 +90,10 @@
 
         <!-- Sidebar -->
         <StackPanel Grid.Row="0" Grid.Column="0" Background="#FF151735">
-            <Button Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowBanknotesCommand}"/>
-            <Button Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCoinsCommand}" />
-            <Button Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCountriesCommand}"/>
-            <Button Content="Currencies" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCurrenciesCommand}"/>
+            <Button Margin="5" Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowBanknotesCommand}"/>
+            <Button Margin="5" Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCoinsCommand}" />
+            <Button Margin="5" Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCountriesCommand}"/>
+            <Button Margin="5" Content="Currencies" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding HomeViewModel.ShowCurrenciesCommand}"/>
         </StackPanel>
 
         <!-- Main Content Area -->
@@ -105,9 +105,9 @@
 
             <!-- Search Box -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="390" Background="#FF151735">
-                <Button Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
-                <Button Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
-                <Button  Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
+                <Button Margin="1,2,3,2" Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
+                <Button Margin="1,2,3,2" Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
+                <Button Margin="1,2,3,2" Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
             </StackPanel>
 
             <!-- Scrollable ListView -->
