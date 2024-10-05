@@ -53,5 +53,10 @@ namespace Numismatics.CORE.DTO
             return obj is BanknoteDTO dTO &&
                    Id == dTO.Id;
         }
+
+        public Banknote ToBanknote()
+        {
+            return new Banknote(Id, Country.Id, Currency.Id, Value, IssueDate, ObversePicture, ReversePicture, Description, City, Banknotes);
+        }
     }
 }
