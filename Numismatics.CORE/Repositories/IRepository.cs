@@ -11,7 +11,7 @@ namespace Numismatics.CORE.Repositories
         public T? Get(int id);
         public T? Create(T entity);
         public T? Update(T entity);
-        public T? Delete(T entity);
+        public T? Delete(int id);
         public List<T> GetAll();
     }
 }

@@ -9,23 +9,56 @@ using System.Xml.Linq;
 
 namespace Numismatics.CORE.Repositories
 {
-    public class BanknoteRepository
+    public class BanknoteRepository: Repository<Banknote>, IRepository<Banknote>
     {
-        private readonly string _filePath = @"../Data/banknotes.csv";
-        private readonly int _nextId;
+        private readonly string _fileName = "banknotes.csv";
 
-        public BanknoteRepository() { }
-        public BanknoteRepository(int nextId)
+        public BanknoteRepository() 
         {
-            _nextId = nextId;
+            SetFileName(_fileName);
         }
 
-        public Banknote Add(Banknote banknote)
+        public Banknote? Create(Banknote newBanknote)
         {
-            banknote.Id = _nextId;
+            var banknotes = GetAll();
+            banknotes.Add(newBanknote);
+            Save(banknotes);
+            return newBanknote;
+        }
+
+        public Banknote? Delete(int banknoteId)
+        {
+            var oldBanknote = Get(banknoteId);
+            if (oldBanknote == null) { return null; }
+            var banknotes = GetAll();
+            banknotes.Remove(oldBanknote);
+            Save(banknotes);
+            return oldBanknote;
+        }
+
+        public Banknote? Get(int id)
+        {
+            var banknotes = GetAll();
+            var banknote = banknotes.FirstOrDefault(b => b.Id == id);
             return banknote;
         }
 
+        public List<Banknote> GetAll()
+        {
+            return Load();
+        }
 
+        public Banknote? Update(Banknote newBanknote)
+        {
+            var banknotes = GetAll();
+            var oldBanknote = Get(newBanknote.Id);
+            if (oldBanknote != null)
+            {
+                banknotes.Remove(oldBanknote);
+            }
+            banknotes.Add(newBanknote);
+            Save(banknotes);
+            return newBanknote;
+        }
     }
 }
