@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Numismatics.CORE.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,10 @@ namespace Numismatics.CORE.Domain.Models
         public string ReversePicture { get; set; }
         public string Description { get; set; }
         public string City { get; set; }
+        public Dictionary<string, BanknoteQuality> Banknotes { get; set; }
         public Banknote() { }
 
-        public Banknote(int id, int countryId, int currencyId, double value, Date issueDate, string obversePicture, string reversePicture, string description)
+        public Banknote(int id, int countryId, int currencyId, double value, Date issueDate, string obversePicture, string reversePicture, string description, string city, Dictionary<string, BanknoteQuality> banknotes)
         {
             Id = id;
             CountryId = countryId;
@@ -29,6 +31,14 @@ namespace Numismatics.CORE.Domain.Models
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             Description = description;
+            City = city;
+            Banknotes = banknotes;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Banknote banknote &&
+                   Id == banknote.Id;
         }
     }
 }
