@@ -25,7 +25,7 @@ namespace Numismatics.CORE.Services
 
         public CoinDTO? Delete(CoinDTO entity)
         {
-            _coinRepository.Delete(entity.ToCoin());
+            _coinRepository.Delete(entity.Id);
             return entity;
         }
 

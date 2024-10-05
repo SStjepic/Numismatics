@@ -26,7 +26,7 @@ namespace Numismatics.CORE.Services
 
         public CountryDTO? Delete(CountryDTO entity)
         {
-            _countryRepository.Delete(entity.ToCountry());
+            _countryRepository.Delete(entity.Id);
             return entity;
         }
 

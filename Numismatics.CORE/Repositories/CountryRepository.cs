@@ -15,24 +15,25 @@ namespace Numismatics.CORE.Repositories
         }
         public Country? Create(Country country)
         {
-            var instances = Load();
+            var instances = GetAll();
             instances.Add(country);
             Save(instances);
             return country;
         }
 
-        public Country? Delete(Country oldCountry)
+        public Country? Delete(int countryId)
         {
-            var countries = Load();
-            var oldInstance = Get(oldCountry.Id);
-            countries.Remove(oldInstance);
+            var countries = GetAll();
+            var oldCountry = Get(countryId);
+            if(oldCountry == null) { return null; }
+            countries.Remove(oldCountry);
             Save(countries);
             return oldCountry;
         }
 
         public Country? Get(int id)
         {
-            var countries = Load();
+            var countries = GetAll();
             return countries.Find(c => c.Id == id);
         }
 
@@ -43,7 +44,7 @@ namespace Numismatics.CORE.Repositories
 
         public Country? Update(Country entity)
         {
-            var countries = Load();
+            var countries = GetAll();
             countries.RemoveAll(c => c.Id == entity.Id);
             countries.Add(entity);
             Save(countries);

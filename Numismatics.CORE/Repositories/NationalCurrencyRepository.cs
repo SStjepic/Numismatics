@@ -15,24 +15,25 @@ namespace Numismatics.CORE.Repositories
         }
         public NationalCurrency? Create(NationalCurrency entity)
         {
-            var nationalCurrencies = Load();
+            var nationalCurrencies = GetAll();
             nationalCurrencies.Add(entity);
             Save(nationalCurrencies);
             return entity;
         }
 
-        public NationalCurrency? Delete(NationalCurrency oldNationalCurrency)
+        public NationalCurrency? Delete(int NationalCurrencyId)
         {
-            var nationalCurrencies = Load();
-            var oldInstance = Get(oldNationalCurrency.Id);
-            nationalCurrencies.Remove(oldInstance);
+            var nationalCurrencies = GetAll();
+            var oldNationalCurrency = Get(NationalCurrencyId);
+            if(oldNationalCurrency == null) { return null; }
+            nationalCurrencies.Remove(oldNationalCurrency);
             Save(nationalCurrencies);
             return oldNationalCurrency;
         }
 
         public NationalCurrency? Get(int id)
         {
-            var nationalCurrencies = Load();
+            var nationalCurrencies = GetAll();
             return nationalCurrencies.Find(nc => nc.Id == id);
         }
 
@@ -43,7 +44,7 @@ namespace Numismatics.CORE.Repositories
 
         public NationalCurrency? Update(NationalCurrency entity)
         {
-            var nationalCurrencies = Load();
+            var nationalCurrencies = GetAll();
             var oldEntity = Get(entity.Id);
             nationalCurrencies.Remove(oldEntity);
             nationalCurrencies.Add(entity);

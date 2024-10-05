@@ -16,24 +16,25 @@ namespace Numismatics.CORE.Repositories
         }
         public Coin? Create(Coin newCoin)
         {
-            var instances = Load();
+            var instances = GetAll();
             instances.Add(newCoin);
             Save(instances);
             return newCoin;
         }
 
-        public Coin? Delete(Coin oldCoin)
+        public Coin? Delete(int coinId)
         {
-            var coins = Load();
-            var oldInstance = Get(oldCoin.Id);
-            coins.Remove(oldInstance);
+            var coins = GetAll();
+            var oldCoin = Get(coinId);
+            if(oldCoin == null) { return null; }
+            coins.Remove(oldCoin);
             Save(coins);
             return oldCoin;
         }
 
         public Coin? Get(int id)
         {
-            var coins = Load();
+            var coins = GetAll();
             return coins.Find(c => c.Id == id);
         }
 
@@ -44,7 +45,7 @@ namespace Numismatics.CORE.Repositories
 
         public Coin? Update(Coin newCoin)
         {
-            var coins = Load();
+            var coins = GetAll();
             coins.RemoveAll(c => c.Id == newCoin.Id);
             coins.Add(newCoin);
             Save(coins);
