@@ -20,11 +20,11 @@ namespace Numismatics.CORE.Domain.Models
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public bool HundertPart {  get; set; }
-        public Dictionary<BanknoteQuality, int> Coins;
+        public Dictionary<MoneyQuality, int> Coins;
 
         public Coin() { }
 
-        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<BanknoteQuality, int> coins)
+        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             CountryId = countryId;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Domain.Enum
 {
-    public enum BanknoteQuality
+    public enum MoneyQuality
     {
         G,
         VG,

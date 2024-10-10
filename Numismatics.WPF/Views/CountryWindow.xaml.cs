@@ -32,7 +32,6 @@ namespace Numismatics.WPF.Views
             CountryViewModel = new CountryViewModel();
             CurrentCountry = new CountryDataViewModel(country);
             DataContext = this;
-            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             _update = country == null ? false : true;
             SetComboBox();

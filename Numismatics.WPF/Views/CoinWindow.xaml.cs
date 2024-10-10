@@ -3,6 +3,7 @@ using Numismatics.CORE.Domain.Enum;
 using Numismatics.CORE.Domain.Models;
 using Numismatics.CORE.DTO;
 using Numismatics.CORE.Services;
+using Numismatics.WPF.ViewModels;
 using Numismatics.WPF.ViewModels.CoinViewModel;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using System;
@@ -44,7 +45,6 @@ namespace Numismatics.WPF.Views
         public CoinWindow(CoinDTO? coinDTO)
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             CurrentCoin = new CoinDataViewModel(coinDTO);
             CoinViewModel = new CoinViewModel();
             CountryViewModel = new CountryViewModel();
@@ -93,7 +93,7 @@ namespace Numismatics.WPF.Views
             {
                 EraComboBox.Items.Add(era);
             }
-            foreach(BanknoteQuality banknoteQuality in Enum.GetValues(typeof(BanknoteQuality)))
+            foreach(MoneyQuality banknoteQuality in Enum.GetValues(typeof(MoneyQuality)))
             {
                 CoinQualityComboBox.Items.Add(banknoteQuality);
             }
@@ -119,17 +119,17 @@ namespace Numismatics.WPF.Views
         private void AddCoinQuality(object sender, RoutedEventArgs e)
         {
             var selectedQuality = CoinQualityComboBox.SelectedItem.ToString();
-            BanknoteQuality coinQuality = (BanknoteQuality)Enum.Parse(typeof(BanknoteQuality), selectedQuality);
-            QualityKeyValuePair pair = CurrentCoin.Coins.FirstOrDefault(p => p.Key.Equals(coinQuality));
+            MoneyQuality coinQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), selectedQuality);
+            QualityKeyValuePair<MoneyQuality, int> pair = CurrentCoin.Coins.FirstOrDefault(p => p.Key.Equals(coinQuality));
             if (pair == null)
             {
-                CurrentCoin.Coins.Add(new QualityKeyValuePair(coinQuality, 1));
+                CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, 1));
             }
             else
             {
                 var number = pair.Value;
                 CurrentCoin.Coins.Remove(pair);
-                CurrentCoin.Coins.Add(new QualityKeyValuePair(coinQuality, number + 1));
+                CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, number + 1));
             }
         }
 
@@ -138,15 +138,20 @@ namespace Numismatics.WPF.Views
             Close();
         }
 
-        private void AddObversePicture(object sender, RoutedEventArgs e)
+        private string GetFilePath()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
             fileDialog.FilterIndex = 1;
             if (fileDialog.ShowDialog() == true)
             {
-                CurrentCoin.ObversePicture = fileDialog.FileName;
+                return fileDialog.FileName;
             }
+            return "";
+        }
+        private void AddObversePicture(object sender, RoutedEventArgs e)
+        {
+            CurrentCoin.ObversePicture = GetFilePath();
         }
 
         private void DeleteObversePicture(object sender, RoutedEventArgs e)
@@ -156,13 +161,7 @@ namespace Numismatics.WPF.Views
 
         private void AddReversePicture(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Image files|*.bmp;*.jpg;*.png";
-            fileDialog.FilterIndex = 1;
-            if (fileDialog.ShowDialog() == true)
-            {
-                CurrentCoin.ReversePicture = fileDialog.FileName;
-            }
+            CurrentCoin.ReversePicture = GetFilePath();
         }
 
         private void DeleteReversePicture(object sender, RoutedEventArgs e)

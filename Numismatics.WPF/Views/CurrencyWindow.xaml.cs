@@ -36,7 +36,6 @@ namespace Numismatics.WPF.Views
         public CurrencyWindow(CurrencyDTO? currencyDTO)
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             CurrencyViewModel = new CurrencyViewModel();
             CountryViewModel = new CountryViewModel();

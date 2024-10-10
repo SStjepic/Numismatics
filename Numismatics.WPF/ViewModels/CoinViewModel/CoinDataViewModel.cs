@@ -13,24 +13,12 @@ using System.Xml.Linq;
 
 namespace Numismatics.WPF.ViewModels.CoinViewModel
 {
-    public class QualityKeyValuePair
-    {
-        public BanknoteQuality Key { get; set; }
-        public int Value { get; set; }
-
-        public QualityKeyValuePair() { }
-        public QualityKeyValuePair(BanknoteQuality key, int value)
-        {
-            Key = key;
-            Value = value;
-        }
-    }
     public class CoinDataViewModel: INotifyPropertyChanged, IDataErrorInfo
     {
         public CoinDataViewModel() { }
         public CoinDataViewModel(CoinDTO? coin) 
         {
-            Coins = new ObservableCollection<QualityKeyValuePair>();
+            Coins = new ObservableCollection<QualityKeyValuePair<MoneyQuality, int>>();
             if (coin != null) 
             {
                 Id = coin.Id;
@@ -44,7 +32,7 @@ namespace Numismatics.WPF.ViewModels.CoinViewModel
                 {
                     foreach (var coinQuality in coin.Coins)
                     {
-                        Coins.Add(new QualityKeyValuePair(coinQuality.Key, coinQuality.Value));
+                        Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality.Key, coinQuality.Value));
                     }
                 }
                 Description = coin.Description;
@@ -54,9 +42,9 @@ namespace Numismatics.WPF.ViewModels.CoinViewModel
             
         }
 
-        private Dictionary<BanknoteQuality, int> GetCoinsDictionary()
+        private Dictionary<MoneyQuality, int> GetCoinsDictionary()
         {
-            var coins = new Dictionary<BanknoteQuality, int>();
+            var coins = new Dictionary<MoneyQuality, int>();
             foreach(var coinPair in Coins)
             {
                 coins.Add(coinPair.Key, coinPair.Value);
@@ -175,7 +163,7 @@ namespace Numismatics.WPF.ViewModels.CoinViewModel
             }
         }
 
-        public ObservableCollection<QualityKeyValuePair> Coins
+        public ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> Coins
         {
             get; set;   
         }

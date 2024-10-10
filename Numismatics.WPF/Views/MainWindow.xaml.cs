@@ -23,7 +23,6 @@ namespace Numismatics.WPF
             InitializeComponent();
             HomeViewModel = new HomePageViewModel();
             DataContext = this;
-            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }

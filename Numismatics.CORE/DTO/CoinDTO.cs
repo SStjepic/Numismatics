@@ -20,9 +20,9 @@ namespace Numismatics.CORE.DTO
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public bool HundertPart {  get; set; }
-        public Dictionary<BanknoteQuality, int> Coins { get; set; }
+        public Dictionary<MoneyQuality, int> Coins { get; set; }
         public CoinDTO() { }
-        public CoinDTO(int id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<BanknoteQuality, int> coins)
+        public CoinDTO(int id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             Country = country;

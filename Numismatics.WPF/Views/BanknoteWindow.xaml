@@ -1,15 +1,14 @@
-﻿<Window x:Class="Numismatics.WPF.Views.CoinWindow"
+﻿<Window x:Class="Numismatics.WPF.Views.BanknoteWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.Views"
         mc:Ignorable="d"
-        Title="Coin" Height="800" Width="1300" Background="#FF151735"
+        Title="Banknote" Height="800" Width="1300" Background="#FF151735"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -31,6 +30,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="0.5*"></RowDefinition>
                 </Grid.RowDefinitions>
 
@@ -42,32 +42,53 @@
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Country"  Style="{DynamicResource LabelStyle}"/>
                 <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True" Margin="5"
-                          ItemsSource="{Binding Countries}" DisplayMemberPath="Name"
-                          SelectedItem="{Binding CurrentCoin.Country}"
-                          SelectionChanged="CountryIsSelected"/>
+                  ItemsSource="{Binding Countries}" DisplayMemberPath="Name"
+                  SelectedItem="{Binding CurrentBanknote.Country}"
+                  SelectionChanged="CountryIsSelected"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True" Margin="5"
-                          ItemsSource="{Binding Currencies}" DisplayMemberPath="Name"
-                          SelectedItem="{Binding CurrentCoin.Currency}" SelectionChanged="CurrencyIsSelected"/>
+                  ItemsSource="{Binding Currencies}" DisplayMemberPath="Name"
+                  SelectedItem="{Binding CurrentBanknote.Currency}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Content="Value" FontWeight="Bold" Style="{DynamicResource LabelStyle}" />
-                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
-                        Text="{Binding Path=CurrentCoin.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                        Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
-                <ComboBox Margin="5" Grid.Row="3" Grid.Column="3" SelectedItem="{Binding CurrentCoin.HundertPart}"  ItemsSource="{Binding CurrencyHundredthPart}" ></ComboBox>
-
-
-                <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" />
-                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox" Margin="5"
-                         Text="{Binding Path=CurrentCoin.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+                <Label Grid.Row="3" Grid.Column="0" Content="Value" FontWeight="Bold" Style="{DynamicResource LabelStyle}"/>
+                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap" Grid.ColumnSpan="2"
+                Text="{Binding Path=CurrentBanknote.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
 
-                <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}" />
+                <Label Grid.Row="4" Grid.Column="0" Content="Issue date" Style="{DynamicResource LabelStyle}"/>
+                <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="Day" Style="{DynamicResource LabelStyle}"></Label>
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="IssueDayTextBox" Margin="39,5,5,5"
+                        Text="{Binding Path=CurrentBanknote.Day, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="Month" Style="{DynamicResource LabelStyle}"></Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="IssueMonthTextBox" Margin="39,5,5,5"
+                        Text="{Binding Path=CurrentBanknote.Month, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+
+                    <Label Grid.Row="0" Grid.Column="2" Content="Year" Style="{DynamicResource LabelStyle}"></Label>
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="IssueYearTextBox" Margin="39,5,5,5"
+                        Text="{Binding Path=CurrentBanknote.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+                </Grid>
+                
+                
+                
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}"/>
                 <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Name="EraComboBox"
-                          SelectedItem="{Binding CurrentCoin.Era}">
+                  SelectedItem="{Binding CurrentBanknote.Era}">
                 </ComboBox>
 
+                <Label Grid.Row="6" Grid.Column="0" Content="City" Style="{DynamicResource LabelStyle}"/>
+                <TextBox Margin="5" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="CityTextBox"  TextWrapping="Wrap"
+                    Text="{Binding Path=CurrentBanknote.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
             </Grid>
         </GroupBox>
@@ -86,20 +107,21 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}"  Margin="5"/>
-                <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" Text="{Binding CurrentCoin.Description, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}" Margin="5"/>
+                <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" Text="{Binding CurrentBanknote.Description, UpdateSourceTrigger=PropertyChanged}" />
 
-                <ComboBox x:Name="CoinQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
-                <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,46,0,131" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddCoinQuality">Add coin</Button>
+                <ComboBox x:Name="BanknoteQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
+                <TextBox x:Name="BanknoteCodeTextBox" Grid.Row="3" Grid.Column="2" Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Text="{Binding BanknoteCode}"></TextBox>
+                <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,74,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddBanknoteQuality">Add banknote</Button>
 
-                <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
-                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
-                          SelectionMode="Single" AutoGenerateColumns="False"
-                          CanUserAddRows="False">
-                          
+                <DataGrid x:Name="BanknoteQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
+                  ItemsSource="{Binding CurrentBanknote.Banknotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
+                  SelectionMode="Single" AutoGenerateColumns="False"
+                  CanUserAddRows="False">
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Banknote code" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Banknote quality" Width="*" Binding="{Binding Value}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -117,7 +139,7 @@
             <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add obverse picture" Click="AddObversePicture" Style="{DynamicResource SaveButtonStyle}" FontSize="15"/>
             <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" FontSize="15" Click="DeleteObversePicture" />
             <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-                <Image x:Name="ObversePicture" Source="{Binding CurrentCoin.ObversePicture}"/>
+                <Image x:Name="ObversePicture" Source="{Binding CurrentBanknote.ObversePicture}"/>
             </Grid>
         </Grid>
 
@@ -134,13 +156,12 @@
             <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add reverse picture" Click="AddReversePicture" Style="{DynamicResource SaveButtonStyle}" FontSize="15"/>
             <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" FontSize="15" Click="DeleteReversePicture"/>
             <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-                <Image x:Name="ReversePicture"  Source="{Binding CurrentCoin.ReversePicture}"/>
+                <Image x:Name="ReversePicture"  Source="{Binding CurrentBanknote.ReversePicture}"/>
             </Grid>
         </Grid>
 
-        <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="2" Grid.Column="0" Content="Save"  Width="176"  FontSize="20" BorderBrush="{x:Null}" Click="AddCoin"/>
+        <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="2" Grid.Column="0" Content="Save"  Width="176"  FontSize="20" BorderBrush="{x:Null}" Click="AddBanknote"/>
         <Button Style="{DynamicResource ExitButtonStyle}"  Grid.Row="2" Grid.Column="0" Content="Exit" Width="176"  FontSize="20" BorderBrush="{x:Null}" Margin="450,0,0,0" Click="Exit"/>
-
 
     </Grid>
 </Window>

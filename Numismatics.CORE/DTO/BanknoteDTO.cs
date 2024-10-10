@@ -11,16 +11,16 @@ namespace Numismatics.CORE.DTO
     public class BanknoteDTO
     {
         public int Id { get; set; }
-        public Country Country { get; set; }
-        public Currency Currency { get; set; }
+        public CountryDTO Country { get; set; }
+        public CurrencyDTO Currency { get; set; }
         public double Value { get; set; }
         public Date IssueDate { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public string Description { get; set; }
         public string City { get; set; }
-        public Dictionary<string, BanknoteQuality> Banknotes { get; set; }
-        public BanknoteDTO(int id, Country country, Currency currency, double value, string obversePicture, string reversePicture, string description, Date issueDate, string city, Dictionary<string, BanknoteQuality> banknotes)
+        public Dictionary<string, MoneyQuality> Banknotes { get; set; }
+        public BanknoteDTO(int id, CountryDTO country, CurrencyDTO currency, double value, string obversePicture, string reversePicture, string description, Date issueDate, string city, Dictionary<string, MoneyQuality> banknotes)
         {
             Id = id;
             Country = country;
@@ -37,8 +37,8 @@ namespace Numismatics.CORE.DTO
         public BanknoteDTO(Banknote banknote, Country country, Currency currency) 
         {
             Id = banknote.Id;
-            Country = country;
-            Currency = currency;
+            Country = new CountryDTO(country);
+            Currency = new CurrencyDTO(currency);
             Value = banknote.Value;
             IssueDate = banknote.IssueDate;
             ObversePicture = banknote.ObversePicture;

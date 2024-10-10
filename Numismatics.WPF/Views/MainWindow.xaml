@@ -7,8 +7,11 @@
         xmlns:cdata ="clr-namespace:Numismatics.WPF.ViewModels.CountryViewModel"
         xmlns:curdata ="clr-namespace:Numismatics.WPF.ViewModels.CurrencyViewModel"
         xmlns:coidata ="clr-namespace:Numismatics.WPF.ViewModels.CoinViewModel"
+        xmlns:bandata ="clr-namespace:Numismatics.WPF.ViewModels.BanknoteViewModel"
         mc:Ignorable="d"
-        Title="Home page" Height="450" Width="800">
+        Title="Home page" Height="450" Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!--Country-->
         <DataTemplate DataType="{x:Type cdata:CountryDataViewModel}">
@@ -76,6 +79,32 @@
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
+
+        <!--Banknote-->
+        <DataTemplate DataType="{x:Type bandata:BanknoteDataViewModel}">
+            <StackPanel Orientation="Horizontal" Margin="10" >
+                <StackPanel Orientation="Horizontal" IsEnabled="False">
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="Value: "></Run>
+                <Run Text="{Binding Value}"></Run> 
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="Currency: "></Run>
+                <Run Text="{Binding Currency.Name}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                <Run Text="Issue year: "></Run>
+                <Run Text="{Binding IssueDate.Year}"></Run>
+                <Run Text="{Binding Era}"></Run>
+                    </TextBlock>
+                    <TextBlock  FontWeight="Bold" Margin="10">
+                 <Run Text="Country: "></Run>
+                <Run Text="{Binding Country.Name}"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        
     </Window.Resources>
     <Grid>
         

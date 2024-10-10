@@ -11,7 +11,7 @@ namespace Numismatics.CORE.Repositories
 {
     public class BanknoteRepository: Repository<Banknote>, IRepository<Banknote>
     {
-        private readonly string _fileName = "banknotes.csv";
+        private readonly string _fileName = "BanknoteData.json";
 
         public BanknoteRepository() 
         {

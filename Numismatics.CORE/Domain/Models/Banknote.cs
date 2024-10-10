@@ -18,10 +18,10 @@ namespace Numismatics.CORE.Domain.Models
         public string ReversePicture { get; set; }
         public string Description { get; set; }
         public string City { get; set; }
-        public Dictionary<string, BanknoteQuality> Banknotes { get; set; }
+        public Dictionary<string, MoneyQuality> Banknotes { get; set; }
         public Banknote() { }
 
-        public Banknote(int id, int countryId, int currencyId, double value, Date issueDate, string obversePicture, string reversePicture, string description, string city, Dictionary<string, BanknoteQuality> banknotes)
+        public Banknote(int id, int countryId, int currencyId, double value, Date issueDate, string obversePicture, string reversePicture, string description, string city, Dictionary<string, MoneyQuality> banknotes)
         {
             Id = id;
             CountryId = countryId;
