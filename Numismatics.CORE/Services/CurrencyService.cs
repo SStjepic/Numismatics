@@ -46,6 +46,17 @@ namespace Numismatics.CORE.Services
             return currenciesDTO;
         }
 
+        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize)
+        {
+            var currencies = _currencyRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var currenciesDTO = new List<CurrencyDTO>();
+            foreach (Currency currency in currencies)
+            {
+                currenciesDTO.Add(new CurrencyDTO(currency));
+            }
+            return currenciesDTO;
+        }
+
         public CurrencyDTO? Update(CurrencyDTO entity)
         {
             _currencyRepository.Update(entity.ToCurrency());

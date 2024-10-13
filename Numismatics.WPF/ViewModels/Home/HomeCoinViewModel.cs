@@ -1,4 +1,5 @@
 ﻿using Numismatics.CORE.Services;
+using Numismatics.WPF.ViewModels.BanknoteViewModel;
 using Numismatics.WPF.ViewModels.CoinViewModel;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using Numismatics.WPF.ViewModels.Home.Interfaces;
@@ -12,7 +13,7 @@ using System.Windows;
 
 namespace Numismatics.WPF.ViewModels.Home
 {
-    public class HomeCoinViewModel : IHomeCRUDView
+    public class HomeCoinViewModel : IHomeViewModel
     {
         private CoinService _coinService;
         public HomeCoinViewModel() 
@@ -44,6 +45,18 @@ namespace Numismatics.WPF.ViewModels.Home
                 MessageBox.Show("Please, select coin you want to delete", "Delete");
                 return null;
             }
+        }
+
+        public List<object> GetByPage(int pageNumber, int pageSize)
+        {
+            var coinDTOs = new List<object>();
+            var coins = _coinService.GetByPage(pageNumber, pageSize);
+            foreach (var coin in coins)
+            {
+                coinDTOs.Add(new CoinDataViewModel(coin));
+            }
+
+            return coinDTOs;
         }
 
         public object? Update(object entity)

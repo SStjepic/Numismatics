@@ -9,10 +9,11 @@ using Numismatics.WPF.Views;
 using Numismatics.WPF.ViewModels.CountryViewModel;
 using System.Windows;
 using Numismatics.CORE.Services;
+using Numismatics.WPF.ViewModels.BanknoteViewModel;
 
 namespace Numismatics.WPF.ViewModels.Home
 {
-    public class HomeCountryViewModel : IHomeCRUDView
+    public class HomeCountryViewModel : IHomeViewModel
     {
         private CountryService _countryService;
 
@@ -49,6 +50,18 @@ namespace Numismatics.WPF.ViewModels.Home
                 MessageBox.Show("Please, select country you want to delete", "Delete");
                 return null;
             }
+        }
+
+        public List<object> GetByPage(int pageNumber, int pageSize)
+        {
+            var countryDTOs = new List<object>();
+            var countries = _countryService.GetByPage(pageNumber, pageSize);
+            foreach (var country in countries)
+            {
+                countryDTOs.Add(new CountryDataViewModel(country));
+            }
+
+            return countryDTOs;
         }
 
         public object? Update(object entity)

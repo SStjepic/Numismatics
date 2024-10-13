@@ -65,15 +65,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="Day" Style="{DynamicResource LabelStyle}"></Label>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="IssueDayTextBox" Margin="39,5,5,5"
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="IssueDayTextBox" Margin="55,5,5,5"
                         Text="{Binding Path=CurrentBanknote.Day, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
 
                     <Label Grid.Row="0" Grid.Column="1" Content="Month" Style="{DynamicResource LabelStyle}"></Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="IssueMonthTextBox" Margin="39,5,5,5"
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="IssueMonthTextBox" Margin="55,5,5,5"
                         Text="{Binding Path=CurrentBanknote.Month, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
 
                     <Label Grid.Row="0" Grid.Column="2" Content="Year" Style="{DynamicResource LabelStyle}"></Label>
-                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="IssueYearTextBox" Margin="39,5,5,5"
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="IssueYearTextBox" Margin="55,5,5,5"
                         Text="{Binding Path=CurrentBanknote.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
                 </Grid>
                 

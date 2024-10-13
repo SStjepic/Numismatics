@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace Numismatics.WPF.ViewModels.Home
 {
-    public class HomeCurrencyViewModel : IHomeCRUDView
+    public class HomeCurrencyViewModel : IHomeViewModel
     {
         private CurrencyService _currencyService;
         public HomeCurrencyViewModel()
@@ -48,6 +48,18 @@ namespace Numismatics.WPF.ViewModels.Home
                 MessageBox.Show("Please, select currency you want to delete", "Delete");
                 return null;
             }
+        }
+
+        public List<object> GetByPage(int pageNumber, int pageSize)
+        {
+            var currencyDTOs = new List<object>();
+            var currencies = _currencyService.GetByPage(pageNumber, pageSize);
+            foreach (var currency in currencies)
+            {
+                currencyDTOs.Add(new CurrencyDataViewModel(currency));
+            }
+
+            return currencyDTOs;
         }
 
         public object? Update(object entity)

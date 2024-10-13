@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Numismatics.WPF.ViewModels.Home
 {
-    public class HomeBanknoteViewModel : IHomeCRUDView
+    public class HomeBanknoteViewModel : IHomeViewModel
     {
         private BanknoteService _banknoteService;
 
@@ -46,6 +46,18 @@ namespace Numismatics.WPF.ViewModels.Home
                 MessageBox.Show("Please, select banknote you want to delete", "Delete");
                 return null;
             }
+        }
+
+        public List<object> GetByPage(int pageNumber, int pageSize)
+        {
+            var banknoteDTOs = new List<object>();
+            var banknotes = _banknoteService.GetByPage(pageNumber, pageSize);
+            foreach (var banknote in banknotes)
+            {
+                banknoteDTOs.Add(new BanknoteDataViewModel(banknote));  
+            }
+
+            return banknoteDTOs;
         }
 
         public object? Update(object entity)

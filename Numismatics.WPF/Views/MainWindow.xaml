@@ -52,8 +52,8 @@
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
-        
-        
+
+
         <!--Coin-->
         <DataTemplate DataType="{x:Type coidata:CoinDataViewModel}">
             <StackPanel Orientation="Horizontal" Margin="10" >
@@ -65,7 +65,7 @@
                     </TextBlock>
                     <TextBlock  FontWeight="Bold" Margin="10">
                         <Run Text="Currency: "></Run>
-                        <Run Text="{Binding Currency.Name}"></Run>       
+                        <Run Text="{Binding Currency.Name}"></Run>
                     </TextBlock>
                     <TextBlock  FontWeight="Bold" Margin="10">
                         <Run Text="Issue year: "></Run>
@@ -86,7 +86,7 @@
                 <StackPanel Orientation="Horizontal" IsEnabled="False">
                     <TextBlock  FontWeight="Bold" Margin="10">
                 <Run Text="Value: "></Run>
-                <Run Text="{Binding Value}"></Run> 
+                <Run Text="{Binding Value}"></Run>
                     </TextBlock>
                     <TextBlock  FontWeight="Bold" Margin="10">
                 <Run Text="Currency: "></Run>
@@ -104,10 +104,10 @@
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
-        
+
     </Window.Resources>
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -129,22 +129,93 @@
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.075*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- Search Box -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="390" Background="#FF151735">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,0,10" Width="400" Background="#FF151735">
                 <Button Margin="1,2,3,2" Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
                 <Button Margin="1,2,3,2" Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
                 <Button Margin="1,2,3,2" Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource SidebarButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
             </StackPanel>
 
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Path Margin="3,0,0,0" Grid.Row="0" Grid.Column="2" Stroke="Black" StrokeThickness="2" Fill="#FF151735"  Stretch="Uniform" RenderTransformOrigin="0.5,0.5" MouseUp="ShowNextPage" >
+                        <Path.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="180"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Path.RenderTransform>
+
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure StartPoint="10,31">
+                                    <LineSegment Point="40,10" />
+                                    <LineSegment Point="40,25" />
+                                    <LineSegment Point="90,25" />
+                                    <LineSegment Point="90,35" />
+                                    <LineSegment Point="40,35" />
+                                    <LineSegment Point="40,50" />
+                                    <LineSegment Point="10,29" />
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+
+                    <Label FontSize="15" Padding="0" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           Grid.Row="0" Grid.Column="1" Margin="0,0,37,3" IsEnabled="False" Name="PageTextBox" Content="{Binding HomeViewModel.PageNumber}"/>
+
+                    <ComboBox Grid.Row="0" Grid.Column="1" Name="PageSizeComboBox" 
+                              ItemsSource="{Binding HomeViewModel.PageSizeOption}"
+                              SelectedItem="{Binding HomeViewModel.PageSize}" Margin="25,0,0,2" ></ComboBox>
+
+                    <Path Grid.Row="0" Grid.Column="0" Stroke="Black" StrokeThickness="2" Fill="#FF151735"  Stretch="Uniform" RenderTransformOrigin="0.5,0.5" MouseUp="ShowPreviousPage" >
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathFigure StartPoint="10,31">
+                                    <LineSegment Point="40,10" />
+                                    <LineSegment Point="40,25" />
+                                    <LineSegment Point="90,25" />
+                                    <LineSegment Point="90,35" />
+                                    <LineSegment Point="40,35" />
+                                    <LineSegment Point="40,50" />
+                                    <LineSegment Point="10,29" />
+                                </PathFigure>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                </Grid>
+
+
+            </Grid>
+
             <!-- Scrollable ListView -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                 <ListBox ItemsSource="{Binding HomeViewModel.CurrentItems,UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding HomeViewModel.SelectedItem, UpdateSourceTrigger=PropertyChanged}">
                 </ListBox>
             </ScrollViewer>
+
+
         </Grid>
+
+
     </Grid>
 </Window>

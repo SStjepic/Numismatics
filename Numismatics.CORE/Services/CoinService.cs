@@ -51,6 +51,24 @@ namespace Numismatics.CORE.Services
             return coinDTOs;
         }
 
+        public List<CoinDTO> GetByPage(int pageNumber, int pageSize)
+        {
+            CurrencyRepository _currencyRepository = new CurrencyRepository();
+            CountryRepository _countryRepository = new CountryRepository();
+            var countries = _countryRepository.GetAll();
+            var currencies = _currencyRepository.GetAll();
+
+            var coins = _coinRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var coinDTOs = new List<CoinDTO>();
+            foreach(var coin in coins)
+            {
+                var country = countries.Find(c => c.Id == coin.CountryId);
+                var currency = currencies.Find(c => c.Id == coin.CurrencyId);
+                coinDTOs.Add(new CoinDTO(coin, country, currency));
+            }
+            return coinDTOs;
+        }
+
         public CoinDTO? Update(CoinDTO entity)
         {
             _coinRepository.Update(entity.ToCoin());

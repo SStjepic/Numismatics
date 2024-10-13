@@ -53,6 +53,25 @@ namespace Numismatics.CORE.Services
             return banknoteDTOs;
         }
 
+        public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize)
+        {
+            var banknotes = _banknoteRepository.GetAll();
+            var currentBanknotes = new List<BanknoteDTO>();
+            var selectedBanknotes = banknotes.Skip((pageNumber-1) * pageSize).Take(pageSize).ToList();
+            CurrencyRepository _currencyRepository = new CurrencyRepository();
+            CountryRepository _countryRepository = new CountryRepository();
+            var countries = _countryRepository.GetAll();
+            var currencies = _currencyRepository.GetAll();
+            foreach (var banknote in selectedBanknotes)
+            {
+                var country = countries.Find(c => c.Id == banknote.CountryId);
+                var currency = currencies.Find(c => c.Id == banknote.CurrencyId);
+                currentBanknotes.Add(new BanknoteDTO(banknote, country, currency));
+            }
+
+            return currentBanknotes;
+        }
+
         public BanknoteDTO? Update(BanknoteDTO banknoteDTO)
         {
             _banknoteRepository.Update(banknoteDTO.ToBanknote());

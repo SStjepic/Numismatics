@@ -13,5 +13,6 @@ namespace Numismatics.CORE.Services.Interface
         public T? Update(T entity);
         public T? Delete(T entity);
         public List<T> GetAll();
+        public List<T> GetByPage(int pageNumber, int pageSize);
     }
 }

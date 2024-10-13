@@ -17,12 +17,22 @@ namespace Numismatics.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public HomePageViewModel HomeViewModel { get; set; }
+        public HomeMainViewModel HomeViewModel { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            HomeViewModel = new HomePageViewModel();
+            HomeViewModel = new HomeMainViewModel();
             DataContext = this;
+        }
+
+        private void ShowNextPage(object sender, MouseButtonEventArgs e)
+        {
+            HomeViewModel.GetNextPage();
+        }
+
+        private void ShowPreviousPage(object sender, MouseButtonEventArgs e)
+        {
+            HomeViewModel.GetPrevPage();
         }
     }
 }

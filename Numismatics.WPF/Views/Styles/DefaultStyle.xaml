@@ -33,9 +33,6 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="overlayBorder" Property="Opacity" Value="0.6"/>
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="overlayBorder" Property="Opacity" Value="0.6"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

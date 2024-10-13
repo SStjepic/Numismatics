@@ -47,6 +47,19 @@ namespace Numismatics.CORE.Services
             return countriesDTO;
         }
 
+        public List<CountryDTO> GetByPage(int pageNumber, int pageSize)
+        {
+            var countryDTOs = new List<CountryDTO>();
+            var countries = _countryRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            foreach(var counrty in countries)
+            {
+                countryDTOs.Add(new CountryDTO(counrty));
+            }
+
+
+            return countryDTOs;
+        }
+
         public CountryDTO? Update(CountryDTO entity)
         {
             _countryRepository.Update(entity.ToCountry());
