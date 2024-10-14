@@ -121,17 +121,7 @@ namespace Numismatics.WPF.Views
 
         private void AddBanknoteQuality(object sender, RoutedEventArgs e)
         {
-            var selectedQuality = BanknoteQualityComboBox.SelectedItem.ToString();
-            MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), selectedQuality);
-            QualityKeyValuePair<string, MoneyQuality> banknote = new QualityKeyValuePair<string, MoneyQuality>();
-            if(!string.IsNullOrEmpty(BanknoteCode))
-            {
-                banknote.Key = BanknoteCode;
-                banknote.Value = banknoteQuality;
-                CurrentBanknote.Banknotes.Add(banknote);
-                BanknoteCodeTextBox.Text = "";
-                BanknoteCode = "";
-            }
+            CurrentBanknote.AddBanknoteQuality();
         }
 
         private void AddBanknote(object sender, RoutedEventArgs e)
@@ -148,6 +138,11 @@ namespace Numismatics.WPF.Views
                 }
                 Close();
             }
+        }
+
+        private void DeleteBanknoteQuality(object sender, RoutedEventArgs e)
+        {
+            CurrentBanknote.DeleteBanknoteQuality();
         }
     }
 }

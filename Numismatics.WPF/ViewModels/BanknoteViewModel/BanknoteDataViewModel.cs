@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Numismatics.WPF.ViewModels.BanknoteViewModel
 {
@@ -129,6 +130,10 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModel
             }
         }
 
+        public string CurrentBanknoteQuality { get; set; }
+        public string CurrentBanknoteCode {  get; set; }
+        public QualityKeyValuePair<string, MoneyQuality> SelectedBanknoteQuality { get; set; }
+
         public ObservableCollection<QualityKeyValuePair<string, MoneyQuality>> Banknotes { get; set; }
         public BanknoteDataViewModel() { }
         public BanknoteDataViewModel(BanknoteDTO? banknoteDTO) 
@@ -155,9 +160,55 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModel
                     }
                 }
             }
+        }
+
+        private bool IsBanknoteCodeExist()
+        {
+            var item = Banknotes.FirstOrDefault(b => b.Key == CurrentBanknoteCode);
+            if(item != null)
+            {
+                return true;
+            }
             else
             {
-                
+                return false;
+            }
+        }
+
+        public void AddBanknoteQuality()
+        {
+            if(CurrentBanknoteQuality == null)
+            {
+                MessageBox.Show("Please select a banknote quality", "Error");
+                return;
+            }
+            if (string.IsNullOrEmpty(CurrentBanknoteCode))
+            {
+                MessageBox.Show("Enter banknote code", "Error");
+                return;
+            }
+            if (IsBanknoteCodeExist())
+            {
+                MessageBox.Show($"You already have banknote with this code {CurrentBanknoteCode}", "Notification");
+                return;
+            }
+            MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknoteQuality);
+            QualityKeyValuePair<string, MoneyQuality> banknote = new QualityKeyValuePair<string, MoneyQuality>();
+            banknote.Key = CurrentBanknoteCode;
+            banknote.Value = banknoteQuality;
+            Banknotes.Add(banknote);
+
+        }
+
+        public void DeleteBanknoteQuality()
+        {
+            if(SelectedBanknoteQuality != null)
+            {
+                Banknotes.Remove(SelectedBanknoteQuality);
+            }
+            else
+            {
+                MessageBox.Show("Please select banknote <code,quality> pair", "Error");
             }
         }
 
@@ -211,5 +262,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModel
 
             return banknotesDictionary;
         }
+
+        
     }
 }

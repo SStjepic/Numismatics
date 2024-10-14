@@ -110,12 +110,14 @@
                 <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}" Margin="5"/>
                 <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" Text="{Binding CurrentBanknote.Description, UpdateSourceTrigger=PropertyChanged}" />
 
-                <ComboBox x:Name="BanknoteQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
-                <TextBox x:Name="BanknoteCodeTextBox" Grid.Row="3" Grid.Column="2" Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Text="{Binding BanknoteCode}"></TextBox>
+                <ComboBox x:Name="BanknoteQualityComboBox" SelectedItem="{Binding CurrentBanknote.CurrentBanknoteQuality}"  Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
+                <TextBox x:Name="BanknoteCodeTextBox" Text="{Binding CurrentBanknote.CurrentBanknoteCode}" Grid.Row="3" Grid.Column="2" Margin="0,40,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></TextBox>
                 <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,74,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddBanknoteQuality">Add banknote</Button>
+                <Button Style="{DynamicResource ExitButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,113,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="DeleteBanknoteQuality">Delete banknote</Button>
 
                 <DataGrid x:Name="BanknoteQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
                   ItemsSource="{Binding CurrentBanknote.Banknotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
+                  SelectedItem="{Binding CurrentBanknote.SelectedBanknoteQuality}"
                   SelectionMode="Single" AutoGenerateColumns="False"
                   CanUserAddRows="False">
 
