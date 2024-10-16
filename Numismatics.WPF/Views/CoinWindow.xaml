@@ -89,14 +89,16 @@
                 <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}"  Margin="5"/>
                 <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" Text="{Binding CurrentCoin.Description, UpdateSourceTrigger=PropertyChanged}" />
 
-                <ComboBox x:Name="CoinQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
+                <ComboBox SelectedItem="{Binding CurrentCoin.CurrentCoinQuality}" x:Name="CoinQualityComboBox" Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"></ComboBox>
                 <Button Style="{DynamicResource SaveButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,46,0,131" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="AddCoinQuality">Add coin</Button>
+                <Button Style="{DynamicResource ExitButtonStyle}" Grid.Row="3" Grid.Column="2" Margin="0,85,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Click="DeleteCoinQuality">Delete coin</Button>
 
                 <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
-                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
+                          ItemsSource="{Binding CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False, Mode=TwoWay}" 
+                          SelectedItem="{Binding CurrentCoin.CurrentCoinQualityPair, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"
                           SelectionMode="Single" AutoGenerateColumns="False"
-                          CanUserAddRows="False">
-                          
+                          CanUserAddRows="False" IsReadOnly="True"> 
+
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding Value}"></DataGridTextColumn>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace Numismatics.WPF.ViewModels.CoinViewModel
@@ -162,17 +163,78 @@ namespace Numismatics.WPF.ViewModels.CoinViewModel
                 OnPropertyChanged(nameof(ReversePicture));
             }
         }
-
-        public ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> Coins
+        private ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> _coins;
+        public ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> Coins 
+        { 
+            get { return _coins; }
+            set
+            {
+                _coins = value;
+                OnPropertyChanged(nameof(Coins));
+            }
+        }
+        public string CurrentCoinQuality { get; set; }
+        private QualityKeyValuePair<MoneyQuality, int>? _currentCoinQualityPair;
+        public QualityKeyValuePair<MoneyQuality, int>? CurrentCoinQualityPair
         {
-            get; set;   
+            get { return _currentCoinQualityPair; }
+            set
+            {
+                _currentCoinQualityPair = value;
+                OnPropertyChanged(nameof(CurrentCoinQualityPair));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AddCoinQuality()
+        {
+            if(CurrentCoinQuality != null)
+            {
+                MoneyQuality coinQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentCoinQuality);
+                QualityKeyValuePair<MoneyQuality, int> pair = Coins.FirstOrDefault(p => p.Key.Equals(coinQuality));
+                if (pair == null)
+                {
+                    Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, 1));
+                }
+                else
+                {
+                    var number = pair.Value;
+                    Coins.Remove(pair);
+                    Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, number + 1));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose coin quality", "Error");
+            }
+            
+        }
+        public void DeleteCoinQuality()
+        {
+            if (CurrentCoinQualityPair != null)
+            {
+                if(CurrentCoinQualityPair.Value > 1)
+                {
+                    int indexAt = Coins.IndexOf(CurrentCoinQualityPair);
+                    Coins[indexAt].Value--;
+                }
+                else
+                {
+                    Coins.Remove(CurrentCoinQualityPair);
+                }
+                CurrentCoinQualityPair = null;
+            }
+            else
+            {
+                MessageBox.Show("Please select coin <quality,number> pair", "Error");
+            }
         }
 
         public string Error => null;

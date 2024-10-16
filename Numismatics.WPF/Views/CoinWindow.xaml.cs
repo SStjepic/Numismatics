@@ -39,9 +39,9 @@ namespace Numismatics.WPF.Views
 
         private bool _update;
         public ObservableCollection<CountryDTO> Countries { get; set; }
-        public ObservableCollection<CurrencyDTO> Currencies
-        { get; set; }
+        public ObservableCollection<CurrencyDTO> Currencies { get; set; }
         public ObservableCollection<string> CurrencyHundredthPart { get; set; }
+
         public CoinWindow(CoinDTO? coinDTO)
         {
             InitializeComponent();
@@ -118,19 +118,7 @@ namespace Numismatics.WPF.Views
 
         private void AddCoinQuality(object sender, RoutedEventArgs e)
         {
-            var selectedQuality = CoinQualityComboBox.SelectedItem.ToString();
-            MoneyQuality coinQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), selectedQuality);
-            QualityKeyValuePair<MoneyQuality, int> pair = CurrentCoin.Coins.FirstOrDefault(p => p.Key.Equals(coinQuality));
-            if (pair == null)
-            {
-                CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, 1));
-            }
-            else
-            {
-                var number = pair.Value;
-                CurrentCoin.Coins.Remove(pair);
-                CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, number + 1));
-            }
+            CurrentCoin.AddCoinQuality();
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -167,6 +155,11 @@ namespace Numismatics.WPF.Views
         private void DeleteReversePicture(object sender, RoutedEventArgs e)
         {
             CurrentCoin.ReversePicture = "";
+        }
+
+        private void DeleteCoinQuality(object sender, RoutedEventArgs e)
+        {
+            CurrentCoin.DeleteCoinQuality();
         }
     }
 }
