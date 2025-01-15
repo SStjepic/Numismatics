@@ -1,4 +1,6 @@
-﻿using Numismatic.WPF.ViewModel.CountryViewModel;
+﻿using Microsoft.VisualBasic;
+using Numismatic.WPF.ViewModel.CountryViewModel;
+using Numismatics.CORE.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +30,28 @@ namespace Numismatic.WPF.View.CountryView
 
             CountryCrudViewModel = new CountryCrudViewModel(country);
             DataContext = this;
+
+            SetComboBox();
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void SetComboBox()
+        {
+            foreach (Era era in Enum.GetValues(typeof(Era)))
+            {
+                StartYearEraComboBox.Items.Add(era);
+                EndYearEraComboBox.Items.Add(era);
+            }
+            if (CountryCrudViewModel.CurrentCountry != null)
+            {
+                StartYearEraComboBox.SelectedItem = CountryCrudViewModel.CurrentCountry.StartYearEra;
+                EndYearEraComboBox.SelectedItem = CountryCrudViewModel.CurrentCountry.EndYearEra;
+            }
+
         }
     }
 }

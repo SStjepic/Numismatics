@@ -47,7 +47,11 @@
                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Start year" Width="*" Binding="{Binding StartYear}"
                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding StartYearEra}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="End year" Width="*" Binding="{Binding EndYear}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding EndYearEra}"
                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
