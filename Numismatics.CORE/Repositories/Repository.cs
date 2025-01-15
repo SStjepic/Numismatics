@@ -9,11 +9,16 @@ namespace Numismatics.CORE.Repositories
 {
     public class Repository<T> where T : new()
     {
-        protected string _filePath = @"../../../../Numismatics.CORE/Data/{0}";
+        private readonly string _dataFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+        private string _filePath;
         protected readonly Serializer _serializer = new();
         protected void SetFileName(string fileName)
         {
-            _filePath = string.Format(_filePath, fileName);
+            if (!System.IO.Directory.Exists(_dataFolderPath))
+            {
+                System.IO.Directory.CreateDirectory(_dataFolderPath);
+            }
+            _filePath = System.IO.Path.Combine(_dataFolderPath, fileName);
 
         }
         protected List<T> Load()

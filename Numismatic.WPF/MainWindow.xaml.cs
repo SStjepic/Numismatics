@@ -26,6 +26,7 @@ namespace Numismatic.WPF
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             DataContext = this;
 
             MainNavigationViewModel = new MainNavigationViewModel();

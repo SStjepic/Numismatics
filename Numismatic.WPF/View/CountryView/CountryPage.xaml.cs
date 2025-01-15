@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Numismatic.WPF.ViewModel.CountryViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace Numismatic.WPF.View.CountryView
     /// </summary>
     public partial class CountryPage : Page
     {
+        public CountryDisplayViewModel CountryDisplayViewModel { get; set; }
         public CountryPage()
         {
             InitializeComponent();
+            CountryDisplayViewModel = new CountryDisplayViewModel();
+            DataContext = this;
+        }
+
+        private void ShowCountry(object sender, MouseButtonEventArgs e)
+        {
+            CountryDisplayViewModel.UpdateCountryCommand.Execute(e);
         }
     }
 }

@@ -14,14 +14,14 @@ namespace Numismatic.WPF.ViewModel.Main
         public Page CurrentPage {  get; set; }
         public ICommand DisplayBanknotePageCommand { get; set; }
         public ICommand DisplayCoinPageCommand { get; set; }
-        public ICommand DispalyCountryPageCommand { get; set; }
+        public ICommand DisplayCountryPageCommand { get; set; }
         public ICommand DisplayCurrencyPageCommand { get; set; }
 
         public MainNavigationViewModel()
         {
             DisplayBanknotePageCommand = new RelayCommand(c => SetBanknotePage());
             DisplayCoinPageCommand = new RelayCommand(c => SetCoinPage());
-            DispalyCountryPageCommand = new RelayCommand(c => SetCountryPage());
+            DisplayCountryPageCommand = new RelayCommand(c => SetCountryPage());
             DisplayCurrencyPageCommand = new RelayCommand(c => SetCurrencyPage());
         }
 

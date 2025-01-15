@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatic.WPF"
         mc:Ignorable="d"
-        Title="Numismatics" Height="450" Width="800">
+        Title="Numismatics" 
+        
+        MinWidth="1600"
+        MinHeight="950"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -15,6 +20,7 @@
 
         <!-- Sidebar -->
         <StackPanel Grid.Column="0" Background="#FF151735">
+            <Button Margin="5" Style="{DynamicResource SidebarButtonStyle}"  Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}" IsEnabled="False"/>
             <Button Margin="5" Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}"  Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}"/>
             <Button Margin="5" Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCoinPageCommand}" />
             <Button Margin="5" Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCountryPageCommand}" />

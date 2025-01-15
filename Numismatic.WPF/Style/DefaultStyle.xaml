@@ -4,9 +4,10 @@
 
     <!-- Sidebar Buttons -->
     <Style x:Key="SidebarButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontSize" Value="25" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -40,6 +41,7 @@
     </Style>
 
     <Style x:Key="CrudButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontSize" Value="16" />
@@ -76,6 +78,7 @@
     </Style>
 
     <Style x:Key="LabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="FontSize" Value="15"></Setter>
@@ -84,14 +87,24 @@
     </Style>
 
     <Style x:Key="LabelTitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="FontSize" Value="17"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
     </Style>
 
+    <Style x:Key="TitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="FontSize" Value="35"></Setter>
+        <Setter Property="Foreground" Value="#FF151735"/>
+    </Style>
+
 
     <Style x:Key="SaveButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="Background" Value="ForestGreen"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
@@ -104,6 +117,7 @@
     </Style>
 
     <Style x:Key="ExitButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="Background" Value="OrangeRed"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
@@ -116,6 +130,7 @@
     </Style>
 
     <Style x:Key="TextBoxInputStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
@@ -123,6 +138,7 @@
     <Style x:Key="ComboBoxInputStyle" TargetType="ComboBox">
         <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
     </Style>
 
     <Style x:Key="GridContainderStyle" TargetType="Grid">
@@ -147,5 +163,12 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="Height" Value="25"/>
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="DataGridTextStyle">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+        <Setter Property="FontStyle" Value="Oblique"/>
     </Style>
 </ResourceDictionary>
