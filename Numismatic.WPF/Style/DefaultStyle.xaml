@@ -108,7 +108,6 @@
         <Setter Property="Background" Value="ForestGreen"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
         <Style.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="10" />
@@ -121,7 +120,6 @@
         <Setter Property="Background" Value="OrangeRed"></Setter>
         <Setter Property="Foreground" Value="White"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
         <Style.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="10" />

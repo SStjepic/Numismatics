@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Numismatic.WPF.ViewModel.CountryViewModel;
+using Numismatic.WPF.ViewModel.CurrencyViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,18 @@ namespace Numismatic.WPF.View.CurrencyView
     /// </summary>
     public partial class CurrencyPage : Page
     {
+        public CurrencyDisplayViewModel CurrencyDisplayViewModel { get; set; }
+
         public CurrencyPage()
         {
             InitializeComponent();
+            CurrencyDisplayViewModel = new CurrencyDisplayViewModel();
+            DataContext = this;
+        }
+
+        private void ShowCurrency(object sender, MouseButtonEventArgs e)
+        {
+            CurrencyDisplayViewModel.UpdateCurrencyCommand.Execute(e);
         }
     }
 }

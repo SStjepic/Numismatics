@@ -10,31 +10,41 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+
+        <Label Content="Currency page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
+
+        <Grid Grid.Row="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Background="#FF151735" MaxHeight="70">
-                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
-                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
-                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
+                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CurrencyDisplayViewModel.AddCurrencyCommand}"/>
+                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CurrencyDisplayViewModel.UpdateCurrencyCommand}"/>
+                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CurrencyDisplayViewModel.DeleteCurrencyCommand}"/>
             </StackPanel>
         </Grid>
 
 
-        <DataGrid Grid.Row="2"
-            ItemsSource="{Binding CurrentBanknotes, UpdateSourceTrigger=PropertyChanged}"
-            AutoGenerateColumns="True"
-            IsReadOnly="True"
-            CanUserAddRows="False"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-                  >
+        <DataGrid Grid.Row="3"
+        ItemsSource="{Binding CurrencyDisplayViewModel.CurrentCurrencies, UpdateSourceTrigger=PropertyChanged}"
+        SelectedItem="{Binding CurrencyDisplayViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
+        MouseDoubleClick ="ShowCurrency"
+         
+        AutoGenerateColumns="False"
+        IsReadOnly="True"
+        CanUserAddRows="False"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+              >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Hundert part" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Code" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
+                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Hunderth part name" Width="*" Binding="{Binding HunderthPartName}"
+                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Code" Width="*" Binding="{Binding Code}"
+                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
