@@ -23,11 +23,11 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModel
 
         public List<CountryDTO> GetCountriesByCurrency(CurrencyDTO currencyDTO)
         {
-            var countryIds = _nationalCurrencyService.GetCountriesByCurrency(currencyDTO.Id);
+            var countryIds = _nationalCurrencyService.GetCurrencies(currencyDTO.Id);
             var countries = new List<CountryDTO>();
             foreach (var countryId in countryIds)
             {
-                var countryDTO = _countryService.Get(countryId);
+                var countryDTO = _countryService.Get(countryId.Id);
                 countries.Add(countryDTO);
             }
             return countries;

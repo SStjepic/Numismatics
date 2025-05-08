@@ -12,13 +12,16 @@ namespace Numismatics.CORE.Services
     public class CoinService : IService<CoinDTO>
     {
         private CoinRepository _coinRepository;
+        private ImageRepository _imageRepository;
         public CoinService() 
         {
             _coinRepository = new CoinRepository();
+            _imageRepository = new ImageRepository();
         }
         public CoinDTO? Create(CoinDTO entity)
         {
             entity.Id = HashCode.Combine(entity.Value, entity.IssueDate, entity.Currency.Id, entity.Country.Id);
+            (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
             _coinRepository.Create(entity.ToCoin());
             return entity;
         }
@@ -71,6 +74,7 @@ namespace Numismatics.CORE.Services
 
         public CoinDTO? Update(CoinDTO entity)
         {
+            (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
             _coinRepository.Update(entity.ToCoin());
             return entity;
         }

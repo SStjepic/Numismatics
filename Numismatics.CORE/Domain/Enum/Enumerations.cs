@@ -21,4 +21,16 @@ namespace Numismatics.CORE.Domain.Enum
         BC,
         AC
     }
+
+    public enum Images
+    {
+        BanknoteImages,
+        CoinImages
+    }
+
+    public enum ImageSide
+    {
+        Obverse,
+        Reverse
+    }
 }

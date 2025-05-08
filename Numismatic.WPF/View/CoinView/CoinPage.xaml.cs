@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Numismatic.WPF.ViewModel.CoinViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace Numismatic.WPF.View.CoinView
     /// </summary>
     public partial class CoinPage : Page
     {
+        public CoinDisplayViewModel CoinDisplayViewModel { get; set; }
         public CoinPage()
         {
             InitializeComponent();
+
+            CoinDisplayViewModel = new CoinDisplayViewModel();
+            DataContext = this;
+        }
+
+        private void ShowCoin(object sender, MouseButtonEventArgs e)
+        {
+            CoinDisplayViewModel.UpdateCoinCommand.Execute(CoinDisplayViewModel);
         }
     }
 }

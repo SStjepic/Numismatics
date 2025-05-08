@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Numismatic.WPF.ViewModel.CoinViewModel;
+using Numismatic.WPF.ViewModel.CountryViewModel;
+using Numismatic.WPF.ViewModel.NationalCurrencyViewModel;
+using Numismatics.CORE.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +15,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Numismatic.WPF.View.CoinView
@@ -18,11 +22,42 @@ namespace Numismatic.WPF.View.CoinView
     /// <summary>
     /// Interaction logic for CoinDetailsPage.xaml
     /// </summary>
-    public partial class CoinDetailsPage : Page
+    public partial class CoinDetailsPage : Window
     {
-        public CoinDetailsPage()
+        public CoinCrudViewModel CoinCrudViewModel { get; set; }
+        public NationalCurrencyCrudViewModel NationalCurrencyCrudViewModel { get; set; }
+        public CoinDetailsPage(CoinDataViewModel coin)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            CoinCrudViewModel = new CoinCrudViewModel(coin);
+            NationalCurrencyCrudViewModel = new NationalCurrencyCrudViewModel();
+            this.DataContext = this;
+
+            SetComboBox();
+        }
+
+        private void SetComboBox()
+        {
+            foreach (Era era in Enum.GetValues(typeof(Era)))
+            {
+                EraComboBox.Items.Add(era);
+            }
+            if (CoinCrudViewModel.CurrentCoin != null)
+            {
+                EraComboBox.SelectedItem = CoinCrudViewModel.CurrentCoin.Era;
+            }
+            foreach (MoneyQuality banknoteQuality in Enum.GetValues(typeof(MoneyQuality)))
+            {
+                CoinQualityComboBox.Items.Add(banknoteQuality);
+            }
+
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

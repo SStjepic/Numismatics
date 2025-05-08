@@ -10,33 +10,44 @@
 
     <Grid Background="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+
+        <Label Content="Coin page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
+        
+        <Grid Grid.Row="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Background="#FF151735" MaxHeight="70">
-                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding HomeViewModel.AddItemCommand}"/>
-                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding HomeViewModel.UpdateItemCommand}"/>
-                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding HomeViewModel.DeleteItemCommand}"/>
+                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CoinDisplayViewModel.AddCoinCommand}"/>
+                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.UpdateCoinCommand}"/>
+                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.DeleteCoinCommand}"/>
             </StackPanel>
         </Grid>
 
 
-        <DataGrid Grid.Row="2"
-            ItemsSource="{Binding CurrentBanknotes, UpdateSourceTrigger=PropertyChanged}"
-            AutoGenerateColumns="True"
+        <DataGrid Grid.Row="3"
+            ItemsSource="{Binding CoinDisplayViewModel.CurrentCoins, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding CoinDisplayViewModel.SelectedCoin, UpdateSourceTrigger=PropertyChanged}"
+            AutoGenerateColumns="False"
             IsReadOnly="True"
-            CanUserAddRows="False"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            VerticalAlignment="Stretch" 
+            MouseDoubleClick="ShowCoin"
+            HeadersVisibility="Column"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Value" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Currency" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Date" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Width="*" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Country" Width="*" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Issue year" Width="*" Binding="{Binding Year}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Era" Width="*" Binding="{Binding Era}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         </Grid>

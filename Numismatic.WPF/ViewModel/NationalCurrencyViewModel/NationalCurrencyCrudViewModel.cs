@@ -95,6 +95,8 @@ namespace Numismatic.WPF.ViewModel.NationalCurrencyViewModel
         }
         public NationalCurrencyCrudViewModel() 
         {
+            setup();
+            getAllCountries();
         }
 
         private void getAllCountries()
