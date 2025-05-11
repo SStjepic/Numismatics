@@ -13,15 +13,26 @@ namespace Numismatics.CORE.Services
     public class BanknoteService: IService<BanknoteDTO>
     {
         private BanknoteRepository _banknoteRepository;
+        private ImageRepository _imageRepository;
 
         public BanknoteService()
         {
             _banknoteRepository = new BanknoteRepository();
+            _imageRepository = new ImageRepository();
         }
 
         public BanknoteDTO? Create(BanknoteDTO banknoteDTO)
         {
+            banknoteDTO.Id = HashCode.Combine(banknoteDTO.Value, banknoteDTO.IssueDate, banknoteDTO.Currency.Id, banknoteDTO.Country.Id);
+            (banknoteDTO.ObversePicture, banknoteDTO.ReversePicture) = _imageRepository.SaveBanknoteImage(banknoteDTO.Id, banknoteDTO.ObversePicture, banknoteDTO.ReversePicture);
             _banknoteRepository.Create(banknoteDTO.ToBanknote());
+            return banknoteDTO;
+        }
+
+        public BanknoteDTO? Update(BanknoteDTO banknoteDTO)
+        {
+            (banknoteDTO.ObversePicture, banknoteDTO.ReversePicture) = _imageRepository.SaveBanknoteImage(banknoteDTO.Id, banknoteDTO.ObversePicture, banknoteDTO.ReversePicture);
+            _banknoteRepository.Update(banknoteDTO.ToBanknote());
             return banknoteDTO;
         }
 
@@ -70,12 +81,6 @@ namespace Numismatics.CORE.Services
             }
 
             return currentBanknotes;
-        }
-
-        public BanknoteDTO? Update(BanknoteDTO banknoteDTO)
-        {
-            _banknoteRepository.Update(banknoteDTO.ToBanknote());
-            return banknoteDTO;
         }
     }
 }

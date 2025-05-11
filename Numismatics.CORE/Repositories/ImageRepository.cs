@@ -31,6 +31,7 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationObverse))
                 {
                     File.Delete(destinationObverse);
+                    destinationObverse = obversePath;
                 }
             }
             else
@@ -46,6 +47,51 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationReverse))
                 {
                     File.Delete(destinationReverse);
+                    destinationReverse = reversePath;
+                }
+
+            }
+            else
+            {
+                if (!File.Exists(destinationReverse))
+                {
+                    File.Copy(reversePath, destinationReverse, true);
+                }
+            }
+
+            return (destinationObverse, destinationReverse);
+        }
+
+        public (string obverseImagePath, string reverseImagePath) SaveBanknoteImage(int moneyId, string obversePath, string reversePath)
+        {
+            string banknoteImageFolder = Path.Combine(_baseFolder, Images.BanknoteImages.ToString(), moneyId.ToString());
+            Directory.CreateDirectory(banknoteImageFolder);
+
+            string destinationObverse = Path.Combine(banknoteImageFolder, "obverse.jpg");
+            string destinationReverse = Path.Combine(banknoteImageFolder, "reverse.jpg");
+
+            if (string.IsNullOrWhiteSpace(obversePath))
+            {
+                if (File.Exists(destinationObverse))
+                {
+                    File.Delete(destinationObverse);
+                    destinationObverse = obversePath;
+                }
+            }
+            else
+            {
+                if (!File.Exists(destinationObverse))
+                {
+                    File.Copy(obversePath, destinationObverse, true);
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(reversePath))
+            {
+                if (File.Exists(destinationReverse))
+                {
+                    File.Delete(destinationReverse);
+                    destinationReverse = reversePath;
                 }
 
             }

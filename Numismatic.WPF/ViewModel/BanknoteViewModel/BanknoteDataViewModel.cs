@@ -1,10 +1,13 @@
-﻿using Numismatics.CORE.Domain.Enum;
+﻿using Numismatic.WPF.ViewModel.CountryViewModel;
+using Numismatic.WPF.ViewModel.CurrencyViewModel;
+using Numismatics.CORE.Domain.Enum;
 using Numismatics.CORE.Domain.Models;
 using Numismatics.CORE.DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,8 +20,8 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
     {
         public int Id { get; set; }
 
-        private CountryDTO _country;
-        public CountryDTO Country 
+        private CountryDataViewModel _country;
+        public CountryDataViewModel Country 
         { 
             get { return _country; }
             set
@@ -27,8 +30,8 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
                 OnPropertyChanged(nameof(Country));
             }
         }
-        private CurrencyDTO _currency;
-        public CurrencyDTO Currency 
+        private CurrencyDataViewModel _currency;
+        public CurrencyDataViewModel Currency 
         {
             get { return _currency; }
             set
@@ -47,6 +50,18 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
                 OnPropertyChanged(nameof(Value));
             }
         }
+
+        private string _hundertPart;
+        public string HundertPart
+        {
+            get { return _hundertPart; }
+            set
+            {
+                _hundertPart = value;
+                OnPropertyChanged(nameof(HundertPart));
+            }
+        }
+
         private string _day;
         public string Day
         {
@@ -130,10 +145,21 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
             }
         }
 
+        public Date IssueDate { get; set; }
+
         public string CurrentBanknoteQuality { get; set; }
         public string CurrentBanknoteCode {  get; set; }
-        public QualityKeyValuePair<string, MoneyQuality> SelectedBanknoteQuality { get; set; }
 
+        private QualityKeyValuePair<string, MoneyQuality>? _currentBanknotePair;
+        public QualityKeyValuePair<string, MoneyQuality>? CurentBanknotePair
+        {
+            get { return _currentBanknotePair; }
+            set
+            {
+                _currentBanknotePair = value;
+                OnPropertyChanged(nameof(CurentBanknotePair));
+            }
+        }
         public ObservableCollection<QualityKeyValuePair<string, MoneyQuality>> Banknotes { get; set; }
         public BanknoteDataViewModel() { }
         public BanknoteDataViewModel(BanknoteDTO? banknoteDTO) 
@@ -142,12 +168,14 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
             if (banknoteDTO != null)
             {
                 Id = banknoteDTO.Id;
-                Country = banknoteDTO.Country;
-                Currency = banknoteDTO.Currency;
+                Country = new CountryDataViewModel(banknoteDTO.Country);
+                Currency = new CurrencyDataViewModel(banknoteDTO.Currency);
                 Value = banknoteDTO.Value.ToString();
+                HundertPart = banknoteDTO.HundertPart == true ? Currency.HunderthPartName : "";
                 Day = banknoteDTO.IssueDate.Day != 0 ? banknoteDTO.IssueDate.Day.ToString() : "";
                 Month = banknoteDTO.IssueDate.Month != 0 ? banknoteDTO.IssueDate.Month.ToString() : "";
                 Year = banknoteDTO.IssueDate.Year != 0 ? banknoteDTO.IssueDate.Year.ToString() : "";
+                IssueDate = banknoteDTO.IssueDate;
                 ObversePicture = banknoteDTO.ObversePicture;
                 ReversePicture = banknoteDTO.ReversePicture;
                 Description = banknoteDTO.Description;
@@ -200,18 +228,6 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
 
         }
 
-        public void DeleteBanknoteQuality()
-        {
-            if(SelectedBanknoteQuality != null)
-            {
-                Banknotes.Remove(SelectedBanknoteQuality);
-            }
-            else
-            {
-                MessageBox.Show("Please select banknote <code,quality> pair", "Error");
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -224,11 +240,18 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
         {
             get
             {
+                if(columnName == "Banknotes")
+                {
+                    if (Banknotes.Count == 0)
+                    {
+                        return "You must add at least one banknote with his code and quality.";
+                    }
+                }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Country", "Currency", "Value" };
+        private readonly string[] _validatedProperties = { "Banknotes" };
 
         public bool IsValid
         {
@@ -247,9 +270,22 @@ namespace Numismatic.WPF.ViewModels.BanknoteViewModel
         public BanknoteDTO ToBanknoteDTO()
         {
             var banknotes = GetBanknotesDictionary();
-            var issueDate = new Date(int.Parse(Day), int.Parse(Month), int.Parse(Year), Era);
+            var issueDate = new Date();
+            if(Day != "" && Day != null)
+            {
+                issueDate.Day = int.Parse(Day);
+            }
+            if (Month != "" && Month != null)
+            {
+                issueDate.Month = int.Parse(Month);
+            }
+            if (Year != "" && Year != null)
+            {
+                issueDate.Year = int.Parse(Year);
+            }
             var value = int.Parse(Value);
-            return new BanknoteDTO(Id, Country, Currency, value, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
+            var hundertPart = HundertPart != "" ? true : false;
+            return new BanknoteDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), value, hundertPart, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
         }
 
         private Dictionary<string, MoneyQuality> GetBanknotesDictionary()

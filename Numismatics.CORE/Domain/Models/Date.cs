@@ -29,7 +29,15 @@ namespace Numismatics.CORE.Domain.Models
         }
 
 
+        public override string ToString()
+        {
+            var temp = "";
+            temp += Year == 0? "*-" : Year.ToString() + "-";
+            temp += Month == 0 ? "*-" : Month.ToString() + "-";
+            temp += Day == 0 ? "*" : Day.ToString() ;
 
+            return temp;
+        }
 
     }
 }

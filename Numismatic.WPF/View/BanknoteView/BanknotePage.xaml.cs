@@ -24,33 +24,18 @@ namespace Numismatic.WPF.View
     public partial class BanknotePage : Page
     {
         
-        public ObservableCollection<BanknoteDataViewModel> CurrentBanknotes { get; set; }
         public BanknoteDisplayViewModel BanknoteDisplayViewModel { get; set; }
-        public BanknoteCRUDViewModel BanknoteCRUDViewModel { get; set; }
-
-        public int pageNumber;
-        public int pageSize;
         public BanknotePage()
         {
             InitializeComponent();
 
-            CurrentBanknotes = new ObservableCollection<BanknoteDataViewModel>();
             BanknoteDisplayViewModel = new BanknoteDisplayViewModel();
-            BanknoteCRUDViewModel = new BanknoteCRUDViewModel();
-
-            pageNumber = 0;
-            pageSize = 10;
-
-            this.GetBanknotes();
+            DataContext = this;
         }
 
-        private void GetBanknotes()
+        private void ShowBanknotes(object sender, MouseButtonEventArgs e)
         {
-            CurrentBanknotes.Clear();
-            foreach(BanknoteDataViewModel banknote in BanknoteDisplayViewModel.GetBanknotes(1, 10))
-            {
-                CurrentBanknotes.Add(banknote);
-            }
+            BanknoteDisplayViewModel.UpdateBanknoteCommand.Execute(this);
         }
     }
 }
