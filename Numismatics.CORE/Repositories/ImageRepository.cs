@@ -31,12 +31,12 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationObverse))
                 {
                     File.Delete(destinationObverse);
-                    destinationObverse = obversePath;
                 }
+                destinationObverse = obversePath;
             }
             else
             {
-                if (!File.Exists(destinationObverse))
+                if (!File.Exists(destinationObverse) || destinationObverse != obversePath)
                 {
                     File.Copy(obversePath, destinationObverse, true);
                 }
@@ -47,13 +47,12 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationReverse))
                 {
                     File.Delete(destinationReverse);
-                    destinationReverse = reversePath;
                 }
-
+                destinationReverse = reversePath;
             }
             else
             {
-                if (!File.Exists(destinationReverse))
+                if (!File.Exists(destinationReverse) || destinationReverse != reversePath)
                 {
                     File.Copy(reversePath, destinationReverse, true);
                 }
@@ -75,12 +74,12 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationObverse))
                 {
                     File.Delete(destinationObverse);
-                    destinationObverse = obversePath;
                 }
+                destinationObverse = obversePath;
             }
             else
             {
-                if (!File.Exists(destinationObverse))
+                if (!File.Exists(destinationObverse) || destinationObverse != obversePath)
                 {
                     File.Copy(obversePath, destinationObverse, true);
                 }
@@ -91,13 +90,12 @@ namespace Numismatics.CORE.Repositories
                 if (File.Exists(destinationReverse))
                 {
                     File.Delete(destinationReverse);
-                    destinationReverse = reversePath;
                 }
-
+                destinationReverse = reversePath;
             }
             else
             {
-                if (!File.Exists(destinationReverse))
+                if (!File.Exists(destinationReverse) || destinationReverse != reversePath)
                 {
                     File.Copy(reversePath, destinationReverse, true);
                 }
