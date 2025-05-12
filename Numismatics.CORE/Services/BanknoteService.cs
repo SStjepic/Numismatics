@@ -64,6 +64,13 @@ namespace Numismatics.CORE.Services
             return banknoteDTOs;
         }
 
+        public int GetTotalPageNumber(int pageSize)
+        {
+            var totalItems = _banknoteRepository.GetAll().Count();
+            return (int)Math.Ceiling((double)totalItems / pageSize);
+        }
+
+
         public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize)
         {
             var banknotes = _banknoteRepository.GetAll();

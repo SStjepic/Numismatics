@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Numismatics.WPF.ViewModel.CountryViewModel
 {
-    public class CountryDisplayViewModel: INotifyPropertyChanged
+    public class CountryDisplayViewModel: DisplayViewMode
     {
         private CountryService _countryService;
 
@@ -34,27 +34,6 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             }
         }
 
-        private int _pageNumber;
-        public int PageNumber
-        {
-            get => _pageNumber;
-            set
-            {
-                _pageNumber = value;
-                OnPropertyChanged(nameof(PageNumber));
-            }
-        }
-        private int _pageSize;
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                _pageSize = value;
-                OnPropertyChanged(nameof(PageSize));
-            }
-        }
-
         public ICommand AddCountryCommand { get; set; }
         public ICommand UpdateCountryCommand { get; set; }
         public ICommand DeleteCountryCommand { get; set; }
@@ -65,13 +44,35 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
 
             PageNumber = 1;
             PageSize = 10;
+            TotalPages = _countryService.GetTotalPageNumber(PageSize);
 
             AddCountryCommand = new RelayCommand(c => CreateCountry());
             DeleteCountryCommand = new RelayCommand(c => DeleteCountry());
             UpdateCountryCommand = new RelayCommand(c => UpdateCountry());
+            GetNextPageCommand = new RelayCommand(c => GetNextPage());
+            GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
 
-            GetCountrise(PageNumber, PageSize);
+            GetCountries(PageNumber-1, PageSize);
         }
+
+        public override void GetNextPage()
+        {
+            if (PageNumber + 1 <= TotalPages)
+            {
+                PageNumber++;
+                GetCountries(PageNumber, TotalPages);
+            }
+        }
+
+        public override void GetPreviousPage()
+        {
+            if (PageNumber - 1 > 0)
+            {
+                PageNumber--;
+                GetCountries(PageNumber, PageSize);
+            }
+        }
+
 
         public void CreateCountry()
         {
@@ -80,7 +81,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             if(result == true)
             {
                 countryDetailsPage.Close();
-                GetCountrise(PageNumber, PageSize);
+                GetCountries(PageNumber, PageSize);
             }
         }
 
@@ -92,7 +93,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _countryService.Delete(SelectedCountry.ToCountryDTO());
-                    GetCountrise(PageNumber, PageSize);
+                    GetCountries(PageNumber, PageSize);
                 }
             }
             else
@@ -113,12 +114,12 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 bool? result = countryDetailsPage.ShowDialog();
                 if (result == true)
                 {
-                    GetCountrise(PageNumber, PageSize);
+                    GetCountries(PageNumber, PageSize);
                 }
             }
         }
 
-        private void GetCountrise(int pageNumber, int pageSize)
+        private void GetCountries(int pageNumber, int pageSize)
         {
             CurrentCountries.Clear();
             var countries = _countryService.GetByPage(pageNumber, pageSize);
@@ -127,12 +128,6 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 CurrentCountries.Add(new CountryDataViewModel(country));
             }
             OnPropertyChanged(nameof(CurrentCountries));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

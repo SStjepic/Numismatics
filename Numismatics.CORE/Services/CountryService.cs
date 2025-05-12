@@ -56,8 +56,13 @@ namespace Numismatics.CORE.Services
                 countryDTOs.Add(new CountryDTO(counrty));
             }
 
-
             return countryDTOs;
+        }
+
+        public int GetTotalPageNumber(int pageSize)
+        {
+            var totalItems = _countryRepository.GetAll().Count();
+            return (int)Math.Ceiling((double)totalItems / pageSize);
         }
 
         public CountryDTO? Update(CountryDTO entity)

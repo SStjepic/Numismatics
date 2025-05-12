@@ -17,9 +17,14 @@
             <ColumnDefinition Width="3.5*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
 
         <!-- Sidebar -->
-        <StackPanel Grid.Column="0" Background="#FF151735">
+        <StackPanel Grid.Column="0" Grid.RowSpan="2" Background="#FF151735">
             <Button Margin="5" Style="{DynamicResource SidebarButtonStyle}"  Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}" IsEnabled="False"/>
             <Button Margin="5" Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}"  Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}"/>
             <Button Margin="5" Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCoinPageCommand}" />
@@ -28,5 +33,55 @@
         </StackPanel>
 
         <Frame NavigationUIVisibility="Hidden" Content="{Binding MainNavigationViewModel.CurrentPage, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" x:Name="MainFrame"/>
+
+        <!-- Pagination Control - Move to Row 1 -->
+        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Arrow Button -->
+                <Button Grid.Column="0"
+                    Width="40" Height="40"
+                    Margin="10,0"
+                    Background="LightGray"
+                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetPreviousPageCommand}">
+                    <TextBlock Text="←"
+                       FontSize="20"
+                       FontFamily="Consolas"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"/>
+                </Button>
+
+                <!-- Page Indicator -->
+                <TextBlock Grid.Column="1"
+                  Text="{Binding MainNavigationViewModel.DisplayViewModel.PageIndicatorText, UpdateSourceTrigger=PropertyChanged}"
+                   FontSize="18"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="20,0" />
+
+
+                <!-- Right Arrow Button -->
+                <Button Grid.Column="2"
+                    Width="40" Height="40"
+                    Margin="10,0"
+                    Background="LightGray"
+                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetNextPageCommand}">
+                    <TextBlock Text="→"
+                       FontSize="20"
+                       FontFamily="Consolas"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"/>
+                </Button>
+            </Grid>
+        </Grid>
+
+
     </Grid>
 </Window>

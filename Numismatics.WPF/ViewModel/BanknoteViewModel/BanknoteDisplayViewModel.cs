@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Numismatics.WPF.Util;
+using System.Security.Policy;
 
 namespace Numismatics.WPF.ViewModel.BanknoteViewModel
 {
-    public class BanknoteDisplayViewModel : INotifyPropertyChanged
+    public class BanknoteDisplayViewModel : DisplayViewMode
     {
         
         private readonly BanknoteService _banknoteService;
@@ -42,27 +43,6 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
-        private int _pageNumber;
-        public int PageNumber
-        {
-            get => _pageNumber;
-            set
-            {
-                _pageNumber = value;
-                OnPropertyChanged(nameof(PageNumber));
-            }
-        }
-        private int _pageSize;
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                _pageSize = value;
-                OnPropertyChanged(nameof(PageSize));
-            }
-        }
-
         public ICommand AddBanknoteCommand {  get; set; }
         public ICommand UpdateBanknoteCommand { get; set; }
         public ICommand DeleteBanknoteCommand { get; set; }
@@ -71,14 +51,37 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
         {
             _banknoteService = new BanknoteService();
             CurrentBanknotes = new ObservableCollection<BanknoteDataViewModel>();
-            PageNumber = 0;
+            PageNumber = 1;
             PageSize = 10;
+            TotalPages = _banknoteService.GetTotalPageNumber(PageSize);
 
             AddBanknoteCommand = new RelayCommand(c => CreateBanknote());
             UpdateBanknoteCommand = new RelayCommand(c => UpdateBanknote());
             DeleteBanknoteCommand = new RelayCommand(c => DeleteBanknote());
+            GetNextPageCommand = new RelayCommand(c => GetNextPage());
+            GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
 
-            GetBanknotes(PageNumber, PageSize);
+            GetBanknotes(PageNumber-1, PageSize);
+        }
+
+        
+
+        public override void GetNextPage()
+        {
+            if (PageNumber+1 <= TotalPages) 
+            {
+                PageNumber++;
+                GetBanknotes(PageNumber, TotalPages);
+            }
+        }
+
+        public override void GetPreviousPage()
+        {
+            if(PageNumber - 1 > 0)
+            {
+                PageNumber--;
+                GetBanknotes(PageNumber, PageSize);
+            }
         }
 
         private void GetBanknotes(int pageNumber, int pageSize)
@@ -97,8 +100,10 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             bool? result = banknoteDetailsPage.ShowDialog();
             if(result == true)
             {
+                TotalPages = _banknoteService.GetTotalPageNumber(PageSize);
                 GetBanknotes(PageNumber, PageSize);
             }
+
         }
 
         private void DeleteBanknote()
@@ -109,6 +114,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _banknoteService.Delete(SelectedBanknote.ToBanknoteDTO());
+                    TotalPages = _banknoteService.GetTotalPageNumber(PageSize);
                     GetBanknotes(PageNumber, PageSize);
                 }
             }
@@ -133,12 +139,6 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                     GetBanknotes(PageNumber, PageSize);
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

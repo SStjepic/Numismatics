@@ -14,7 +14,7 @@ using Numismatics.WPF.Util;
 
 namespace Numismatics.WPF.ViewModel.CurrencyViewModel
 {
-    public class CurrencyDisplayViewModel
+    public class CurrencyDisplayViewModel: DisplayViewMode
     {
         private CurrencyService _currencyService;
 
@@ -40,27 +40,6 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             }
         }
 
-        private int _pageNumber;
-        public int PageNumber
-        {
-            get => _pageNumber;
-            set
-            {
-                _pageNumber = value;
-                OnPropertyChanged(nameof(PageNumber));
-            }
-        }
-        private int _pageSize;
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                _pageSize = value;
-                OnPropertyChanged(nameof(PageSize));
-            }
-        }
-
         public ICommand AddCurrencyCommand { get; set; }
         public ICommand UpdateCurrencyCommand { get; set; }
         public ICommand DeleteCurrencyCommand { get; set; }
@@ -71,12 +50,32 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
 
             PageNumber = 1;
             PageSize = 10;
+            TotalPages = _currencyService.GetTotalPageNumber(PageSize);
 
             AddCurrencyCommand = new RelayCommand(c => CreateCurrency());
             UpdateCurrencyCommand = new RelayCommand(c => UpdateCurrency());
             DeleteCurrencyCommand = new RelayCommand(c => DeleteCurrency());
+            GetNextPageCommand = new RelayCommand(c => GetNextPage());
+            GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
 
-            GetCurrencies(PageNumber, PageSize);
+            GetCurrencies(PageNumber-1, PageSize);
+        }
+        public override void GetNextPage()
+        {
+            if (PageNumber + 1 <= TotalPages)
+            {
+                PageNumber++;
+                GetCurrencies(PageNumber, TotalPages);
+            }
+        }
+
+        public override void GetPreviousPage()
+        {
+            if (PageNumber - 1 > 0)
+            {
+                PageNumber--;
+                GetCurrencies(PageNumber, PageSize);
+            }
         }
 
         public void CreateCurrency()
@@ -133,12 +132,6 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 CurrentCurrencies.Add(new CurrencyDataViewModel(currency));
             }
             OnPropertyChanged(nameof(CurrentCurrencies));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

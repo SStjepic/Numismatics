@@ -12,10 +12,37 @@ namespace Numismatics.WPF.ViewModel.Main
     public class MainNavigationViewModel: INotifyPropertyChanged
     {
         public Page CurrentPage {  get; set; }
+        public DisplayViewMode DisplayViewModel { get; set; }
         public ICommand DisplayBanknotePageCommand { get; set; }
         public ICommand DisplayCoinPageCommand { get; set; }
         public ICommand DisplayCountryPageCommand { get; set; }
         public ICommand DisplayCurrencyPageCommand { get; set; }
+
+        public ICommand NextPageCommand { get; set; }
+        public ICommand PreviousPageCommand { get; set; }
+
+        private int _pageNumber;
+        public int PageNumber
+        {
+            get => _pageNumber;
+            set
+            {
+                _pageNumber = value;
+                OnPropertyChanged(nameof(PageNumber));
+            }
+        }
+        private int _pageSize;
+        public int PageSize
+        {
+            get => _pageSize;
+            set
+            {
+                _pageSize = value;
+                OnPropertyChanged(nameof(PageSize));
+            }
+        }
+
+
 
         public MainNavigationViewModel()
         {
@@ -28,25 +55,33 @@ namespace Numismatics.WPF.ViewModel.Main
         private void SetBanknotePage()
         {
             CurrentPage = new BanknotePage();
+            DisplayViewModel = (this.CurrentPage as BanknotePage).BanknoteDisplayViewModel;
             OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(DisplayViewModel));
         }
 
         private void SetCoinPage()
         {
             CurrentPage = new CoinPage();
+            DisplayViewModel = (this.CurrentPage as CoinPage).CoinDisplayViewModel;
             OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(DisplayViewModel));
         }
 
         private void SetCountryPage()
         {
             CurrentPage = new CountryPage();
+            DisplayViewModel = (this.CurrentPage as CountryPage).CountryDisplayViewModel;
             OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(DisplayViewModel));
         }
 
         private void SetCurrencyPage()
         {
             CurrentPage = new CurrencyPage();
+            DisplayViewModel = (this.CurrentPage as CurrencyPage).CurrencyDisplayViewModel;
             OnPropertyChanged(nameof(CurrentPage));
+            OnPropertyChanged(nameof(DisplayViewModel));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -14,7 +14,7 @@ using Numismatics.WPF.Util;
 
 namespace Numismatics.WPF.ViewModel.CoinViewModel
 {
-    public class CoinDisplayViewModel: INotifyPropertyChanged
+    public class CoinDisplayViewModel:DisplayViewMode
     {
         private CoinService _coinService;
 
@@ -39,28 +39,6 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(CurrentCoins));
             }
         }
-
-        private int _pageNumber;
-        public int PageNumber
-        {
-            get => _pageNumber;
-            set
-            {
-                _pageNumber = value;
-                OnPropertyChanged(nameof(PageNumber));
-            }
-        }
-        private int _pageSize;
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                _pageSize = value;
-                OnPropertyChanged(nameof(PageSize));
-            }
-        }
-
         public ICommand AddCoinCommand { get; set; }
         public ICommand UpdateCoinCommand { get; set; }
         public ICommand DeleteCoinCommand { get; set; }
@@ -68,15 +46,34 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         {
             _coinService = new CoinService();
             CurrentCoins = new ObservableCollection<CoinDataViewModel>();
-
             PageNumber = 1;
             PageSize = 10;
+            TotalPages = _coinService.GetTotalPageNumber(PageSize);
 
             AddCoinCommand = new RelayCommand(c => CreateCoin());
             DeleteCoinCommand = new RelayCommand(c => DeleteCoin());
             UpdateCoinCommand = new RelayCommand(c => UpdateCoin());
+            GetNextPageCommand = new RelayCommand(c => GetNextPage());
+            GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
 
-            GetCoins(PageNumber, PageSize);
+            GetCoins(PageNumber-1, PageSize);
+        }
+        public override void GetNextPage()
+        {
+            if (PageNumber + 1 <= TotalPages)
+            {
+                PageNumber++;
+                GetCoins(PageNumber, TotalPages);
+            }
+        }
+
+        public override void GetPreviousPage()
+        {
+            if (PageNumber - 1 > 0)
+            {
+                PageNumber--;
+                GetCoins(PageNumber, PageSize);
+            }
         }
 
         public void CreateCoin()

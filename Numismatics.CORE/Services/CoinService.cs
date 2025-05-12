@@ -72,6 +72,12 @@ namespace Numismatics.CORE.Services
             return coinDTOs;
         }
 
+        public int GetTotalPageNumber(int pageSize)
+        {
+            var totalItems = _coinRepository.GetAll().Count();
+            return (int)Math.Ceiling((double)totalItems / pageSize);
+        }
+
         public CoinDTO? Update(CoinDTO entity)
         {
             (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
