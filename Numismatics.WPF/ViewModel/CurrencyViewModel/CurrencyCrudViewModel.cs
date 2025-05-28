@@ -45,12 +45,14 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             {
                 if (_isUpdate)
                 {
-                    _currencyService.Update(CurrentCurrency.ToCurrencyDTO());
+                    var updatedCoin = _currencyService.Update(CurrentCurrency.ToCurrencyDTO());
+                    CurrentCurrency = new CurrencyDataViewModel(updatedCoin);
                     MessageBox.Show("You successfully update currency", "Excelent");
                 }
                 else
                 {
-                    _currencyService.Create(CurrentCurrency.ToCurrencyDTO());
+                    var newCoin = _currencyService.Create(CurrentCurrency.ToCurrencyDTO());
+                    CurrentCurrency = new CurrencyDataViewModel(newCoin);
                     MessageBox.Show("You successfully add new currency", "Excelent");
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
