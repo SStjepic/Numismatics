@@ -93,6 +93,10 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             }
         }
 
+        public CountryDataViewModel() 
+        {
+            Id = -1;
+        }
         public CountryDataViewModel(CountryDTO country)
         {
             if (country != null)

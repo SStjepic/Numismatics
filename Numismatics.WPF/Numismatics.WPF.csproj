@@ -7,6 +7,17 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\SearchIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SearchIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\RefreshIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Numismatics.CORE\Numismatics.CORE.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -16,8 +27,5 @@
     <Compile Update="View\BanknoteView\BanknoteDetailsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Languages\" />
   </ItemGroup>
 </Project>

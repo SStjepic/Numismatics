@@ -1,4 +1,5 @@
-﻿using Numismatics.CORE.DTO;
+﻿using Numismatics.CORE.Domain.Models;
+using Numismatics.CORE.DTO;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services.Interface;
 using System;
@@ -20,7 +21,7 @@ namespace Numismatics.CORE.Services
         }
         public CoinDTO? Create(CoinDTO entity)
         {
-            entity.Id = HashCode.Combine(entity.Value, entity.IssueDate, entity.Currency.Id, entity.Country.Id);
+            entity.Id = Math.Abs(HashCode.Combine(entity.Value,entity.HundertPart, entity.IssueDate, entity.Currency.Id, entity.Country.Id));
             (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
             _coinRepository.Create(entity.ToCoin());
             return entity;
@@ -54,14 +55,47 @@ namespace Numismatics.CORE.Services
             return coinDTOs;
         }
 
-        public List<CoinDTO> GetByPage(int pageNumber, int pageSize)
+        public List<CoinDTO> GetByPage(int pageNumber, int pageSize, object param)
         {
             CurrencyRepository _currencyRepository = new CurrencyRepository();
             CountryRepository _countryRepository = new CountryRepository();
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
 
-            var coins = _coinRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var coins = _coinRepository.GetAll();
+
+            var searchParams = param as CoinSearchDataDTO;
+            if (searchParams != null)
+            {
+                if (searchParams.Value > 0)
+                {
+                    coins = coins
+                        .Where(b => b.Value == searchParams.Value)
+                        .ToList();
+                }
+
+                if (searchParams.Year > 0)
+                {
+                    coins = coins
+                        .Where(b => b.IssueDate.Year == searchParams.Year)
+                        .ToList();
+                }
+
+                if (searchParams.Country.Id != -1)
+                {
+                    coins = coins
+                        .Where(b => b.CountryId == searchParams.Country.Id)
+                        .ToList();
+                }
+
+                if (searchParams.Currency.Id != -1)
+                {
+                    coins = coins
+                        .Where(b => b.CurrencyId == searchParams.Currency.Id)
+                        .ToList();
+                }
+            }
+            var selectedCoins = coins.Skip((pageNumber) * pageSize).Take(pageSize).ToList();
             var coinDTOs = new List<CoinDTO>();
             foreach(var coin in coins)
             {

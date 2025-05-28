@@ -11,6 +11,9 @@
             </ResourceDictionary.MergedDictionaries>
 
             <conv:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+
+            <BitmapImage x:Key="SearchIcon" UriSource="/Images/SearchIcon.png"/>
+            <BitmapImage x:Key="RefreshIcon" UriSource="/Images/RefreshIcon.png"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

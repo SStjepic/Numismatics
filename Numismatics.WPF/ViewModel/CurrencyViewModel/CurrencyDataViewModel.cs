@@ -12,7 +12,10 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
     public class CurrencyDataViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
 
-        public CurrencyDataViewModel() { }
+        public CurrencyDataViewModel() 
+        {
+            Id = -1;
+        }
         public CurrencyDataViewModel(CurrencyDTO currencyDTO)
         {
             if (currencyDTO != null)

@@ -23,7 +23,7 @@ namespace Numismatics.CORE.Services
 
         public BanknoteDTO? Create(BanknoteDTO banknoteDTO)
         {
-            banknoteDTO.Id = HashCode.Combine(banknoteDTO.Value, banknoteDTO.IssueDate, banknoteDTO.Currency.Id, banknoteDTO.Country.Id);
+            banknoteDTO.Id = Math.Abs(HashCode.Combine(banknoteDTO.Value,banknoteDTO.HundertPart, banknoteDTO.IssueDate, banknoteDTO.Currency.Id, banknoteDTO.Country.Id));
             (banknoteDTO.ObversePicture, banknoteDTO.ReversePicture) = _imageRepository.SaveBanknoteImage(banknoteDTO.Id, banknoteDTO.ObversePicture, banknoteDTO.ReversePicture);
             _banknoteRepository.Create(banknoteDTO.ToBanknote());
             return banknoteDTO;
@@ -71,11 +71,44 @@ namespace Numismatics.CORE.Services
         }
 
 
-        public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize)
+        public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, object param)
         {
             var banknotes = _banknoteRepository.GetAll();
+
+            var searchParams = param as BanknoteSearchDataDTO;
+            if (searchParams != null) 
+            {
+                if (searchParams.Value > 0)
+                {
+                    banknotes = banknotes
+                        .Where(b => b.Value == searchParams.Value)
+                        .ToList();
+                }
+
+                if (searchParams.Year > 0)
+                {
+                    banknotes = banknotes
+                        .Where(b => b.IssueDate.Year == searchParams.Year)
+                        .ToList();
+                }
+
+                if (searchParams.Country.Id != -1)
+                {
+                    banknotes = banknotes
+                        .Where(b => b.CountryId == searchParams.Country.Id)
+                        .ToList();
+                }
+
+                if (searchParams.Currency.Id != -1)
+                {
+                    banknotes = banknotes
+                        .Where(b => b.CurrencyId == searchParams.Currency.Id)
+                        .ToList();
+                }
+            } 
+
             var currentBanknotes = new List<BanknoteDTO>();
-            var selectedBanknotes = banknotes.Skip((pageNumber-1) * pageSize).Take(pageSize).ToList();
+            var selectedBanknotes = banknotes.Skip((pageNumber) * pageSize).Take(pageSize).ToList();
             CurrencyRepository _currencyRepository = new CurrencyRepository();
             CountryRepository _countryRepository = new CountryRepository();
             var countries = _countryRepository.GetAll();

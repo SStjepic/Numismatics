@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows;
 using Numismatics.WPF.View.CurrencyView;
 using Numismatics.WPF.Util;
+using Numismatics.WPF.ViewModel.CoinViewModel;
 
 namespace Numismatics.WPF.ViewModel.CurrencyViewModel
 {
@@ -40,6 +41,18 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             }
         }
 
+        private CurrencySearchDataViewModel _currencySearchDataViewModel;
+
+        public CurrencySearchDataViewModel CurrencySearchDataViewModel
+        {
+            get => _currencySearchDataViewModel;
+            set
+            {
+                _currencySearchDataViewModel = value;
+                OnPropertyChanged(nameof(CurrencySearchDataViewModel));
+            }
+        }
+
         public ICommand AddCurrencyCommand { get; set; }
         public ICommand UpdateCurrencyCommand { get; set; }
         public ICommand DeleteCurrencyCommand { get; set; }
@@ -47,6 +60,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
         {
             _currencyService = new CurrencyService();
             CurrentCurrencies = new ObservableCollection<CurrencyDataViewModel>();
+            CurrencySearchDataViewModel = new CurrencySearchDataViewModel();
 
             PageNumber = 1;
             PageSize = 10;
@@ -57,15 +71,17 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             DeleteCurrencyCommand = new RelayCommand(c => DeleteCurrency());
             GetNextPageCommand = new RelayCommand(c => GetNextPage());
             GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
+            SearchCommand = new RelayCommand(c => SearchCurrencies());
+            RefreshSearchCommand = new RelayCommand(c => RefreshSearch());
 
-            GetCurrencies(PageNumber-1, PageSize);
+            GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
         }
         public override void GetNextPage()
         {
             if (PageNumber + 1 <= TotalPages)
             {
                 PageNumber++;
-                GetCurrencies(PageNumber, TotalPages);
+                GetCurrencies(PageNumber, TotalPages, CurrencySearchDataViewModel);
             }
         }
 
@@ -74,8 +90,21 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             if (PageNumber - 1 > 0)
             {
                 PageNumber--;
-                GetCurrencies(PageNumber, PageSize);
+                GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
             }
+        }
+
+        private void SearchCurrencies()
+        {
+            PageNumber = 1;
+            this.GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
+        }
+
+        private void RefreshSearch()
+        {
+            PageNumber = 1;
+            CurrencySearchDataViewModel = new CurrencySearchDataViewModel();
+            this.GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
         }
 
         public void CreateCurrency()
@@ -85,7 +114,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             if (result == true)
             {
                 currencyDetailsPage.Close();
-                GetCurrencies(PageNumber, PageSize);
+                GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
             }
         }
 
@@ -97,7 +126,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _currencyService.Delete(SelectedCurrency.ToCurrencyDTO());
-                    GetCurrencies(PageNumber, PageSize);
+                    GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
                 }
             }
             else
@@ -118,15 +147,15 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 bool? result = currencyDetailsPage.ShowDialog();
                 if (result == true)
                 {
-                    GetCurrencies(PageNumber, PageSize);
+                    GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
                 }
             }
         }
 
-        private void GetCurrencies(int pageNumber, int pageSize)
+        private void GetCurrencies(int pageNumber, int pageSize, CurrencySearchDataViewModel currencySearchDataViewModel)
         {
             CurrentCurrencies.Clear();
-            var currencies = _currencyService.GetByPage(pageNumber, pageSize);
+            var currencies = _currencyService.GetByPage(pageNumber-1, pageSize, currencySearchDataViewModel.ToCurrencySearchDataDTO());
             foreach (var currency in currencies)
             {
                 CurrentCurrencies.Add(new CurrencyDataViewModel(currency));

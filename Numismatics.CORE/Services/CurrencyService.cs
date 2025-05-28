@@ -19,7 +19,7 @@ namespace Numismatics.CORE.Services
         }
         public CurrencyDTO? Create(CurrencyDTO entity)
         {
-            entity.Id = HashCode.Combine(entity.Name, entity.Code);
+            entity.Id = Math.Abs(HashCode.Combine(entity.Name,entity.HunderthPartName, entity.Code));
             _currencyRepository.Create(entity.ToCurrency());
             return entity;
         }
@@ -46,11 +46,30 @@ namespace Numismatics.CORE.Services
             return currenciesDTO;
         }
 
-        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize)
+        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, object param)
         {
-            var currencies = _currencyRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var currencies = _currencyRepository.GetAll().Skip(pageNumber * pageSize).Take(pageSize);
+
+            var searchParams = param as CurrencySearchDataDTO;
+            if (searchParams != null)
+            {
+                if (!string.IsNullOrEmpty(searchParams.Name))
+                {
+                    currencies = currencies
+                        .Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()))
+                        .ToList();
+                }
+
+                if (!string.IsNullOrEmpty(searchParams.Code))
+                {
+                    currencies = currencies
+                        .Where(c => c.Code.ToLower().Contains(searchParams.Code.ToLower()))
+                        .ToList();
+                }
+            }
+            var selectedCurrencies = currencies.Skip(pageNumber * pageSize).Take(pageSize);
             var currenciesDTO = new List<CurrencyDTO>();
-            foreach (Currency currency in currencies)
+            foreach (Currency currency in selectedCurrencies)
             {
                 currenciesDTO.Add(new CurrencyDTO(currency));
             }

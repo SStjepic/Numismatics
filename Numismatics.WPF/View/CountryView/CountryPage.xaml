@@ -12,8 +12,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
 
         <Label Content="Country page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
@@ -31,6 +32,7 @@
             ItemsSource="{Binding CountryDisplayViewModel.CurrentCountries, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding CountryDisplayViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"
             MouseDoubleClick ="ShowCountry"
+            HeadersVisibility="Column"
              
             AutoGenerateColumns="False"
             IsReadOnly="True"
@@ -55,5 +57,41 @@
                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.35*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Name" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
+                    Text="{Binding CountryDisplayViewModel.CountrySearchDataViewModel.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button  Grid.Row="0" Grid.Column="0" Background="White" Command="{Binding CountryDisplayViewModel.SearchCommand}">
+                    <Image Source="/Images/SearchIcon.png"/>
+                </Button>
+
+                <Button  Grid.Row="0" Grid.Column="1" Background="White" Command="{Binding CountryDisplayViewModel.RefreshSearchCommand}">
+                    <Image Source="/Images/RefreshIcon.png"/>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

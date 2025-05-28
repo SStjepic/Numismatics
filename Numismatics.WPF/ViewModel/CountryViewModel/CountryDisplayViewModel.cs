@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Numismatics.WPF.ViewModel.CurrencyViewModel;
 
 namespace Numismatics.WPF.ViewModel.CountryViewModel
 {
@@ -34,6 +35,17 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             }
         }
 
+        private CountrySearchDataViewModel _countrySearchDataViewModel;
+        public CountrySearchDataViewModel CountrySearchDataViewModel
+        {
+            get => _countrySearchDataViewModel;
+            set 
+            {
+                _countrySearchDataViewModel = value;
+                OnPropertyChanged(nameof(CountrySearchDataViewModel));
+            }
+        }
+
         public ICommand AddCountryCommand { get; set; }
         public ICommand UpdateCountryCommand { get; set; }
         public ICommand DeleteCountryCommand { get; set; }
@@ -41,6 +53,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
         {
             _countryService = new CountryService();
             CurrentCountries = new ObservableCollection<CountryDataViewModel>();
+            CountrySearchDataViewModel = new CountrySearchDataViewModel();
 
             PageNumber = 1;
             PageSize = 10;
@@ -51,8 +64,10 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             UpdateCountryCommand = new RelayCommand(c => UpdateCountry());
             GetNextPageCommand = new RelayCommand(c => GetNextPage());
             GetPreviousPageCommand = new RelayCommand(c => GetPreviousPage());
+            SearchCommand = new RelayCommand(c => SearchCountries());
+            RefreshSearchCommand = new RelayCommand(c => RefreshSearch());
 
-            GetCountries(PageNumber-1, PageSize);
+            GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
         }
 
         public override void GetNextPage()
@@ -60,7 +75,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             if (PageNumber + 1 <= TotalPages)
             {
                 PageNumber++;
-                GetCountries(PageNumber, TotalPages);
+                GetCountries(PageNumber, TotalPages, CountrySearchDataViewModel);
             }
         }
 
@@ -69,11 +84,22 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             if (PageNumber - 1 > 0)
             {
                 PageNumber--;
-                GetCountries(PageNumber, PageSize);
+                GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
             }
         }
 
+        private void SearchCountries()
+        {
+            PageNumber = 1;
+            this.GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
+        }
 
+        private void RefreshSearch()
+        {
+            PageNumber = 1;
+            CountrySearchDataViewModel = new CountrySearchDataViewModel();
+            this.GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
+        }
         public void CreateCountry()
         {
             CountryDetailsPage countryDetailsPage = new CountryDetailsPage(null);
@@ -81,7 +107,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             if(result == true)
             {
                 countryDetailsPage.Close();
-                GetCountries(PageNumber, PageSize);
+                GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
             }
         }
 
@@ -93,7 +119,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _countryService.Delete(SelectedCountry.ToCountryDTO());
-                    GetCountries(PageNumber, PageSize);
+                    GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
                 }
             }
             else
@@ -114,15 +140,15 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 bool? result = countryDetailsPage.ShowDialog();
                 if (result == true)
                 {
-                    GetCountries(PageNumber, PageSize);
+                    GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
                 }
             }
         }
 
-        private void GetCountries(int pageNumber, int pageSize)
+        private void GetCountries(int pageNumber, int pageSize, CountrySearchDataViewModel countrySearchDataViewModel)
         {
             CurrentCountries.Clear();
-            var countries = _countryService.GetByPage(pageNumber, pageSize);
+            var countries = _countryService.GetByPage(pageNumber-1, pageSize, countrySearchDataViewModel.ToCountrySearchDataDTO());
             foreach (var country in countries)
             {
                 CurrentCountries.Add(new CountryDataViewModel(country));

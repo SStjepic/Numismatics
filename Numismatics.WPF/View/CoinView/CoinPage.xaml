@@ -12,12 +12,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
 
         <Label Content="Coin page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
-        
+
         <Grid Grid.Row="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Background="#FF151735" MaxHeight="70">
                 <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CoinDisplayViewModel.AddCoinCommand}"/>
@@ -50,5 +51,56 @@
                                      ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.35*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Value" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
+                 Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Value, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="0" Grid.Column="1" Content="Country" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Width="auto" IsEditable="True" Style="{DynamicResource ComboBoxInputStyle}" Margin="10,0,10,0"
+                   ItemsSource="{Binding CoinDisplayViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged}" 
+                   DisplayMemberPath="Name"
+                   SelectedItem="{Binding CoinDisplayViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Currency" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <ComboBox Grid.Row="1" Grid.Column="2" Width="auto" IsEditable="True" Style="{DynamicResource ComboBoxInputStyle}" Margin="10,0,10,0"
+                   ItemsSource="{Binding CoinDisplayViewModel.AllCurrencies, UpdateSourceTrigger=PropertyChanged}"
+                   DisplayMemberPath="Name"
+                   SelectedItem="{Binding CoinDisplayViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="0" Grid.Column="3" Content="Year" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0" 
+                 Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Year, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button  Grid.Row="0" Grid.Column="0" Background="White" Command="{Binding CoinDisplayViewModel.SearchCommand}">
+                    <Image Source="/Images/SearchIcon.png"/>
+                </Button>
+
+                <Button  Grid.Row="0" Grid.Column="1" Background="White" Command="{Binding CoinDisplayViewModel.RefreshSearchCommand}">
+                    <Image Source="/Images/RefreshIcon.png"/>
+                </Button>
+            </Grid>
         </Grid>
+    </Grid>
 </Page>

@@ -19,7 +19,7 @@ namespace Numismatics.CORE.Services
         }
         public CountryDTO? Create(CountryDTO countryDTO)
         {
-            countryDTO.Id = HashCode.Combine(countryDTO.Name, countryDTO.StartYear);
+            countryDTO.Id = Math.Abs(HashCode.Combine(countryDTO.Name, countryDTO.StartYear));
             _countryRepository.Create(countryDTO.ToCountry());
             return countryDTO;
         }
@@ -47,11 +47,22 @@ namespace Numismatics.CORE.Services
             return countriesDTO;
         }
 
-        public List<CountryDTO> GetByPage(int pageNumber, int pageSize)
+        public List<CountryDTO> GetByPage(int pageNumber, int pageSize, object param)
         {
             var countryDTOs = new List<CountryDTO>();
-            var countries = _countryRepository.GetAll().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            foreach(var counrty in countries)
+            var countries = _countryRepository.GetAll();
+            
+            var searchParams = param as CountrySearchDataDTO;
+            if(searchParams != null)
+            {
+                if (!string.IsNullOrEmpty(searchParams.Name))
+                {
+                    countries = countries.Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()))
+                        .ToList();
+                }
+            }
+            var selectedCountries = countries.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            foreach (var counrty in selectedCountries)
             {
                 countryDTOs.Add(new CountryDTO(counrty));
             }

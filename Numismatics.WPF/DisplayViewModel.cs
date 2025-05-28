@@ -49,6 +49,8 @@ namespace Numismatics.WPF
 
         public ICommand GetNextPageCommand { get; set; }
         public ICommand GetPreviousPageCommand {  get; set; }
+        public ICommand SearchCommand { get; set; }
+        public ICommand RefreshSearchCommand { get; set; }
         public virtual void GetNextPage() { }
         public virtual void GetPreviousPage() { }
 
