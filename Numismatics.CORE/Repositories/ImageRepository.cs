@@ -18,7 +18,7 @@ namespace Numismatics.CORE.Repositories
             Directory.CreateDirectory(_baseFolder);
         }
 
-        public (string obverseImagePath, string reverseImagePath) SaveCoinImage(int moneyId, string obversePath, string reversePath)
+        public (string obverseImagePath, string reverseImagePath) SaveCoinImage(long moneyId, string obversePath, string reversePath)
         {
             string coinImageFolder = Path.Combine(_baseFolder, Images.CoinImages.ToString(), moneyId.ToString());
             Directory.CreateDirectory(coinImageFolder);
@@ -61,7 +61,7 @@ namespace Numismatics.CORE.Repositories
             return (destinationObverse, destinationReverse);
         }
 
-        public (string obverseImagePath, string reverseImagePath) SaveBanknoteImage(int moneyId, string obversePath, string reversePath)
+        public (string obverseImagePath, string reverseImagePath) SaveBanknoteImage(long moneyId, string obversePath, string reversePath)
         {
             string banknoteImageFolder = Path.Combine(_baseFolder, Images.BanknoteImages.ToString(), moneyId.ToString());
             Directory.CreateDirectory(banknoteImageFolder);
@@ -102,13 +102,6 @@ namespace Numismatics.CORE.Repositories
             }
 
             return (destinationObverse, destinationReverse);
-        }
-
-        public string GetImagePath(int moneyId, Images imagesFolder, ImageSide imageSide)
-        {
-            string imagePath = "";
-
-            return imagePath;
         }
     }
 }

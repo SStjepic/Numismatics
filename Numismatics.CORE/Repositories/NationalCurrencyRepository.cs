@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Numismatics.CORE.Repositories
             return entity;
         }
 
-        public NationalCurrency? Delete(int NationalCurrencyId)
+        public NationalCurrency? Delete(long NationalCurrencyId)
         {
             var nationalCurrencies = GetAll();
             var oldNationalCurrency = Get(NationalCurrencyId);
@@ -31,7 +32,7 @@ namespace Numismatics.CORE.Repositories
             return oldNationalCurrency;
         }
 
-        public NationalCurrency? Get(int id)
+        public NationalCurrency? Get(long id)
         {
             var nationalCurrencies = GetAll();
             return nationalCurrencies.Find(nc => nc.Id == id);

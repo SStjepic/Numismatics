@@ -10,7 +10,7 @@ namespace Numismatics.CORE.DTO
 {
     public class CoinDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public CountryDTO Country { get; set; }
         public CurrencyDTO Currency { get; set; }
         public double Value { get; set; }
@@ -22,7 +22,7 @@ namespace Numismatics.CORE.DTO
         public bool HundertPart {  get; set; }
         public Dictionary<MoneyQuality, int> Coins { get; set; }
         public CoinDTO() { }
-        public CoinDTO(int id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
+        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             Country = country;

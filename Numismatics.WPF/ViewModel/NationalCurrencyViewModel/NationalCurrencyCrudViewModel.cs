@@ -107,7 +107,7 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             }
         }
 
-        private void getCountriesByCurrency(int currencyId)
+        private void getCountriesByCurrency(long currencyId)
         {
             foreach (var country in _nationalCurrencyService.GetCountries(currencyId))
             {

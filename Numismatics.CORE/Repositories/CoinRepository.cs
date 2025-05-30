@@ -22,7 +22,7 @@ namespace Numismatics.CORE.Repositories
             return newCoin;
         }
 
-        public Coin? Delete(int coinId)
+        public Coin? Delete(long coinId)
         {
             var coins = GetAll();
             var oldCoin = Get(coinId);
@@ -32,7 +32,7 @@ namespace Numismatics.CORE.Repositories
             return oldCoin;
         }
 
-        public Coin? Get(int id)
+        public Coin? Get(long id)
         {
             var coins = GetAll();
             return coins.Find(c => c.Id == id);

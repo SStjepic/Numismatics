@@ -9,7 +9,7 @@ namespace Numismatics.CORE.DTO
 {
     public class CountryDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Capital { get; set; }
         public string Bank { get; set; }
@@ -27,7 +27,7 @@ namespace Numismatics.CORE.DTO
             EndYear = country.EndYear;
         }
 
-        public CountryDTO(int id, string name, string capital, string bank, Date startYear, Date endYear)
+        public CountryDTO(long id, string name, string capital, string bank, Date startYear, Date endYear)
         {
             Id = id;
             Name = name;

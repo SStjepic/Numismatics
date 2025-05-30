@@ -26,7 +26,7 @@ namespace Numismatics.CORE.Repositories
             return newBanknote;
         }
 
-        public Banknote? Delete(int banknoteId)
+        public Banknote? Delete(long banknoteId)
         {
             var oldBanknote = Get(banknoteId);
             if (oldBanknote == null) { return null; }
@@ -36,7 +36,7 @@ namespace Numismatics.CORE.Repositories
             return oldBanknote;
         }
 
-        public Banknote? Get(int id)
+        public Banknote? Get(long id)
         {
             var banknotes = GetAll();
             var banknote = banknotes.FirstOrDefault(b => b.Id == id);

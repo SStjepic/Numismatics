@@ -18,52 +18,8 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
 {
     public class CoinDataViewModel: INotifyPropertyChanged, IDataErrorInfo
     {
-        public CoinDataViewModel() { }
-        public CoinDataViewModel(CoinDTO coin)
-        {
-            Coins = new ObservableCollection<QualityKeyValuePair<MoneyQuality, int>>();
-            if (coin != null)
-            {
-                Id = coin.Id;
-                Country = new CountryDataViewModel(coin.Country);
-                Currency = new CurrencyDataViewModel(coin.Currency);
-                Year = coin.IssueDate.Year;
-                Era = coin.IssueDate.Era;
-                Value = coin.Value;
-                HundertPart = coin.HundertPart == true ? Currency.HunderthPartName : "";
-                if (coin.Coins != null)
-                {
-                    foreach (var coinQuality in coin.Coins)
-                    {
-                        Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality.Key, coinQuality.Value));
-                    }
-                }
-                Description = coin.Description;
-                ReversePicture = coin.ReversePicture;
-                ObversePicture = coin.ObversePicture;
-            }
+        public long Id { get; set; }
 
-        }
-
-        private Dictionary<MoneyQuality, int> GetCoinsDictionary()
-        {
-            var coins = new Dictionary<MoneyQuality, int>();
-            foreach (var coinPair in Coins)
-            {
-                coins.Add(coinPair.Key, coinPair.Value);
-
-            }
-            return coins;
-        }
-        public CoinDTO ToCoinDTO()
-        {
-            var issueDate = new Date(Year, Era);
-            var hundertPart = HundertPart != "" ? true : false;
-            var coinDictionary = GetCoinsDictionary();
-            return new CoinDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), Value, Description, 0, ObversePicture, ReversePicture, issueDate, hundertPart, coinDictionary);
-        }
-
-        public int Id { get; set; }
         private CountryDataViewModel _country;
         public CountryDataViewModel Country
         {
@@ -185,6 +141,51 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 _currentCoinQualityPair = value;
                 OnPropertyChanged(nameof(CurrentCoinQualityPair));
             }
+        }
+
+        public CoinDataViewModel() { }
+        public CoinDataViewModel(CoinDTO coin)
+        {
+            Coins = new ObservableCollection<QualityKeyValuePair<MoneyQuality, int>>();
+            if (coin != null)
+            {
+                Id = coin.Id;
+                Country = new CountryDataViewModel(coin.Country);
+                Currency = new CurrencyDataViewModel(coin.Currency);
+                Year = coin.IssueDate.Year;
+                Era = coin.IssueDate.Era;
+                Value = coin.Value;
+                HundertPart = coin.HundertPart == true ? Currency.HunderthPartName : "";
+                if (coin.Coins != null)
+                {
+                    foreach (var coinQuality in coin.Coins)
+                    {
+                        Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality.Key, coinQuality.Value));
+                    }
+                }
+                Description = coin.Description;
+                ReversePicture = coin.ReversePicture;
+                ObversePicture = coin.ObversePicture;
+            }
+
+        }
+
+        private Dictionary<MoneyQuality, int> GetCoinsDictionary()
+        {
+            var coins = new Dictionary<MoneyQuality, int>();
+            foreach (var coinPair in Coins)
+            {
+                coins.Add(coinPair.Key, coinPair.Value);
+
+            }
+            return coins;
+        }
+        public CoinDTO ToCoinDTO()
+        {
+            var issueDate = new Date(Year, Era);
+            var hundertPart = HundertPart != "" ? true : false;
+            var coinDictionary = GetCoinsDictionary();
+            return new CoinDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), Value, Description, 0, ObversePicture, ReversePicture, issueDate, hundertPart, coinDictionary);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

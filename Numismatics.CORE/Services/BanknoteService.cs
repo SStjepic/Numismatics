@@ -23,7 +23,7 @@ namespace Numismatics.CORE.Services
 
         public BanknoteDTO? Create(BanknoteDTO banknoteDTO)
         {
-            banknoteDTO.Id = Math.Abs(HashCode.Combine(banknoteDTO.Value,banknoteDTO.HundertPart, banknoteDTO.IssueDate, banknoteDTO.Currency.Id, banknoteDTO.Country.Id));
+            banknoteDTO.Id = DateTime.UtcNow.Ticks;
             (banknoteDTO.ObversePicture, banknoteDTO.ReversePicture) = _imageRepository.SaveBanknoteImage(banknoteDTO.Id, banknoteDTO.ObversePicture, banknoteDTO.ReversePicture);
             _banknoteRepository.Create(banknoteDTO.ToBanknote());
             return banknoteDTO;
@@ -92,14 +92,14 @@ namespace Numismatics.CORE.Services
                         .ToList();
                 }
 
-                if (searchParams.Country.Id != -1)
+                if (searchParams.Country.Id > 0)
                 {
                     banknotes = banknotes
                         .Where(b => b.CountryId == searchParams.Country.Id)
                         .ToList();
                 }
 
-                if (searchParams.Currency.Id != -1)
+                if (searchParams.Currency.Id > 0)
                 {
                     banknotes = banknotes
                         .Where(b => b.CurrencyId == searchParams.Currency.Id)

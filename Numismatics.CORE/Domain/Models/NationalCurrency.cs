@@ -8,15 +8,15 @@ namespace Numismatics.CORE.Domain.Models
 {
     public class NationalCurrency
     {
-        public int Id { get; set; } 
-        public int CurrencyId;
-        public List<int> Countries;
+        public long Id { get; set; } 
+        public long CurrencyId;
+        public List<long> Countries;
 
         public NationalCurrency()
         {
         }
 
-        public NationalCurrency(int id, int currencyId, List<int> countries)
+        public NationalCurrency(long id, long currencyId, List<long> countries)
         {
             Id = id;
             CurrencyId = currencyId;

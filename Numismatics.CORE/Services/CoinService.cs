@@ -19,12 +19,12 @@ namespace Numismatics.CORE.Services
             _coinRepository = new CoinRepository();
             _imageRepository = new ImageRepository();
         }
-        public CoinDTO? Create(CoinDTO entity)
+        public CoinDTO? Create(CoinDTO newCoin)
         {
-            entity.Id = Math.Abs(HashCode.Combine(entity.Value,entity.HundertPart, entity.IssueDate, entity.Currency.Id, entity.Country.Id));
-            (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
-            _coinRepository.Create(entity.ToCoin());
-            return entity;
+            newCoin.Id = DateTime.UtcNow.Ticks;
+            (newCoin.ObversePicture, newCoin.ReversePicture) = _imageRepository.SaveCoinImage(newCoin.Id, newCoin.ObversePicture, newCoin.ReversePicture); ;
+            _coinRepository.Create(newCoin.ToCoin());
+            return newCoin;
         }
 
         public CoinDTO? Delete(CoinDTO entity)
@@ -81,14 +81,14 @@ namespace Numismatics.CORE.Services
                         .ToList();
                 }
 
-                if (searchParams.Country.Id != -1)
+                if (searchParams.Country.Id > 0)
                 {
                     coins = coins
                         .Where(b => b.CountryId == searchParams.Country.Id)
                         .ToList();
                 }
 
-                if (searchParams.Currency.Id != -1)
+                if (searchParams.Currency.Id > 0)
                 {
                     coins = coins
                         .Where(b => b.CurrencyId == searchParams.Currency.Id)

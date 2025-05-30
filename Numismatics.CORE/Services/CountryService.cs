@@ -19,7 +19,7 @@ namespace Numismatics.CORE.Services
         }
         public CountryDTO? Create(CountryDTO countryDTO)
         {
-            countryDTO.Id = Math.Abs(HashCode.Combine(countryDTO.Name, countryDTO.StartYear));
+            countryDTO.Id = DateTime.UtcNow.Ticks;
             _countryRepository.Create(countryDTO.ToCountry());
             return countryDTO;
         }

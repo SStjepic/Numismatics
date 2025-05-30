@@ -10,9 +10,9 @@ namespace Numismatics.CORE.Domain.Models
 {
     public class Coin
     {
-        public int Id { get; set; }
-        public int CountryId { get; set; }
-        public int CurrencyId { get; set; }
+        public long Id { get; set; }
+        public long CountryId { get; set; }
+        public long CurrencyId { get; set; }
         public double Value { get; set; }
         public Date IssueDate {  get; set; }
         public string Description { get; set; }
@@ -24,7 +24,7 @@ namespace Numismatics.CORE.Domain.Models
 
         public Coin() { }
 
-        public Coin(int id, int countryId, int currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
+        public Coin(long id, long countryId, long currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             CountryId = countryId;

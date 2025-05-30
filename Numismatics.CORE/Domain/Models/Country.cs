@@ -8,7 +8,7 @@ namespace Numismatics.CORE.Domain.Models
 {
     public class Country
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Capital { get; set; }
         public string Bank { get; set; }
@@ -16,7 +16,7 @@ namespace Numismatics.CORE.Domain.Models
         public Date EndYear { get; set; }
 
         public Country() { }
-        public Country(int id, string name, string capital, string bank, Date startYear, Date endYear)
+        public Country(long id, string name, string capital, string bank, Date startYear, Date endYear)
         {
             Id = id;
             Name = name;

@@ -12,10 +12,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
     public class CurrencyDataViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
 
-        public CurrencyDataViewModel() 
-        {
-            Id = -1;
-        }
+        public CurrencyDataViewModel() { }
         public CurrencyDataViewModel(CurrencyDTO currencyDTO)
         {
             if (currencyDTO != null)
@@ -32,7 +29,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
         {
             return new CurrencyDTO(Id, Name, HunderthPartName, Code);
         }
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         private string _name;
         public string Name

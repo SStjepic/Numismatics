@@ -8,13 +8,13 @@ namespace Numismatics.CORE.Domain.Models
 {
     public class Currency
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string HunderthPartName { get; set; }
         public string Code { get; set; }
 
         public Currency() { }
-        public Currency(int id, string name, string hunderthPartName, string code)
+        public Currency(long id, string name, string hunderthPartName, string code)
         {
             Id = id;
             Name = name;
@@ -25,10 +25,6 @@ namespace Numismatics.CORE.Domain.Models
         {
             return obj is Currency currency &&
                    Id == currency.Id;
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Name, Code);
         }
     }
 }

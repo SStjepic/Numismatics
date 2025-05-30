@@ -19,7 +19,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
 {
     public class BanknoteDataViewModel: INotifyPropertyChanged, IDataErrorInfo
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         private CountryDataViewModel _country;
         public CountryDataViewModel Country 

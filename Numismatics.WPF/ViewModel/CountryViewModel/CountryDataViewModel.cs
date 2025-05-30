@@ -14,7 +14,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
 {
     public class CountryDataViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         private string _name;
         private string _capital;
         private string _bank;
@@ -93,10 +93,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             }
         }
 
-        public CountryDataViewModel() 
-        {
-            Id = -1;
-        }
+        public CountryDataViewModel() { }
         public CountryDataViewModel(CountryDTO country)
         {
             if (country != null)

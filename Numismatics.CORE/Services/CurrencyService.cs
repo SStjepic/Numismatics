@@ -19,7 +19,7 @@ namespace Numismatics.CORE.Services
         }
         public CurrencyDTO? Create(CurrencyDTO entity)
         {
-            entity.Id = Math.Abs(HashCode.Combine(entity.Name,entity.HunderthPartName, entity.Code));
+            entity.Id = DateTime.UtcNow.Ticks;
             _currencyRepository.Create(entity.ToCurrency());
             return entity;
         }

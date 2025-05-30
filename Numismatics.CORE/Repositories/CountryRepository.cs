@@ -21,7 +21,7 @@ namespace Numismatics.CORE.Repositories
             return country;
         }
 
-        public Country? Delete(int countryId)
+        public Country? Delete(long countryId)
         {
             var countries = GetAll();
             var oldCountry = Get(countryId);
@@ -31,7 +31,7 @@ namespace Numismatics.CORE.Repositories
             return oldCountry;
         }
 
-        public Country? Get(int id)
+        public Country? Get(long id)
         {
             var countries = GetAll();
             return countries.Find(c => c.Id == id);

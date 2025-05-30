@@ -9,7 +9,7 @@ namespace Numismatics.CORE.DTO
 {
     public class CurrencyDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string HunderthPartName { get; set; }
         public string Code { get; set; }
@@ -21,7 +21,7 @@ namespace Numismatics.CORE.DTO
             HunderthPartName = currency.HunderthPartName;
             Code = currency.Code;
         }
-        public CurrencyDTO(int id, string name, string hunderthPartName, string code)
+        public CurrencyDTO(long id, string name, string hunderthPartName, string code)
         {
             Id = id;
             Name = name;

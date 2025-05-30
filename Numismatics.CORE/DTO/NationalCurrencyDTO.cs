@@ -9,7 +9,7 @@ namespace Numismatics.CORE.DTO
 {
     public class NationalCurrencyDTO
     {
-        public int Id {  get; set; }    
+        public long Id {  get; set; }    
         public CurrencyDTO Currency { get; set; }
         public List<CountryDTO> CountryDTOs { get; set; }
 
@@ -17,7 +17,7 @@ namespace Numismatics.CORE.DTO
         {
         }
 
-        public NationalCurrencyDTO(int id, CurrencyDTO currency, List<CountryDTO> countryDTOs)
+        public NationalCurrencyDTO(long id, CurrencyDTO currency, List<CountryDTO> countryDTOs)
         {
             Id = id;
             Currency = currency;
@@ -37,7 +37,7 @@ namespace Numismatics.CORE.DTO
 
         public NationalCurrency ToNationalCurrency()
         {
-            var countries = new List<int>();
+            var countries = new List<long>();
             foreach (var country in CountryDTOs)
             { 
                 countries.Add(country.Id);

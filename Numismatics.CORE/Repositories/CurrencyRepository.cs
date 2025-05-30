@@ -22,7 +22,7 @@ namespace Numismatics.CORE.Repositories
             return entity;
         }
 
-        public Currency? Delete(int currencyId)
+        public Currency? Delete(long currencyId)
         {
             var currencies = GetAll();
             var oldCurrency = Get(currencyId);
@@ -32,7 +32,7 @@ namespace Numismatics.CORE.Repositories
             return oldCurrency;
         }
 
-        public Currency? Get(int id)
+        public Currency? Get(long id)
         {
             var currencies = GetAll();
             return currencies.Find(c => c.Id == id);

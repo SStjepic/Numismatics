@@ -10,7 +10,7 @@ namespace Numismatics.CORE.DTO
 {
     public class BanknoteDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public CountryDTO Country { get; set; }
         public CurrencyDTO Currency { get; set; }
         public double Value { get; set; }
@@ -22,7 +22,7 @@ namespace Numismatics.CORE.DTO
         public string Description { get; set; }
         public string City { get; set; }
         public Dictionary<string, MoneyQuality> Banknotes { get; set; }
-        public BanknoteDTO(int id, CountryDTO country, CurrencyDTO currency, double value, bool hundertPart, string obversePicture, string reversePicture, string description, Date issueDate, string city, Dictionary<string, MoneyQuality> banknotes)
+        public BanknoteDTO(long id, CountryDTO country, CurrencyDTO currency, double value, bool hundertPart, string obversePicture, string reversePicture, string description, Date issueDate, string city, Dictionary<string, MoneyQuality> banknotes)
         {
             Id = id;
             Country = country;

@@ -20,14 +20,14 @@ namespace Numismatics.CORE.Services
             _countryRepository = new CountryRepository();
         }
 
-        public NationalCurrencyDTO? Create(NationalCurrencyDTO? nationalCurrencyDTO)
+        public NationalCurrencyDTO? Create(NationalCurrencyDTO nationalCurrencyDTO)
         {
-            nationalCurrencyDTO.Id = HashCode.Combine(nationalCurrencyDTO.Currency.ToCurrency());
+            nationalCurrencyDTO.Id = DateTime.UtcNow.Ticks;
             _repository.Create(nationalCurrencyDTO.ToNationalCurrency());
             return nationalCurrencyDTO;
         }
 
-        public List<CountryDTO> GetCountries(int id)
+        public List<CountryDTO> GetCountries(long id)
         {
             var countries = new List<CountryDTO>();
 
@@ -46,7 +46,7 @@ namespace Numismatics.CORE.Services
             return countries;
         }
 
-        public List<CurrencyDTO> GetCurrencies(int countryId)
+        public List<CurrencyDTO> GetCurrencies(long countryId)
         {
             var currencies = new List<CurrencyDTO>();
             foreach(var nationalCurrency in _repository.GetAll())
