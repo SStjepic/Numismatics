@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Numismatics.WPF
+namespace Numismatics.WPF.ViewModel
 {
     public class DisplayViewMode: INotifyPropertyChanged
     {
@@ -47,12 +47,24 @@ namespace Numismatics.WPF
             }
         }
 
+        private int _totalItems;
+        public int TotalItems
+        {
+            get => _totalItems;
+            set 
+            {
+                _totalItems = value;
+                OnPropertyChanged(nameof(TotalItems));
+            }
+        }
         public ICommand GetNextPageCommand { get; set; }
         public ICommand GetPreviousPageCommand {  get; set; }
+        public ICommand GetTotalItemsNumberCommand {  get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand RefreshSearchCommand { get; set; }
         public virtual void GetNextPage() { }
         public virtual void GetPreviousPage() { }
+        public virtual void GetTotalItemsNumber() { }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

@@ -50,5 +50,10 @@ namespace Numismatics.CORE.Repositories
             Save(countries);
             return entity;
         }
+
+        public int GetTotalCountriesNumber()
+        {
+            return this.GetAll().Count;
+        }
     }
 }

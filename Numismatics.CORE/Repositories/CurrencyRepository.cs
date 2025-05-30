@@ -51,5 +51,10 @@ namespace Numismatics.CORE.Repositories
             Save(currencies);
             return entity;
         }
+
+        public int GetTotalCurrenciesNumber()
+        {
+            return this.GetAll().Count();
+        }
     }
 }

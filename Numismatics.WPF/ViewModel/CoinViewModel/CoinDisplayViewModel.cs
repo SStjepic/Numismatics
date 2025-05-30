@@ -100,6 +100,18 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             }
         }
 
+        private int _totalCoins;
+        public int TotalCoins
+        {
+            get => _totalCoins;
+            set
+            {
+                _totalCoins = value;
+                OnPropertyChanged(nameof(TotalCoins));
+                OnPropertyChanged(nameof(TotalCoinsText));
+            }
+        }
+        public string TotalCoinsText => $"Number of coins: {_totalCoins}";
         public ICommand AddCoinCommand { get; set; }
         public ICommand UpdateCoinCommand { get; set; }
         public ICommand DeleteCoinCommand { get; set; }
@@ -164,6 +176,12 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 GetCoins(PageNumber, PageSize, CoinSearchDataViewModel);
             }
         }
+
+        public override void GetTotalItemsNumber()
+        {
+            TotalCoins = this._coinService.GetTotalCoinsNumber();
+        }
+
 
         private void SearchCoins()
         {
@@ -241,6 +259,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             {
                 CurrentCoins.Add(new CoinDataViewModel(coin));
             }
+            this.GetTotalItemsNumber();
             OnPropertyChanged(nameof(CurrentCoins));
         }
     }

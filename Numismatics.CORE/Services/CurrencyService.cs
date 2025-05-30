@@ -87,5 +87,10 @@ namespace Numismatics.CORE.Services
             _currencyRepository.Update(entity.ToCurrency());
             return entity;
         }
+
+        public int GetTotalCurrenciesNumber()
+        {
+            return _currencyRepository.GetTotalCurrenciesNumber();
+        }
     }
 }

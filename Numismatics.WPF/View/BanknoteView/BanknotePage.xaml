@@ -26,6 +26,15 @@
             </StackPanel>
         </Grid>
 
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="{Binding BanknoteDisplayViewModel.TotalBanknotesText, UpdateSourceTrigger=PropertyChanged}" 
+                   Style="{DynamicResource LabelStyle}" Foreground="#FF151735"/>
+        </Grid>
 
         <DataGrid Grid.Row="3"
             ItemsSource="{Binding BanknoteDisplayViewModel.CurrentBanknotes, UpdateSourceTrigger=PropertyChanged}"

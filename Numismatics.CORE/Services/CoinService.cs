@@ -118,5 +118,10 @@ namespace Numismatics.CORE.Services
             _coinRepository.Update(entity.ToCoin());
             return entity;
         }
+
+        public int GetTotalCoinsNumber()
+        {
+            return _coinRepository.GetTotalCoinsNumber();
+        }
     }
 }

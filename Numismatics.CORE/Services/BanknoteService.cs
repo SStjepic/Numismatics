@@ -122,5 +122,10 @@ namespace Numismatics.CORE.Services
 
             return currentBanknotes;
         }
+
+        public int GetTotalBanknotesNumber()
+        {
+            return this._banknoteRepository.GetTotalBanknotesNumber();
+        }
     }
 }

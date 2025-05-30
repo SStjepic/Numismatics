@@ -81,5 +81,10 @@ namespace Numismatics.CORE.Services
             _countryRepository.Update(entity.ToCountry());
             return entity;
         }
+
+        public int GetTotalCountriesNumber()
+        {
+            return _countryRepository.GetTotalCountriesNumber();
+        }
     }
 }

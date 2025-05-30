@@ -53,6 +53,19 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             }
         }
 
+        private int _totalCurrencies;
+        public int TotalCurrencies
+        {
+            get => _totalCurrencies;
+            set
+            {
+                _totalCurrencies = value;
+                OnPropertyChanged(nameof(TotalCurrencies));
+                OnPropertyChanged(nameof(TotalCurrenciesText));
+            }
+        }
+        public string TotalCurrenciesText => $"Number of currencies: {_totalCurrencies}";
+
         public ICommand AddCurrencyCommand { get; set; }
         public ICommand UpdateCurrencyCommand { get; set; }
         public ICommand DeleteCurrencyCommand { get; set; }
@@ -92,6 +105,10 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 PageNumber--;
                 GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
             }
+        }
+        public override void GetTotalItemsNumber()
+        {
+            TotalCurrencies = this._currencyService.GetTotalCurrenciesNumber();
         }
 
         private void SearchCurrencies()
@@ -160,6 +177,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             {
                 CurrentCurrencies.Add(new CurrencyDataViewModel(currency));
             }
+            this.GetTotalItemsNumber();
             OnPropertyChanged(nameof(CurrentCurrencies));
         }
     }

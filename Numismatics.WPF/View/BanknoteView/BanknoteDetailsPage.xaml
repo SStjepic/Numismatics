@@ -125,6 +125,8 @@
                               TextWrapping="Wrap"
                               AcceptsReturn="True"/>
 
+                    <Label Content="{Binding BanknoteCrudViewModel.TotalNumberOfBanknotes, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
+
                     <ComboBox x:Name="BanknoteQualityComboBox" Style="{DynamicResource ComboBoxInputStyle}" SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteQuality}"  Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></ComboBox>
                     <TextBox x:Name="BanknoteCodeTextBox" Style="{DynamicResource TextBoxInputStyle}" Text="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteCode}" Grid.Row="3" Grid.Column="2" Margin="0,36,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></TextBox>
                     <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding BanknoteCrudViewModel.AddBanknoteCommand}" Grid.Row="3" Grid.Column="2" Margin="0,74,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" >Add banknote</Button>

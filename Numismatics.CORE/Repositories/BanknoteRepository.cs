@@ -60,5 +60,9 @@ namespace Numismatics.CORE.Repositories
             Save(banknotes);
             return newBanknote;
         }
+        public int GetTotalBanknotesNumber()
+        {
+            return GetAll().Count();
+        }
     }
 }

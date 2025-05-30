@@ -111,6 +111,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 OnPropertyChanged(nameof(SelectedCurrency));
             }
         }
+        public string NumberOfBanknotes => $"Number of banknotes: {CurrentBanknote.Banknotes.Count}";
 
         private bool _isUpdate;
         public ICommand CreateBanknoteCommand { get; set; }
@@ -196,6 +197,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 if (pair == null)
                 {
                     CurrentBanknote.Banknotes.Add(new QualityKeyValuePair<string, MoneyQuality>(CurrentBanknote.CurrentBanknoteCode, banknoteQuality));
+                    OnPropertyChanged(nameof(NumberOfBanknotes));
                 }
                 else
                 {
@@ -213,6 +215,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             if (CurrentBanknote.CurentBanknotePair != null)
             {
                 CurrentBanknote.Banknotes.Remove(CurrentBanknote.CurentBanknotePair);
+                OnPropertyChanged(nameof(NumberOfBanknotes));
             }
             else
             {
@@ -261,6 +264,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
 
         private void getCurrencies(CountryDataViewModel country)
         {
+            Currencies.Clear();
             foreach (var currency in _nationalCurrencyService.GetCurrencies(country.Id))
             {
                 Currencies.Add(new CurrencyDataViewModel(currency));

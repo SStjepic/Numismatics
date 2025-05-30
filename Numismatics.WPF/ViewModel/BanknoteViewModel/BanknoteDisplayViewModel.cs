@@ -101,6 +101,19 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
+        private int _totalBanknotes;
+        public int TotalBanknotes
+        {
+            get => _totalBanknotes;
+            set
+            {
+                _totalBanknotes = value;
+                OnPropertyChanged(nameof(TotalBanknotes));
+                OnPropertyChanged(nameof(TotalBanknotesText));
+            }
+        }
+        public string TotalBanknotesText => $"Number of banknotes: {_totalBanknotes}";
+
         public ICommand AddBanknoteCommand {  get; set; }
         public ICommand UpdateBanknoteCommand { get; set; }
         public ICommand DeleteBanknoteCommand { get; set; }
@@ -168,6 +181,11 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
+        public override void GetTotalItemsNumber()
+        {
+            TotalBanknotes = this._banknoteService.GetTotalBanknotesNumber();
+        }
+
         private void SearchBankotes()
         {
             PageNumber = 1;
@@ -199,6 +217,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             {
                 CurrentBanknotes.Add(new BanknoteDataViewModel(banknoteDTO));
             }
+            this.GetTotalItemsNumber();
             OnPropertyChanged(nameof(CurrentBanknotes));
         }
 

@@ -46,6 +46,19 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             }
         }
 
+        private int _totalCountries;
+        public int TotalCountries
+        {
+            get => _totalCountries;
+            set
+            {
+                _totalCountries = value;
+                OnPropertyChanged(nameof(TotalCountries));
+                OnPropertyChanged(nameof(TotalCountriesText));
+            }
+        }
+        public string TotalCountriesText => $"Number of countries: {_totalCountries}";
+
         public ICommand AddCountryCommand { get; set; }
         public ICommand UpdateCountryCommand { get; set; }
         public ICommand DeleteCountryCommand { get; set; }
@@ -86,6 +99,10 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 PageNumber--;
                 GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
             }
+        }
+        public override void GetTotalItemsNumber()
+        {
+            TotalCountries = this._countryService.GetTotalCountriesNumber();
         }
 
         private void SearchCountries()
@@ -153,6 +170,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             {
                 CurrentCountries.Add(new CountryDataViewModel(country));
             }
+            this.GetTotalItemsNumber();
             OnPropertyChanged(nameof(CurrentCountries));
         }
     }

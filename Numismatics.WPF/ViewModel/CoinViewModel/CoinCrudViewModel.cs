@@ -113,6 +113,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(SelectedCurrency));
             }
         }
+        public string NumberOfCoins => $"Number of coins: {CurrentCoin.Coins.Sum(pair => pair.Value)}";
 
         private bool _isUpdate;
 
@@ -176,6 +177,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
 
         private void getCurrencies(CountryDataViewModel country)
         {
+            Currencies.Clear();
             foreach( var currency in _nationalCurrencyService.GetCurrencies(country.Id))
             {
                 Currencies.Add(new CurrencyDataViewModel(currency));
@@ -224,6 +226,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                     CurrentCoin.Coins.Remove(pair);
                     CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, number + 1));
                 }
+                OnPropertyChanged(nameof(NumberOfCoins));
             }
             else
             {
@@ -244,6 +247,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 {
                     CurrentCoin.Coins.Remove(CurrentCoin.CurrentCoinQualityPair);
                 }
+                OnPropertyChanged(nameof(NumberOfCoins));
             }
             else
             {
