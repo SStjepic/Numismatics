@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
-    <!-- Sidebar Buttons -->
     <Style x:Key="SidebarButtonStyle" TargetType="Button">
         <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="Background" Value="Transparent" />
@@ -42,12 +40,13 @@
 
     <Style x:Key="CrudButtonStyle" TargetType="Button">
         <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="#FF151735" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Margin" Value="5"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

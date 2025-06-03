@@ -40,8 +40,8 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(Currency));
             }
         }
-        private double _value;
-        public double Value
+        private string _value;
+        public string Value
         {
             get { return _value; }
             set
@@ -61,8 +61,8 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             }
         }
 
-        private int _year;
-        public int Year
+        private string _year;
+        public string Year
         {
             get { return _year; }
             set
@@ -152,9 +152,9 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 Id = coin.Id;
                 Country = new CountryDataViewModel(coin.Country);
                 Currency = new CurrencyDataViewModel(coin.Currency);
-                Year = coin.IssueDate.Year;
+                Year = coin.IssueDate.Year != 0? coin.IssueDate.Year.ToString(): "";
                 Era = coin.IssueDate.Era;
-                Value = coin.Value;
+                Value = coin.Value.ToString();
                 SubunitString = coin.IsSubunit == true ? Currency.SubunitName : "";
                 if (coin.Coins != null)
                 {
@@ -166,6 +166,10 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 Description = coin.Description;
                 ReversePicture = coin.ReversePicture;
                 ObversePicture = coin.ObversePicture;
+            }
+            else
+            {
+                Era = Era.AC;
             }
 
         }
@@ -182,17 +186,18 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         }
         public CoinDTO ToCoinDTO()
         {
-            var issueDate = new Date(Year, Era);
+            var issueDate = new Date();
+            issueDate.Era = Era;
+            if (!string.IsNullOrEmpty(Year))
+            {
+                issueDate.Year = int.Parse(Year);
+            }
             var isSubunit = SubunitString != "" ? true : false;
             var coinDictionary = GetCoinsDictionary();
-            return new CoinDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), Value, Description, 0, ObversePicture, ReversePicture, issueDate, isSubunit, coinDictionary);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            int value = int.TryParse(Value, out var parsed) ? parsed : 0;
+            var country = Country != null? Country.ToCountryDTO(): null;
+            var currency = Currency != null? Currency.ToCurrencyDTO(): null;
+            return new CoinDTO(Id, country, currency, value, Description, 0, ObversePicture, ReversePicture, issueDate, isSubunit, coinDictionary);
         }
 
         public string Error => null;
@@ -207,7 +212,43 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                         return "You must add at least one coin with his quality";
                     }
                 }
+                else if (columnName == "Value")
+                {
+                    if (string.IsNullOrEmpty(Value))
+                    {
+                        return null;
+                    }
+                    int value = StringToInt(Value);
+                    if (value == -1 || value <= 0)
+                    {
+                        return "Invalid value.";
+                    }
+                }
+                else if (columnName == "Year")
+                {
+                    if (string.IsNullOrEmpty(Value)) 
+                    {
+                        return null;
+                    }
+                    int year = StringToInt(Year);
+                    if (year == -1 || (year > DateTime.Now.Year && Era == Era.AC))
+                    {
+                        return "Invalid year.";
+                    }
+                }
                 return null;
+            }
+        }
+
+        private int StringToInt(string str)
+        {
+            try
+            {
+                return int.Parse(str);
+            }
+            catch
+            {
+                return -1;
             }
         }
 
@@ -225,6 +266,14 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
 
                 return true;
             }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -46,12 +46,12 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 if (_isUpdate)
                 {
                     _countryService.Update(CurrentCountry.ToCountryDTO());
-                    MessageBox.Show("You successfully update country", "Excelent");
+                    MessageBox.Show("You successfully update country", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     _countryService.Create(CurrentCountry.ToCountryDTO());
-                    MessageBox.Show("You successfully add new country", "Excelent");
+                    MessageBox.Show("You successfully add new country", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;

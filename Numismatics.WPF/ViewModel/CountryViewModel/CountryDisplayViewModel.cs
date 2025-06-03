@@ -69,7 +69,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             CountrySearchDataViewModel = new CountrySearchDataViewModel();
 
             PageNumber = 1;
-            PageSize = 10;
+            PageSize = GlobalParams.PAGE_SIZE;
             TotalPages = _countryService.GetTotalPageNumber(PageSize);
 
             AddCountryCommand = new RelayCommand(c => CreateCountry());
@@ -124,6 +124,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             if(result == true)
             {
                 countryDetailsPage.Close();
+                TotalPages = _countryService.GetTotalPageNumber(PageSize);
                 GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
             }
         }
@@ -132,16 +133,17 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
         {
             if (SelectedCountry != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected country?", "Delete", MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected country?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _countryService.Delete(SelectedCountry.ToCountryDTO());
+                    TotalPages = _countryService.GetTotalPageNumber(PageSize);
                     GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
                 }
             }
             else
             {
-                MessageBox.Show("Please, select country you want to delete", "Delete");
+                MessageBox.Show("Please, select country you want to delete", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -149,7 +151,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
         {
             if (SelectedCountry == null)
             {
-                MessageBox.Show("Please, select country you want to update", "Update");
+                MessageBox.Show("Please, select country you want to update", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

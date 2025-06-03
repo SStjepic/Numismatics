@@ -23,12 +23,15 @@ namespace Numismatics.WPF.View.CountryView
     public partial class CountryDetailsPage : Window
     {
         public CountryCrudViewModel CountryCrudViewModel { get; set; }
+
+        private bool _isUpdate;
         public CountryDetailsPage(CountryDataViewModel country)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             CountryCrudViewModel = new CountryCrudViewModel(country);
+            _isUpdate = country != null? true : false;
             DataContext = this;
 
             SetComboBox();
@@ -46,10 +49,15 @@ namespace Numismatics.WPF.View.CountryView
                 StartYearEraComboBox.Items.Add(era);
                 EndYearEraComboBox.Items.Add(era);
             }
-            if (CountryCrudViewModel.CurrentCountry != null)
+            if (_isUpdate)
             {
                 StartYearEraComboBox.SelectedItem = CountryCrudViewModel.CurrentCountry.StartYearEra;
                 EndYearEraComboBox.SelectedItem = CountryCrudViewModel.CurrentCountry.EndYearEra;
+            }
+            else
+            {
+                StartYearEraComboBox.SelectedItem = Era.AC;
+                EndYearEraComboBox.SelectedItem = Era.AC;
             }
 
         }

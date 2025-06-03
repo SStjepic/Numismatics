@@ -27,10 +27,11 @@ namespace Numismatics.CORE.Services
             return newCoin;
         }
 
-        public CoinDTO? Delete(CoinDTO entity)
+        public CoinDTO? Delete(CoinDTO coin)
         {
-            _coinRepository.Delete(entity.Id);
-            return entity;
+            _imageRepository.DeleteCoin(coin.Id);
+            _coinRepository.Delete(coin.Id);
+            return coin;
         }
 
         public CoinDTO? Get(long entityId)
@@ -109,7 +110,7 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _coinRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize);
+            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
         }
 
         public CoinDTO? Update(CoinDTO entity)

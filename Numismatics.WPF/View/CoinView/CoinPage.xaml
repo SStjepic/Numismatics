@@ -20,7 +20,7 @@
         <Label Content="Coin page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
 
         <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Background="#FF151735" MaxHeight="70">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="70">
                 <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CoinDisplayViewModel.AddCoinCommand}"/>
                 <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.UpdateCoinCommand}"/>
                 <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.DeleteCoinCommand}"/>

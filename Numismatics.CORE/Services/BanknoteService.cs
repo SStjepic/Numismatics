@@ -38,6 +38,7 @@ namespace Numismatics.CORE.Services
 
         public BanknoteDTO? Delete(BanknoteDTO banknoteDTO)
         {
+            _imageRepository.DeleteBanknote(banknoteDTO.Id);
             _banknoteRepository.Delete(banknoteDTO.Id);
             return banknoteDTO;
         }
@@ -67,7 +68,7 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _banknoteRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize);
+            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
         }
 
 

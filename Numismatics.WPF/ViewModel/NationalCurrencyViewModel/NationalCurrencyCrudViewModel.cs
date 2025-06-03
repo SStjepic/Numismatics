@@ -73,7 +73,6 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             setup();
             getAllCountries();
             _isUpdate = currencyData != null ? true : false;
-            NationalCurrency = new NationalCurrencyDataViewModel();
             if (currencyData != null)
             {
                 var nationalCurrencyDTO = _nationalCurrencyService.Get(currencyData.Id);
@@ -92,6 +91,7 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             _countryService = new CountryService();
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             SelectedCountries = new ObservableCollection<CountryDataViewModel>();
+            NationalCurrency = new NationalCurrencyDataViewModel();
             SelectCountryCommand = new RelayCommand(c => SelectCountry());
             RemoveCountryCommand = new RelayCommand(c => RemoveCountry());
             SaveNationalCurrencyCommand = new RelayCommand(s => SaveNationalCurrency());

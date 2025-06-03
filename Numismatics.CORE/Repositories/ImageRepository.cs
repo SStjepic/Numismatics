@@ -103,5 +103,17 @@ namespace Numismatics.CORE.Repositories
 
             return (destinationObverse, destinationReverse);
         }
+
+        public void DeleteBanknote(long id)
+        {
+            string banknoteImageFolder = Path.Combine(_baseFolder, Images.BanknoteImages.ToString(), id.ToString());
+            Directory.Delete(banknoteImageFolder);
+        }
+
+        internal void DeleteCoin(long id)
+        {
+            string coinImageFolder = Path.Combine(_baseFolder, Images.CoinImages.ToString(), id.ToString());
+            Directory.Delete(coinImageFolder);
+        }
     }
 }

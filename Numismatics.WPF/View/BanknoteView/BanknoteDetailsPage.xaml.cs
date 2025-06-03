@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Numismatics.CORE.Domain.Models;
 
 namespace Numismatics.WPF.View.BanknoteView
 {
@@ -43,10 +44,6 @@ namespace Numismatics.WPF.View.BanknoteView
             foreach (Era era in Enum.GetValues(typeof(Era)))
             {
                 EraComboBox.Items.Add(era);
-            }
-            if (BanknoteCrudViewModel.CurrentBanknote != null)
-            {
-                EraComboBox.SelectedItem = BanknoteCrudViewModel.CurrentBanknote.Era;
             }
             foreach (MoneyQuality banknoteQuality in Enum.GetValues(typeof(MoneyQuality)))
             {

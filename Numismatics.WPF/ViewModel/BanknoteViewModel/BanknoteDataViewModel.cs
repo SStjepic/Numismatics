@@ -171,7 +171,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 Id = banknoteDTO.Id;
                 Country = new CountryDataViewModel(banknoteDTO.Country);
                 Currency = new CurrencyDataViewModel(banknoteDTO.Currency);
-                Value = banknoteDTO.Value.ToString();
+                Value = banknoteDTO.Value != 0?banknoteDTO.Value.ToString():"";
                 SubunitString = banknoteDTO.IsSubunit == true ? Currency.SubunitName : "";
                 Day = banknoteDTO.IssueDate.Day != 0 ? banknoteDTO.IssueDate.Day.ToString() : "";
                 Month = banknoteDTO.IssueDate.Month != 0 ? banknoteDTO.IssueDate.Month.ToString() : "";
@@ -181,6 +181,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 ReversePicture = banknoteDTO.ReversePicture;
                 Description = banknoteDTO.Description;
                 City = banknoteDTO.City;
+                Era = banknoteDTO.IssueDate.Era;
                 if (banknoteDTO.Banknotes != null)
                 {
                     foreach (var banknoteQuality in banknoteDTO.Banknotes)
@@ -188,6 +189,10 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                         Banknotes.Add(new QualityKeyValuePair<string, MoneyQuality>(banknoteQuality.Key, banknoteQuality.Value));
                     }
                 }
+            }
+            else
+            {
+                Era = Era.AC;
             }
         }
 
@@ -248,11 +253,72 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                         return "You must add at least one banknote with his code and quality.";
                     }
                 }
+                else if (columnName == "Day")
+                {
+                    if (string.IsNullOrEmpty(Day))
+                    {
+                        return null;
+                    }
+                    int day = StringToInt(Day);
+                    if(day == -1 || day <= 0 )
+                    {
+                        return "Invalid day.";
+                    }
+                }
+                else if (columnName == "Month")
+                {
+                    if (string.IsNullOrEmpty(Month))
+                    {
+                        return null;
+                    }
+                    int month = StringToInt(Month);
+                    if (month == -1 || month < 1 || month > 12)
+                    {
+                        return "Invalid month.";
+                    }
+                }
+                else if (columnName == "Year")
+                {
+                    if (string.IsNullOrEmpty(Year))
+                    {
+                        return null;
+                    }
+                    int year = StringToInt(Year);
+                    if (year == -1 || (year > DateTime.Now.Year && Era == Era.AC))
+                    {
+                        return "Invalid year.";
+                    }
+                }
+                else if(columnName == "Value")
+                {
+                    if (string.IsNullOrEmpty(Value))
+                    {
+                        return null;
+                    }
+                    int value = StringToInt(Value);
+                    if(value == -1 || value <= 0)
+                    {
+                        return "Invalid value.";
+                    }
+                }
+
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Banknotes" };
+        private int StringToInt(string str)
+        {
+            try
+            {
+                return int.Parse(str);
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Banknotes", "Day", "Month", "Year", "Value"};
 
         public bool IsValid
         {
@@ -272,6 +338,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
         {
             var banknotes = GetBanknotesDictionary();
             var issueDate = new Date();
+            issueDate.Era = Era;
             if(Day != "" && Day != null)
             {
                 issueDate.Day = int.Parse(Day);
@@ -284,9 +351,11 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             {
                 issueDate.Year = int.Parse(Year);
             }
-            var value = int.Parse(Value);
+            int value = int.TryParse(Value, out var parsed) ? parsed : 0;
             var isSubunit = SubunitString != "" ? true : false;
-            return new BanknoteDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
+            var country = Country != null ? Country.ToCountryDTO() : null;
+            var currency = Currency != null ? Currency.ToCurrencyDTO() : null;
+            return new BanknoteDTO(Id, country, currency, value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
         }
 
         private Dictionary<string, MoneyQuality> GetBanknotesDictionary()

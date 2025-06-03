@@ -65,8 +65,8 @@
 
                 <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" />
                 <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox" Margin="5"
-                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"
-                     Style="{DynamicResource TextBoxInputStyle}"
+                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Year, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Style="{DynamicResource TextBoxInputStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
                          />
 
 

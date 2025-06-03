@@ -96,7 +96,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
         public CountryDataViewModel() { }
         public CountryDataViewModel(CountryDTO country)
         {
-            if (country != null)
+            if (country.Id != -1)
             {
                 Id = country.Id;
                 Name = country.Name;
@@ -134,41 +134,54 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 {
                     if (string.IsNullOrEmpty(Name))
                     {
-                        return "Enter country name";
+                        return "Enter a country name.";
                     }
                 }
 
-                if (columnName == "Capital")
+                else if (columnName == "Capital")
                 {
                     if (string.IsNullOrEmpty(Capital))
                     {
-                        return "Enter country capital";
+                        return "Enter a country capital.";
                     }
 
                 }
 
-                if (columnName == "StartYear")
+                else if (columnName == "StartYear")
                 {
                     var year = StringToInt(StartYear);
-                    if (StartYear != GlobalParams.EmptyValue && year == -1)
+                    if (StartYear != GlobalParams.EMPTY_VALUE && year == -1)
                     {
-                        return "Enter correct year";
+                        return "Enter a correct year.";
                     }
+                    else if (year <= 0 && year != -1)
+                    {
+                        return "Enter a valid year.";
+                    }
+                    else if (StartYearEra == Era.AC && year > DateTime.Now.Year)
+                    {
+                        return "Enter a correct year.";
+                    }
+
                 }
 
-                if (columnName == "EndYear")
+                else if (columnName == "EndYear")
                 {
                     var year = StringToInt(EndYear);
-                    if (EndYear != GlobalParams.EmptyValue && year == -1)
+                    if (EndYear != GlobalParams.EMPTY_VALUE && year == -1)
                     {
-                        return "Enter correct year";
+                        return "Enter a correct year";
+                    }
+                    else if (year <= 0 && year != -1)
+                    {
+                        return "Enter a valid year.";
                     }
                 }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "Capital", "Bank", "StartYear", "EndYear", "StartYearEra", "EndYearEra" };
+        private readonly string[] _validatedProperties = { "Name", "Capital", "StartYear", "EndYear" };
 
         public bool IsValid
         {
@@ -199,8 +212,8 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
 
         private void SetYears(int startYear, int endYear)
         {
-            StartYear = startYear == -1 ? GlobalParams.EmptyValue : startYear.ToString();
-            EndYear = endYear == -1 ? GlobalParams.EmptyValue : endYear.ToString();
+            StartYear = startYear == -1 ? GlobalParams.EMPTY_VALUE : startYear.ToString();
+            EndYear = endYear == -1 ? GlobalParams.EMPTY_VALUE : endYear.ToString();
 
         }
 

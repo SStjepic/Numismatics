@@ -19,12 +19,19 @@ namespace Numismatics.CORE.DTO
         public CountryDTO() { }
         public CountryDTO(Country country)
         {
-            Id = country.Id;
-            Name = country.Name;
-            Capital = country.Capital;
-            Bank = country.Bank;
-            StartYear = country.StartYear;
-            EndYear = country.EndYear;
+            if (country != null)
+            {
+                Id = country.Id;
+                Name = country.Name;
+                Capital = country.Capital;
+                Bank = country.Bank;
+                StartYear = country.StartYear;
+                EndYear = country.EndYear;
+            }
+            else
+            {
+                Id = -1;
+            }
         }
 
         public CountryDTO(long id, string name, string capital, string bank, Date startYear, Date endYear)

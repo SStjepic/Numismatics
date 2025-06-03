@@ -16,14 +16,21 @@ namespace Numismatics.CORE.DTO
         public int SubunitToMainUnit { get; set; }
         public string Code { get; set; }
         public CurrencyDTO() { }
-        public CurrencyDTO(Currency currency)
+        public CurrencyDTO(Currency? currency)
         {
-            Id = currency.Id;
-            Name = currency.Name;
-            SubunitName = currency.SubunitName;
-            MainUnitName = currency.MainUnitName;
-            SubunitToMainUnit = currency.SubunitToMainUnit;
-            Code = currency.Code;
+            if (currency != null) 
+            {
+                Id = currency.Id;
+                Name = currency.Name;
+                SubunitName = currency.SubunitName;
+                MainUnitName = currency.MainUnitName;
+                SubunitToMainUnit = currency.SubunitToMainUnit;
+                Code = currency.Code;
+            }
+            else
+            {
+                Id = -1;
+            }
         }
         public CurrencyDTO(long id, string name, string mainUnitName, string subunitName, int subunitToMainUnit, string code)
         {

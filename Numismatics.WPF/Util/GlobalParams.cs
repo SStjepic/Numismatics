@@ -8,15 +8,7 @@ namespace Numismatics.WPF.Util
 {
     class GlobalParams
     {
-        public static string EmptyValue = "-";
-
-        public static string Country = "Country";
-        public static string Countries = "Countries";
-
-        public static string Coin = "Coin";
-        public static string Coins = "Coins";
-
-        public static string Banknote = "Banknote";
-        public static string Banknotes = "Banknotes";
+        public static string EMPTY_VALUE = "-";
+        public static int PAGE_SIZE = 10;
     }
 }

@@ -78,7 +78,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             set
             {
                 _selectedCurrencyUnitName = value;
-                if (value.Equals(CurrentCoin.Currency.SubunitName)) 
+                if (CurrentCoin.Currency != null && value.Equals(CurrentCoin.Currency.SubunitName)) 
                 {
                     CurrentCoin.SubunitString = value;
                 }
@@ -86,7 +86,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 {
                     CurrentCoin.SubunitString = "";
                 }
-                    OnPropertyChanged(nameof(SelectedCurrencyUnitName));
+                OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
 
@@ -178,18 +178,24 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         private void getCurrencies(CountryDataViewModel country)
         {
             Currencies.Clear();
-            foreach( var currency in _nationalCurrencyService.GetCurrencies(country.Id))
+            if(country != null)
             {
-                Currencies.Add(new CurrencyDataViewModel(currency));
+                foreach (var currency in _nationalCurrencyService.GetCurrencies(country.Id))
+                {
+                    Currencies.Add(new CurrencyDataViewModel(currency));
+                }
             }
         }
 
         private void getCurrencyValue(CurrencyDataViewModel currency)
         {
-            CurrencyUnitNames   .Clear();
-            CurrencyUnitNames.Add(currency.MainUnitName);
-            CurrencyUnitNames.Add(currency.SubunitName);
-            OnPropertyChanged(nameof(CurrencyUnitNames));
+            CurrencyUnitNames.Clear();
+            if (currency != null) 
+            {
+                CurrencyUnitNames.Add(currency.MainUnitName);
+                CurrencyUnitNames.Add(currency.SubunitName);
+                OnPropertyChanged(nameof(CurrencyUnitNames));
+            }
         }
 
         private bool createCoin()
@@ -199,12 +205,12 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 if (_isUpdate)
                 {
                     _coinService.Update(CurrentCoin.ToCoinDTO());
-                    MessageBox.Show("You successfully update coin.", "Excelent");
+                    MessageBox.Show("You successfully update coin.", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     _coinService.Create(CurrentCoin.ToCoinDTO());
-                    MessageBox.Show("You successfully add new coin.", "Excelent");
+                    MessageBox.Show("You successfully add new coin.", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;
@@ -232,7 +238,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             }
             else
             {
-                MessageBox.Show("Choose coin quality", "Error");
+                MessageBox.Show("Choose coin quality", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -253,7 +259,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             }
             else
             {
-                MessageBox.Show("Please select coin <quality,number> pair", "Error");
+                MessageBox.Show("Please select coin <quality,number> pair", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

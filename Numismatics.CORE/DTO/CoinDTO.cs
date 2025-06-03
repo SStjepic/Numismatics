@@ -54,7 +54,9 @@ namespace Numismatics.CORE.DTO
 
         public Coin ToCoin()
         {
-            return new Coin(Id, Country.Id, Currency.Id, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, IsSubunit, Coins);
+            long countryId = Country != null ? Country.Id : -1;
+            long currencyId = Currency != null ? Currency.Id : -1;
+            return new Coin(Id, countryId, currencyId, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, IsSubunit, Coins);
         }
 
         public override bool Equals(object? obj)

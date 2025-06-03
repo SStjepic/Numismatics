@@ -35,7 +35,10 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
 
             CurrentCurrency = currency != null ? currency : new CurrencyDataViewModel(null);
             _isUpdate = currency != null ? true : false;
-
+            if (!_isUpdate)
+            {
+                CurrentCurrency.SubunitToMainUnit = 100;
+            }
             AddCurrencyCommand = new RelayCommand(c => CreateCurrency());
         }
 
@@ -47,13 +50,13 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 {
                     var updatedCoin = _currencyService.Update(CurrentCurrency.ToCurrencyDTO());
                     CurrentCurrency = new CurrencyDataViewModel(updatedCoin);
-                    MessageBox.Show("You successfully update currency", "Excelent");
+                    MessageBox.Show("You successfully update currency", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     var newCoin = _currencyService.Create(CurrentCurrency.ToCurrencyDTO());
                     CurrentCurrency = new CurrencyDataViewModel(newCoin);
-                    MessageBox.Show("You successfully add new currency", "Excelent");
+                    MessageBox.Show("You successfully add new currency", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;

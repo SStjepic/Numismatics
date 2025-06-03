@@ -125,7 +125,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             CoinSearchDataViewModel = new CoinSearchDataViewModel();
             PageNumber = 1;
-            PageSize = 10;
+            PageSize = GlobalParams.PAGE_SIZE;
             TotalPages = _coinService.GetTotalPageNumber(PageSize);
 
             AddCoinCommand = new RelayCommand(c => CreateCoin());
@@ -213,6 +213,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             if (result == true)
             {
                 coinDetailsPage.Close();
+                TotalPages = _coinService.GetTotalPageNumber(PageSize);
                 GetCoins(PageNumber, PageSize, CoinSearchDataViewModel);
             }
         }
@@ -221,16 +222,18 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         {
             if (SelectedCoin != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected coin?", "Delete", MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected coin?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _coinService.Delete(SelectedCoin.ToCoinDTO());
+                    TotalPages = _coinService.GetTotalPageNumber(PageSize);
                     GetCoins(PageNumber, PageSize, CoinSearchDataViewModel);
+                    MessageBox.Show("You successfully deleted a coin.", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Please, select coin you want to delete", "Delete");
+                MessageBox.Show("Please, select coin you want to delete", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -238,7 +241,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         {
             if (SelectedCoin == null)
             {
-                MessageBox.Show("Please, select coin you want to update", "Update");
+                MessageBox.Show("Please, select coin you want to update", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

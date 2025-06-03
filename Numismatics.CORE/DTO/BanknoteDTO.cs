@@ -59,7 +59,9 @@ namespace Numismatics.CORE.DTO
 
         public Banknote ToBanknote()
         {
-            return new Banknote(Id, Country.Id, Currency.Id, Value,IsSubunit, IssueDate, ObversePicture, ReversePicture, Description, City, Banknotes);
+            long countryId = Country != null ? Country.Id : -1;
+            long currencyId = Currency != null ? Currency.Id : -1;
+            return new Banknote(Id, countryId, currencyId, Value,IsSubunit, IssueDate, ObversePicture, ReversePicture, Description, City, Banknotes);
         }
     }
 }

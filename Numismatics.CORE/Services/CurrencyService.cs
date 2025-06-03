@@ -79,8 +79,9 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _currencyRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize);
+            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
         }
+
 
         public CurrencyDTO? Update(CurrencyDTO entity)
         {

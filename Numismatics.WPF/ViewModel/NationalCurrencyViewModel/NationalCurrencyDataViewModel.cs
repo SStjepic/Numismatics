@@ -14,7 +14,12 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
         public long Id { get; set; }
         public CurrencyDataViewModel Currency { get; set; }
         public List<CountryDataViewModel> Countries { get; set; }
-        public NationalCurrencyDataViewModel() { }
+        public NationalCurrencyDataViewModel() 
+        {
+            Id = -1;
+            Currency = new CurrencyDataViewModel();
+            Countries = new List<CountryDataViewModel>();
+        }
         public NationalCurrencyDataViewModel(long id, CurrencyDataViewModel currency, List<CountryDataViewModel> countries)
         {
             Id = id;

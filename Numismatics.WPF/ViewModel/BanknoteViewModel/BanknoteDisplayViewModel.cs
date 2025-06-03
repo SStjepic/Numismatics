@@ -128,7 +128,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             BanknoteSearchDataViewModel = new BanknoteSearchDataViewModel();
             PageNumber = 1;
-            PageSize = 10;
+            PageSize = GlobalParams.PAGE_SIZE;
             TotalPages = _banknoteService.GetTotalPageNumber(PageSize);
 
             AddBanknoteCommand = new RelayCommand(c => CreateBanknote());
@@ -237,17 +237,18 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
         {
             if (SelectedBanknote != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected banknote?", "Delete", MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected banknote?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _banknoteService.Delete(SelectedBanknote.ToBanknoteDTO());
                     TotalPages = _banknoteService.GetTotalPageNumber(PageSize);
                     GetBanknotes(PageNumber, PageSize, BanknoteSearchDataViewModel);
+                    MessageBox.Show("You successfully deleted a banknote.", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Please, select banknote you want to delete", "Delete");
+                MessageBox.Show("Please, select banknote you want to delete.", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -255,7 +256,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
         {
             if (SelectedBanknote == null)
             {
-                MessageBox.Show("Please, select banknote you want to update", "Update");
+                MessageBox.Show("Please, select banknote you want to update.", "Update",MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

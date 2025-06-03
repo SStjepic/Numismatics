@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:Numismatics.WPF.View.BanknoteView"
         mc:Ignorable="d"
         Title="BanknoteDetailsView" Height="800" Width="1300">
-    <Grid Style="{DynamicResource GridContainderStyle}">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="BanknoteTextBoxInputStyle">
+            <Setter  Property="Margin" Value="6"/>
+        </Style>
+
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="BanknoteComboBoxInputStyle">
+            <Setter  Property="Margin" Value="6"/>
+        </Style>
+    </Window.Resources>
+        <Grid Style="{DynamicResource GridContainderStyle}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -41,25 +50,25 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Country"  Style="{DynamicResource LabelStyle}"/>
-                    <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True" Margin="5"
-                  Style="{DynamicResource ComboBoxInputStyle}"
+                    <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True"
+                  Style="{DynamicResource BanknoteComboBoxInputStyle}"
                   ItemsSource="{Binding BanknoteCrudViewModel.AllCountries}" DisplayMemberPath="Name"
                   SelectedItem="{Binding BanknoteCrudViewModel.SelectedCountry}"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True" Margin="5"
-                    Style="{DynamicResource ComboBoxInputStyle}"
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True"
+                    Style="{DynamicResource BanknoteComboBoxInputStyle}"
                     ItemsSource="{Binding BanknoteCrudViewModel.Currencies}" DisplayMemberPath="Name"
                     SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrency}"/>
 
                     <Label Grid.Row="3" Grid.Column="0" Content="Value" Style="{DynamicResource LabelStyle}"/>
-                    <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
-                     Style="{DynamicResource TextBoxInputStyle}"
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
+                     Style="{DynamicResource BanknoteTextBoxInputStyle}"
                     Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
-                    <ComboBox Margin="5" Grid.Row="3" Grid.Column="2"
-                      Style="{DynamicResource ComboBoxInputStyle}"
+                    <ComboBox Grid.Row="3" Grid.Column="2"
+                      Style="{DynamicResource BanknoteComboBoxInputStyle}"
                       ItemsSource="{Binding BanknoteCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
                       SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrencyUnitName}"></ComboBox>  
 
@@ -72,33 +81,36 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Content="Day" Style="{DynamicResource LabelStyle}"></Label>
-                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="IssueDayTextBox" Margin="55,5,5,5"
+                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="IssueDayTextBox" Margin="50,10,5,10"
                          Style="{DynamicResource TextBoxInputStyle}"
-                    Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Day, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+                        Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Day, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
 
                         <Label Grid.Row="0" Grid.Column="1" Content="Month" Style="{DynamicResource LabelStyle}"></Label>
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="IssueMonthTextBox" Margin="55,5,5,5"
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="IssueMonthTextBox" Margin="50,10,5,10"
                          Style="{DynamicResource TextBoxInputStyle}"
-                    Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Month, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+                    Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Month,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
 
                         <Label Grid.Row="0" Grid.Column="2" Content="Year" Style="{DynamicResource LabelStyle}"></Label>
-                        <TextBox Grid.Row="0" Grid.Column="2" x:Name="IssueYearTextBox" Margin="55,5,5,5"
-                         Style="{DynamicResource TextBoxInputStyle}"
-                    Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Year, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" x:Name="IssueYearTextBox" Margin="50,10,5,10"
+                                 Style="{DynamicResource TextBoxInputStyle}"
+                                 Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.Year, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
                     </Grid>
 
 
 
 
                     <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Name="EraComboBox"
-                  SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.Era}"
-                  Style="{DynamicResource ComboBoxInputStyle}"> 
+                    <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="EraComboBox"
+                          SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.Era, Mode=TwoWay}"
+                          Style="{DynamicResource BanknoteComboBoxInputStyle}"> 
                     </ComboBox>
 
                     <Label Grid.Row="6" Grid.Column="0" Content="City" Style="{DynamicResource LabelStyle}"/>
-                    <TextBox Margin="5" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="CityTextBox"  TextWrapping="Wrap"
-                     Style="{DynamicResource TextBoxInputStyle}"
+                    <TextBox  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="CityTextBox"  TextWrapping="Wrap"
+                     Style="{DynamicResource BanknoteTextBoxInputStyle}"
                 Text="{Binding Path=BanknoteCrudViewModel.CurrentBanknote.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
@@ -125,7 +137,7 @@
                               TextWrapping="Wrap"
                               AcceptsReturn="True"/>
 
-                    <Label Content="{Binding BanknoteCrudViewModel.TotalNumberOfBanknotes, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="{Binding BanknoteCrudViewModel.NumberOfBanknotes, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
 
                     <ComboBox x:Name="BanknoteQualityComboBox" Style="{DynamicResource ComboBoxInputStyle}" SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteQuality}"  Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></ComboBox>
                     <TextBox x:Name="BanknoteCodeTextBox" Style="{DynamicResource TextBoxInputStyle}" Text="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteCode}" Grid.Row="3" Grid.Column="2" Margin="0,36,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></TextBox>

@@ -76,7 +76,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             CurrencySearchDataViewModel = new CurrencySearchDataViewModel();
 
             PageNumber = 1;
-            PageSize = 10;
+            PageSize = GlobalParams.PAGE_SIZE;
             TotalPages = _currencyService.GetTotalPageNumber(PageSize);
 
             AddCurrencyCommand = new RelayCommand(c => CreateCurrency());
@@ -131,6 +131,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             if (result == true)
             {
                 currencyDetailsPage.Close();
+                TotalPages = _currencyService.GetTotalPageNumber(PageSize);
                 GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
             }
         }
@@ -139,16 +140,17 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
         {
             if (SelectedCurrency != null)
             {
-                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected currency?", "Delete", MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete selected currency?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     _currencyService.Delete(SelectedCurrency.ToCurrencyDTO());
+                    TotalPages = _currencyService.GetTotalPageNumber(PageSize);
                     GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
                 }
             }
             else
             {
-                MessageBox.Show("Please, select currency you want to delete", "Delete");
+                MessageBox.Show("Please, select currency you want to delete", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -156,7 +158,7 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
         {
             if (SelectedCurrency == null)
             {
-                MessageBox.Show("Please, select currency you want to update", "Update");
+                MessageBox.Show("Please, select currency you want to update", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

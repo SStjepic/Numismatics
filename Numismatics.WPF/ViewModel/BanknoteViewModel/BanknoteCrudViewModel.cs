@@ -76,7 +76,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             set
             {
                 _selectedCurrencyUnitName = value;
-                if (value.Equals(CurrentBanknote.Currency.SubunitName))
+                if (CurrentBanknote.Currency != null && value.Equals(CurrentBanknote.Currency.SubunitName))
                 {
                     CurrentBanknote.SubunitString = value;
                 }
@@ -152,13 +152,16 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 OnPropertyChanged(nameof(SelectedCountry));
                 SelectedCurrency = Currencies.FirstOrDefault(c => c.Id == CurrentBanknote.Currency.Id);
                 OnPropertyChanged(nameof(SelectedCurrency));
-                if (CurrentBanknote.SubunitString == "")
+                if (SelectedCurrency != null)
                 {
-                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.MainUnitName));
-                }
-                else
-                {
-                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.SubunitName));
+                    if (CurrentBanknote.SubunitString == "")
+                    {
+                        SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.MainUnitName));
+                    }
+                    else
+                    {
+                        SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.SubunitName));
+                    }
                 }
                 OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
@@ -170,12 +173,12 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 if (_isUpdate)
                 {
                     _banknoteService.Update(CurrentBanknote.ToBanknoteDTO());
-                    MessageBox.Show("You successfully update banknote.", "Excelent");
+                    MessageBox.Show("You successfully update banknote.", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
                     _banknoteService.Create(CurrentBanknote.ToBanknoteDTO());
-                    MessageBox.Show("You successfully add new banknote.", "Excelent");
+                    MessageBox.Show("You successfully add new banknote.", "Excelent", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;
@@ -189,7 +192,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             {
                 if(CurrentBanknote.CurrentBanknoteCode == null)
                 {
-                    MessageBox.Show("Enter banknote code", "Error");
+                    MessageBox.Show("Enter banknote code", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknote.CurrentBanknoteQuality);
@@ -201,12 +204,12 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 }
                 else
                 {
-                    MessageBox.Show($"Already exist banknote with code: {CurrentBanknote.CurrentBanknoteCode}");
+                    MessageBox.Show($"Already exist banknote with code: {CurrentBanknote.CurrentBanknoteCode}","Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Choose banknote quality", "Error");
+                MessageBox.Show("Choose banknote quality", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -219,7 +222,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
             else
             {
-                MessageBox.Show("Please select coin <code,quality> pair", "Error");
+                MessageBox.Show("Please select coin <code,quality> pair", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -265,18 +268,24 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
         private void getCurrencies(CountryDataViewModel country)
         {
             Currencies.Clear();
-            foreach (var currency in _nationalCurrencyService.GetCurrencies(country.Id))
+            if(country != null)
             {
-                Currencies.Add(new CurrencyDataViewModel(currency));
+                foreach (var currency in _nationalCurrencyService.GetCurrencies(country.Id))
+                {
+                    Currencies.Add(new CurrencyDataViewModel(currency));
+                }
             }
         }
 
         private void getCurrencyValue(CurrencyDataViewModel currency)
         {
             CurrencyUnitNames.Clear();
-            CurrencyUnitNames.Add(currency.MainUnitName);
-            CurrencyUnitNames.Add(currency.SubunitName);
-            OnPropertyChanged(nameof(CurrencyUnitNames));
+            if (currency != null) 
+            {
+                CurrencyUnitNames.Add(currency.MainUnitName);
+                CurrencyUnitNames.Add(currency.SubunitName);
+                OnPropertyChanged(nameof(CurrencyUnitNames));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

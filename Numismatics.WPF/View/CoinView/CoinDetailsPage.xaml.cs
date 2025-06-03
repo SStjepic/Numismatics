@@ -26,6 +26,8 @@ namespace Numismatics.WPF.View.CoinView
     {
         public CoinCrudViewModel CoinCrudViewModel { get; set; }
         public NationalCurrencyCrudViewModel NationalCurrencyCrudViewModel { get; set; }
+
+        private bool _isUpdate;
         public CoinDetailsPage(CoinDataViewModel coin)
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace Numismatics.WPF.View.CoinView
 
             CoinCrudViewModel = new CoinCrudViewModel(coin);
             NationalCurrencyCrudViewModel = new NationalCurrencyCrudViewModel();
+            _isUpdate = coin != null? true: false;
             this.DataContext = this;
 
             SetComboBox();
@@ -43,10 +46,6 @@ namespace Numismatics.WPF.View.CoinView
             foreach (Era era in Enum.GetValues(typeof(Era)))
             {
                 EraComboBox.Items.Add(era);
-            }
-            if (CoinCrudViewModel.CurrentCoin != null)
-            {
-                EraComboBox.SelectedItem = CoinCrudViewModel.CurrentCoin.Era;
             }
             foreach (MoneyQuality banknoteQuality in Enum.GetValues(typeof(MoneyQuality)))
             {
