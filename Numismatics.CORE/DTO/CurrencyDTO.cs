@@ -11,27 +11,33 @@ namespace Numismatics.CORE.DTO
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public string HunderthPartName { get; set; }
+        public string SubunitName { get; set; }
+        public string MainUnitName {  get; set; }
+        public int SubunitToMainUnit { get; set; }
         public string Code { get; set; }
         public CurrencyDTO() { }
         public CurrencyDTO(Currency currency)
         {
             Id = currency.Id;
             Name = currency.Name;
-            HunderthPartName = currency.HunderthPartName;
+            SubunitName = currency.SubunitName;
+            MainUnitName = currency.MainUnitName;
+            SubunitToMainUnit = currency.SubunitToMainUnit;
             Code = currency.Code;
         }
-        public CurrencyDTO(long id, string name, string hunderthPartName, string code)
+        public CurrencyDTO(long id, string name, string mainUnitName, string subunitName, int subunitToMainUnit, string code)
         {
             Id = id;
             Name = name;
-            HunderthPartName = hunderthPartName;
+            SubunitName = subunitName;
+            MainUnitName = mainUnitName;
+            SubunitToMainUnit = subunitToMainUnit;
             Code = code;
         }
 
         public Currency ToCurrency()
         {
-            return new Currency(Id, Name, HunderthPartName, Code);
+            return new Currency(Id, Name,MainUnitName, SubunitName,SubunitToMainUnit,Code);
         }
 
         public override bool Equals(object? obj)

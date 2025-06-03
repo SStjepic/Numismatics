@@ -19,12 +19,12 @@ namespace Numismatics.CORE.Domain.Models
         public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
-        public bool HundertPart {  get; set; }
+        public bool IsSubunit {  get; set; }
         public Dictionary<MoneyQuality, int> Coins;
 
         public Coin() { }
 
-        public Coin(long id, long countryId, long currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
+        public Coin(long id, long countryId, long currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool isSubunit, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             CountryId = countryId;
@@ -35,7 +35,7 @@ namespace Numismatics.CORE.Domain.Models
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IssueDate = issueDate;
-            HundertPart = hundertPart;
+            IsSubunit = isSubunit;
             Coins = coins;  
         }
 

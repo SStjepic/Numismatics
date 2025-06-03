@@ -13,7 +13,7 @@ namespace Numismatics.CORE.Domain.Models
         public long CountryId { get; set; }
         public long CurrencyId { get; set; }
         public double Value { get; set; }
-        public bool HundertPart { get; set; }
+        public bool IsSubunit { get; set; }
         public Date IssueDate { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
@@ -22,13 +22,13 @@ namespace Numismatics.CORE.Domain.Models
         public Dictionary<string, MoneyQuality> Banknotes { get; set; }
         public Banknote() { }
 
-        public Banknote(long id, long countryId, long currencyId, double value, bool hundertPart, Date issueDate, string obversePicture, string reversePicture, string description, string city, Dictionary<string, MoneyQuality> banknotes)
+        public Banknote(long id, long countryId, long currencyId, double value, bool isSubunit, Date issueDate, string obversePicture, string reversePicture, string description, string city, Dictionary<string, MoneyQuality> banknotes)
         {
             Id = id;
             CountryId = countryId;
             CurrencyId = currencyId;
             Value = value;
-            HundertPart = hundertPart;
+            IsSubunit = isSubunit;
             IssueDate = issueDate;
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;

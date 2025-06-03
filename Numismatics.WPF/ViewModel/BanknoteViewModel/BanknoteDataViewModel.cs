@@ -52,14 +52,14 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
-        private string _hundertPart;
-        public string HundertPart
+        private string _subunitString;
+        public string SubunitString
         {
-            get { return _hundertPart; }
+            get { return _subunitString; }
             set
             {
-                _hundertPart = value;
-                OnPropertyChanged(nameof(HundertPart));
+                _subunitString = value;
+                OnPropertyChanged(nameof(SubunitString));
             }
         }
 
@@ -172,7 +172,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 Country = new CountryDataViewModel(banknoteDTO.Country);
                 Currency = new CurrencyDataViewModel(banknoteDTO.Currency);
                 Value = banknoteDTO.Value.ToString();
-                HundertPart = banknoteDTO.HundertPart == true ? Currency.HunderthPartName : "";
+                SubunitString = banknoteDTO.IsSubunit == true ? Currency.SubunitName : "";
                 Day = banknoteDTO.IssueDate.Day != 0 ? banknoteDTO.IssueDate.Day.ToString() : "";
                 Month = banknoteDTO.IssueDate.Month != 0 ? banknoteDTO.IssueDate.Month.ToString() : "";
                 Year = banknoteDTO.IssueDate.Year != 0 ? banknoteDTO.IssueDate.Year.ToString() : "";
@@ -285,8 +285,8 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 issueDate.Year = int.Parse(Year);
             }
             var value = int.Parse(Value);
-            var hundertPart = HundertPart != "" ? true : false;
-            return new BanknoteDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), value, hundertPart, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
+            var isSubunit = SubunitString != "" ? true : false;
+            return new BanknoteDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
         }
 
         private Dictionary<string, MoneyQuality> GetBanknotesDictionary()

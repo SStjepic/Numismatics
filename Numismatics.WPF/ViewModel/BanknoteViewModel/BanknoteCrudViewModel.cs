@@ -58,33 +58,33 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
-        private List<string> _currencyValue;
-        public List<string> CurrencyValue
+        private ObservableCollection<string> _currencyUnitNames;
+        public ObservableCollection<string> CurrencyUnitNames
         {
-            get => _currencyValue;
+            get => _currencyUnitNames;
             set
             {
-                _currencyValue = value;
-                OnPropertyChanged(nameof(CurrencyValue));
+                _currencyUnitNames = value;
+                OnPropertyChanged(nameof(CurrencyUnitNames));
             }
         }
 
-        private string _selectedCurrencyValue;
-        public string SelectedCurrencyValue
+        private string _selectedCurrencyUnitName;
+        public string SelectedCurrencyUnitName
         {
-            get => _selectedCurrencyValue;
+            get => _selectedCurrencyUnitName;
             set
             {
-                _selectedCurrencyValue = value;
-                if (value.Equals(CurrentBanknote.Currency.HunderthPartName))
+                _selectedCurrencyUnitName = value;
+                if (value.Equals(CurrentBanknote.Currency.SubunitName))
                 {
-                    CurrentBanknote.HundertPart = value;
+                    CurrentBanknote.SubunitString = value;
                 }
                 else
                 {
-                    CurrentBanknote.HundertPart = "";
+                    CurrentBanknote.SubunitString = "";
                 }
-                OnPropertyChanged(nameof(SelectedCurrencyValue));
+                OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
 
@@ -131,7 +131,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             _isUpdate = banknote != null ? true : false;
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             Currencies = new ObservableCollection<CurrencyDataViewModel>();
-            CurrencyValue = new List<string>();
+            CurrencyUnitNames = new ObservableCollection<string>();
 
             CreateBanknoteCommand = new RelayCommand(c => createBanknote());
             AddBanknoteCommand = new RelayCommand(c => addBanknote());
@@ -152,15 +152,15 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 OnPropertyChanged(nameof(SelectedCountry));
                 SelectedCurrency = Currencies.FirstOrDefault(c => c.Id == CurrentBanknote.Currency.Id);
                 OnPropertyChanged(nameof(SelectedCurrency));
-                if (CurrentBanknote.HundertPart == "")
+                if (CurrentBanknote.SubunitString == "")
                 {
-                    SelectedCurrencyValue = CurrencyValue.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.Name));
+                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.MainUnitName));
                 }
                 else
                 {
-                    SelectedCurrencyValue = CurrencyValue.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.HunderthPartName));
+                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.SubunitName));
                 }
-                OnPropertyChanged(nameof(SelectedCurrencyValue));
+                OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
         private bool createBanknote()
@@ -273,8 +273,10 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
 
         private void getCurrencyValue(CurrencyDataViewModel currency)
         {
-            CurrencyValue.Add(currency.Name);
-            CurrencyValue.Add(currency.HunderthPartName);
+            CurrencyUnitNames.Clear();
+            CurrencyUnitNames.Add(currency.MainUnitName);
+            CurrencyUnitNames.Add(currency.SubunitName);
+            OnPropertyChanged(nameof(CurrencyUnitNames));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

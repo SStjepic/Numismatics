@@ -30,7 +30,7 @@ namespace Numismatics.WPF.View.CurrencyView
         private void Save(object sender, RoutedEventArgs e)
         {
             CurrencyCrudViewModel.AddCurrencyCommand.Execute(this);
-            NationalCurrencyCrudViewModel.CurrentCurrency = CurrencyCrudViewModel.CurrentCurrency;
+            NationalCurrencyCrudViewModel.NationalCurrency.Currency = CurrencyCrudViewModel.CurrentCurrency;
             NationalCurrencyCrudViewModel.SaveNationalCurrencyCommand.Execute(this);
         }
     }

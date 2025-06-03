@@ -19,10 +19,10 @@ namespace Numismatics.CORE.DTO
         public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
-        public bool HundertPart {  get; set; }
+        public bool IsSubunit {  get; set; }
         public Dictionary<MoneyQuality, int> Coins { get; set; }
         public CoinDTO() { }
-        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool hundertPart, Dictionary<MoneyQuality, int> coins)
+        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool isSubunit, Dictionary<MoneyQuality, int> coins)
         {
             Id = id;
             Country = country;
@@ -33,7 +33,7 @@ namespace Numismatics.CORE.DTO
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IssueDate = issueDate;
-            HundertPart = hundertPart;
+            IsSubunit = isSubunit;
             Coins = coins;
         }
 
@@ -48,13 +48,13 @@ namespace Numismatics.CORE.DTO
             IssueDate = coin.IssueDate;
             Country = new CountryDTO(country);
             Currency = new CurrencyDTO(currency);
-            HundertPart = coin.HundertPart;
+            IsSubunit = coin.IsSubunit;
             Coins = coin.Coins;
         }
 
         public Coin ToCoin()
         {
-            return new Coin(Id, Country.Id, Currency.Id, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, HundertPart, Coins);
+            return new Coin(Id, Country.Id, Currency.Id, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, IsSubunit, Coins);
         }
 
         public override bool Equals(object? obj)

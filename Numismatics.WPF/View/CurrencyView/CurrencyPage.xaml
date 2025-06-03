@@ -52,7 +52,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
                                 ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Hunderth part name" Width="*" Binding="{Binding HunderthPartName}"
+                <DataGridTextColumn Header="Main unit name" Width="*" Binding="{Binding MainUnitName}"
+                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Subunit name" Width="*" Binding="{Binding SubunitName}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Code" Width="*" Binding="{Binding Code}"
                                 ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>

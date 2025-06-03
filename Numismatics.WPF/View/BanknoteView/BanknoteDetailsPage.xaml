@@ -60,8 +60,8 @@
 
                     <ComboBox Margin="5" Grid.Row="3" Grid.Column="2"
                       Style="{DynamicResource ComboBoxInputStyle}"
-                      ItemsSource="{Binding BanknoteCrudViewModel.CurrencyValue, UpdateSourceTrigger=PropertyChanged}" 
-                      SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrencyValue}"></ComboBox>  
+                      ItemsSource="{Binding BanknoteCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrencyUnitName}"></ComboBox>  
 
 
                     <Label Grid.Row="4" Grid.Column="0" Content="Issue date" Style="{DynamicResource LabelStyle}"/>

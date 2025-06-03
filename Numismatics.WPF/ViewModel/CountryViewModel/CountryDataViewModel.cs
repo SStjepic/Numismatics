@@ -203,5 +203,11 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
             EndYear = endYear == -1 ? GlobalParams.EmptyValue : endYear.ToString();
 
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is CountryDataViewModel model &&
+                   Id == model.Id;
+        }
     }
 }

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
@@ -29,16 +30,6 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
                 OnPropertyChanged(nameof(AllCountries));
             }
         }
-        private ObservableCollection<CountryDataViewModel> _selectedCountries;
-        public ObservableCollection<CountryDataViewModel> SelectedCountries
-        {
-            get => _selectedCountries;
-            set
-            {
-                _selectedCountries = value;
-                OnPropertyChanged(nameof(SelectedCountries));
-            }
-        }
 
         private CountryDataViewModel _selectedCountry;
         public CountryDataViewModel SelectedCountry
@@ -51,29 +42,49 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             }
         }
 
-        private ObservableCollection<CurrencyDataViewModel> _currentCurrencies;
-        public ObservableCollection<CurrencyDataViewModel> CurrentCurrencies
+        private bool _isUpdate;
+        private NationalCurrencyDataViewModel _nationalCurrency;
+        public NationalCurrencyDataViewModel NationalCurrency
         {
-            get => _currentCurrencies;
+            get => _nationalCurrency;
             set
             {
-                _currentCurrencies = value;
-                OnPropertyChanged(nameof(CurrentCurrencies));
-            }
-        }
-        private CurrencyDataViewModel _currentCurrency;
-        public CurrencyDataViewModel CurrentCurrency
-        {
-            get => _currentCurrency;
-            set
-            {
-                _currentCurrency = value;
-                OnPropertyChanged(nameof(CurrentCurrency));
+                _nationalCurrency = value;
+                OnPropertyChanged(nameof(NationalCurrency));
             }
         }
 
+        private ObservableCollection<CountryDataViewModel> _selectedCountries;
+        public ObservableCollection<CountryDataViewModel> SelectedCountries
+        {
+            get => _selectedCountries;
+            set
+            {
+                _selectedCountries = value;
+                OnPropertyChanged(nameof(SelectedCountries));
+            }
+        }
         public ICommand SelectCountryCommand {  get; set; }
+        public ICommand RemoveCountryCommand { get; set; }
         public ICommand SaveNationalCurrencyCommand { get; set; }
+
+        public NationalCurrencyCrudViewModel(CurrencyDataViewModel currencyData)
+        {
+            setup();
+            getAllCountries();
+            _isUpdate = currencyData != null ? true : false;
+            NationalCurrency = new NationalCurrencyDataViewModel();
+            if (currencyData != null)
+            {
+                var nationalCurrencyDTO = _nationalCurrencyService.Get(currencyData.Id);
+                if (nationalCurrencyDTO != null) 
+                {
+                    NationalCurrency.Id = currencyData.Id;
+                    NationalCurrency.Currency = new CurrencyDataViewModel(nationalCurrencyDTO.Currency);
+                    NationalCurrency.Countries = convertCountries(nationalCurrencyDTO.CountryDTOs);
+                }
+            }
+        }
 
         private void setup()
         {
@@ -82,15 +93,52 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             SelectedCountries = new ObservableCollection<CountryDataViewModel>();
             SelectCountryCommand = new RelayCommand(c => SelectCountry());
+            RemoveCountryCommand = new RelayCommand(c => RemoveCountry());
             SaveNationalCurrencyCommand = new RelayCommand(s => SaveNationalCurrency());
 
         }
-
+        private List<CountryDataViewModel> convertCountries(List<CountryDTO> countryDTOs)
+        {
+            List<CountryDataViewModel> result = new List<CountryDataViewModel>();
+            foreach (var country in countryDTOs) 
+            {
+                var countryDVM = new CountryDataViewModel(country);
+                result.Add(countryDVM);
+                SelectedCountries.Add(countryDVM);
+            }
+            return result;
+        }
         public void SelectCountry()
         {
-            if (!SelectedCountries.Contains(SelectedCountry))
+            if (SelectedCountry == null)
             {
+                MessageBox.Show($"You must select a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (!NationalCurrency.Countries.Contains(SelectedCountry))
+            {
+                NationalCurrency.Countries.Add(SelectedCountry);
                 SelectedCountries.Add(SelectedCountry);
+            }
+            else
+            {
+                MessageBox.Show($"The country  \"{SelectedCountry.Name}\" is already in the list.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        public void RemoveCountry()
+        {
+            if (SelectedCountry == null)
+            {
+                MessageBox.Show($"You must select a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (NationalCurrency.Countries.Contains(SelectedCountry))
+            {
+                NationalCurrency.Countries.Remove(SelectedCountry);
+                SelectedCountries.Remove(SelectedCountry);
+            }
+            else
+            {
+                MessageBox.Show($"The country  \"{SelectedCountry.Name}\" is not in the list.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         public NationalCurrencyCrudViewModel() 
@@ -107,33 +155,22 @@ namespace Numismatics.WPF.ViewModel.NationalCurrencyViewModel
             }
         }
 
-        private void getCountriesByCurrency(long currencyId)
-        {
-            foreach (var country in _nationalCurrencyService.GetCountries(currencyId))
-            {
-                SelectedCountries.Add(new CountryDataViewModel(country));
-            }
-        }
-
-        public NationalCurrencyCrudViewModel(CurrencyDataViewModel currencyData)
-        {
-            setup();
-            getAllCountries();
-            if (currencyData != null)
-            {
-                CurrentCurrency = currencyData;
-                getCountriesByCurrency(currencyData.Id);
-            }
-        }
-
         public void SaveNationalCurrency()
         {
             NationalCurrencyDTO nationalCurrencyDTO = new NationalCurrencyDTO();
-            nationalCurrencyDTO.Currency = CurrentCurrency.ToCurrencyDTO();
-            nationalCurrencyDTO.CountryDTOs = SelectedCountries
+            nationalCurrencyDTO.Id = _isUpdate? NationalCurrency.Id: -1;
+            nationalCurrencyDTO.Currency = NationalCurrency.Currency.ToCurrencyDTO();
+            nationalCurrencyDTO.CountryDTOs = NationalCurrency.Countries
                 .Select(c => c.ToCountryDTO())
                 .ToList();
-            _nationalCurrencyService.Create(nationalCurrencyDTO);
+            if (_isUpdate) 
+            {
+                _nationalCurrencyService.Update(nationalCurrencyDTO);
+            }
+            else
+            {
+                _nationalCurrencyService.Create(nationalCurrencyDTO);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

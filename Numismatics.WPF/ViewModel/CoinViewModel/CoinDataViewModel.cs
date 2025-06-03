@@ -50,14 +50,14 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(Value));
             }
         }
-        private string _hundertPart;
-        public string HundertPart
+        private string _subunitString;
+        public string SubunitString
         {
-            get { return _hundertPart; }
+            get { return _subunitString; }
             set
             {
-                _hundertPart = value;
-                OnPropertyChanged(nameof(HundertPart));
+                _subunitString = value;
+                OnPropertyChanged(nameof(SubunitString));
             }
         }
 
@@ -155,7 +155,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 Year = coin.IssueDate.Year;
                 Era = coin.IssueDate.Era;
                 Value = coin.Value;
-                HundertPart = coin.HundertPart == true ? Currency.HunderthPartName : "";
+                SubunitString = coin.IsSubunit == true ? Currency.SubunitName : "";
                 if (coin.Coins != null)
                 {
                     foreach (var coinQuality in coin.Coins)
@@ -183,9 +183,9 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
         public CoinDTO ToCoinDTO()
         {
             var issueDate = new Date(Year, Era);
-            var hundertPart = HundertPart != "" ? true : false;
+            var isSubunit = SubunitString != "" ? true : false;
             var coinDictionary = GetCoinsDictionary();
-            return new CoinDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), Value, Description, 0, ObversePicture, ReversePicture, issueDate, hundertPart, coinDictionary);
+            return new CoinDTO(Id, Country.ToCountryDTO(), Currency.ToCurrencyDTO(), Value, Description, 0, ObversePicture, ReversePicture, issueDate, isSubunit, coinDictionary);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

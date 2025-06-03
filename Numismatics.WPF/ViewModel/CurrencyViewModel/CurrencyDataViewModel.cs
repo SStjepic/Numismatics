@@ -11,24 +11,6 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
 {
     public class CurrencyDataViewModel : INotifyPropertyChanged, IDataErrorInfo
     {
-
-        public CurrencyDataViewModel() { }
-        public CurrencyDataViewModel(CurrencyDTO currencyDTO)
-        {
-            if (currencyDTO != null)
-            {
-                Id = currencyDTO.Id;
-                Name = currencyDTO.Name;
-                HunderthPartName = currencyDTO.HunderthPartName;
-                Code = currencyDTO.Code;
-            }
-
-        }
-
-        public CurrencyDTO ToCurrencyDTO()
-        {
-            return new CurrencyDTO(Id, Name, HunderthPartName, Code);
-        }
         public long Id { get; set; }
 
         private string _name;
@@ -42,25 +24,68 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
             }
         }
 
-        private string _hunderthPartName;
-        public string HunderthPartName
+        private string _mainUnitName;
+        public string MainUnitName
         {
-            get { return _hunderthPartName; }
+            get { return _mainUnitName; }
             set
             {
-                _hunderthPartName = value;
-                OnPropertyChanged(nameof(HunderthPartName));
+                _mainUnitName = value;
+                OnPropertyChanged(nameof(MainUnitName));
             }
         }
+
+        private string _subunitName;
+        public string SubunitName
+        {
+            get { return _subunitName; }
+            set
+            {
+                _subunitName = value;
+                OnPropertyChanged(nameof(SubunitName));
+            }
+        }
+
+        private int _subunitToMainUnit;
+        public int SubunitToMainUnit
+        {
+            get { return _subunitToMainUnit; }
+            set
+            {
+                _subunitToMainUnit = value;
+                OnPropertyChanged(nameof(SubunitToMainUnit));
+            }
+        }
+
         private string _code;
         public string Code
         {
             get { return _code; }
             set
             {
-                _code = value;
+                _code = value.ToUpper();
                 OnPropertyChanged(nameof(Code));
             }
+        }
+
+        public CurrencyDataViewModel() { }
+        public CurrencyDataViewModel(CurrencyDTO currencyDTO)
+        {
+            if (currencyDTO != null)
+            {
+                Id = currencyDTO.Id;
+                Name = currencyDTO.Name;
+                MainUnitName = currencyDTO.MainUnitName;
+                SubunitName = currencyDTO.SubunitName;
+                SubunitToMainUnit = currencyDTO.SubunitToMainUnit;
+                Code = currencyDTO.Code;
+            }
+
+        }
+
+        public CurrencyDTO ToCurrencyDTO()
+        {
+            return new CurrencyDTO(Id, Name, MainUnitName, SubunitName, SubunitToMainUnit, Code);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,11 +107,21 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                         return "Currency must have a name";
                     }
                 }
+                if (columnName == "Code")
+                {
+                    if (!string.IsNullOrEmpty(Code))
+                    {
+                        if(Code.Length != 3)
+                        {
+                            return "Currency code must contain 3 letters";
+                        }
+                    }
+                }
                 return null;
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "HunderthPartName", "Code", "Country" };
+        private readonly string[] _validatedProperties = { "Name", "MainUnitName","SubunitName", "Code", "Country" };
 
         public bool IsValid
         {

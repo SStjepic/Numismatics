@@ -42,7 +42,7 @@ namespace Numismatics.CORE.Services
             return banknoteDTO;
         }
 
-        public BanknoteDTO? Get(int entityId)
+        public BanknoteDTO? Get(long entityId)
         {
             throw new NotImplementedException();
         }

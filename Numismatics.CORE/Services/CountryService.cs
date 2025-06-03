@@ -30,7 +30,7 @@ namespace Numismatics.CORE.Services
             return entity;
         }
 
-        public CountryDTO? Get(int countryId)
+        public CountryDTO? Get(long countryId)
         {
             return new CountryDTO(_countryRepository.Get(countryId));
         }

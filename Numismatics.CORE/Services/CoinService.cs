@@ -33,7 +33,7 @@ namespace Numismatics.CORE.Services
             return entity;
         }
 
-        public CoinDTO? Get(int entityId)
+        public CoinDTO? Get(long entityId)
         {
             throw new NotImplementedException();
         }

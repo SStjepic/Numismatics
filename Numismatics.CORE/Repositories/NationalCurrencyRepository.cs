@@ -32,10 +32,10 @@ namespace Numismatics.CORE.Repositories
             return oldNationalCurrency;
         }
 
-        public NationalCurrency? Get(long id)
+        public NationalCurrency? Get(long currencyId)
         {
             var nationalCurrencies = GetAll();
-            return nationalCurrencies.Find(nc => nc.Id == id);
+            return nationalCurrencies.Find(nc => nc.CurrencyId == currencyId);
         }
 
         public List<NationalCurrency> GetAll()

@@ -5,12 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CurrencyView"
         mc:Ignorable="d"
-        Title="Currency" Height="450" Width="810"
+        Title="Currency" Height="550" Width="810"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="CurrencyTextBoxInputStyle">
+            <Setter  Property="Margin" Value="9"/>
+        </Style>
+
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="CurrencyComboBoxInputStyle">
+            <Setter  Property="Margin" Value="9"/>
+        </Style>
+
+        <Style TargetType="ListBox" x:Key="CurrencyListBoxStyle">
+            <Setter  Property="Margin" Value="9,0,9,9"/>
+            <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource SaveButtonStyle}" x:Key="CurrencySaveButtonStyle" >
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="10,0,10,0"/>
+        </Style>
+
+
+        <Style TargetType="Button" BasedOn="{StaticResource ExitButtonStyle}" x:Key="CurrencyExitButtonStyle" >
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="40" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="10,0,10,0"/>
+        </Style>
+    </Window.Resources>
     <Grid  Background="#FF151735">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
             <RowDefinition Height="1.5*"></RowDefinition>
@@ -29,31 +65,55 @@
 
         <Label Grid.Row="0" Grid.Column="1" Content="Currency" Style="{DynamicResource LabelTitleStyle}"></Label>
 
-        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,19" Style="{DynamicResource TextBoxInputStyle}"
+        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
              Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
 
-        <Label Content="Hunderth part name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Row="2" Grid.Column="1"  Style="{DynamicResource TextBoxInputStyle}"
-             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.HunderthPartName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-             Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" Margin="0,0,0,19"></TextBox>
+        <Label Content="Main unit name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+        <TextBox Grid.Row="2" Grid.Column="1"  Style="{DynamicResource CurrencyTextBoxInputStyle}"
+              Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.MainUnitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
+        
+        <Label Content="Subunit name" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
+        <TextBox Grid.Row="3" Grid.Column="1"  Style="{DynamicResource CurrencyTextBoxInputStyle}" 
+             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+             Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
-        <Label Content="Currency code" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" ></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,19" Style="{DynamicResource TextBoxInputStyle}"
+        <Label Content="Subunit to unit" Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
+             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitToMainUnit, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
+        
+        <Label Content="Code" Grid.Row="5" Grid.Column="0" Style="{DynamicResource LabelStyle}" ></Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
              Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Code, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                 Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
 
-        <Label Content="Country" Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" ></Label>
-        <ComboBox Name="CountryComboBox" Grid.Column="1" Grid.Row="4" SelectedItem="{Binding NationalCurrencyCrudViewModel.SelectedCountry}" ItemsSource="{Binding NationalCurrencyCrudViewModel.AllCountries}" DisplayMemberPath="Name" Margin="0,0,0,19"></ComboBox>
-        <Button  x:Name="SelectCountryButton" Grid.Column="2" Grid.Row="4" Style="{DynamicResource SaveButtonStyle}" Margin="0,0,0,19" Command="{Binding NationalCurrencyCrudViewModel.SelectCountryCommand}">Select</Button>
-        <ListBox x:Name="CountryLB" Grid.Row="5" Grid.Column="1" Margin="0,0,0,15" Grid.RowSpan="3" 
-             ItemsSource="{Binding NationalCurrencyCrudViewModel.SelectedCountries}"
-            DisplayMemberPath="Name" SelectionMode="Single" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}">
+        <Label Content="Country" Grid.Row="6" Grid.Column="0" Style="{DynamicResource LabelStyle}" ></Label>
+        <ComboBox Name="CountryComboBox" Style="{DynamicResource CurrencyComboBoxInputStyle}" IsEditable="True" Grid.Column="1" Grid.Row="6" SelectedItem="{Binding NationalCurrencyCrudViewModel.SelectedCountry}" ItemsSource="{Binding NationalCurrencyCrudViewModel.AllCountries}" DisplayMemberPath="Name" ></ComboBox>
+        <Grid Grid.Column="2" Grid.Row="6" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button  x:Name="SelectCountryButton" Grid.Row="0" Grid.Column="0"
+                 Style="{DynamicResource CurrencySaveButtonStyle}"  
+                 Command="{Binding NationalCurrencyCrudViewModel.SelectCountryCommand}"
+                 FontFamily="Segoe MDL2 Assets" FontSize="16">&#xE710;</Button>
+            
+            <Button  x:Name="RemoveCountryButton" Grid.Row="0" Grid.Column="1"
+                 Style="{DynamicResource CurrencyExitButtonStyle}" 
+                 Command="{Binding NationalCurrencyCrudViewModel.RemoveCountryCommand}"
+                 FontFamily="Segoe MDL2 Assets" FontSize="16">&#xE74D;</Button>
+        </Grid>
 
+        <ListBox x:Name="CountryLB" Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" 
+             ItemsSource="{Binding NationalCurrencyCrudViewModel.SelectedCountries, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="Name" Style="{DynamicResource CurrencyListBoxStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}">
         </ListBox>
 
-        <Grid Grid.Row="8" Grid.Column="1">
+        <Grid Grid.Row="10" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

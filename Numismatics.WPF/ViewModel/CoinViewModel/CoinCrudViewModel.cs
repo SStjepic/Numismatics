@@ -47,36 +47,6 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             }
         }
 
-        private List<string> _currencyValue;
-        public List<string> CurrencyValue
-        {
-            get => _currencyValue;
-            set
-            {
-                _currencyValue = value;
-                OnPropertyChanged(nameof(CurrencyValue));
-            }
-        }
-
-        private string _selectedCurrencyValue;
-        public string SelectedCurrencyValue
-        {
-            get => _selectedCurrencyValue;
-            set
-            {
-                _selectedCurrencyValue = value;
-                if (value.Equals(CurrentCoin.Currency.HunderthPartName)) 
-                {
-                    CurrentCoin.HundertPart = value;
-                }
-                else
-                {
-                    CurrentCoin.HundertPart = "";
-                }
-                    OnPropertyChanged(nameof(SelectedCurrencyValue));
-            }
-        }
-
         private CountryDataViewModel _selectedCountry;
         public CountryDataViewModel SelectedCountry
         {
@@ -87,6 +57,36 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 CurrentCoin.Country = value;
                 getCurrencies(value);
                 OnPropertyChanged(nameof(SelectedCountry));
+            }
+        }
+
+        private ObservableCollection<string> _currencyUnitNames;
+        public ObservableCollection<string> CurrencyUnitNames
+        {
+            get => _currencyUnitNames;
+            set
+            {
+                _currencyUnitNames = value;
+                OnPropertyChanged(nameof(CurrencyUnitNames));
+            }
+        }
+
+        private string _selectedCurrencyUnitName;
+        public string SelectedCurrencyUnitName
+        {
+            get => _selectedCurrencyUnitName;
+            set
+            {
+                _selectedCurrencyUnitName = value;
+                if (value.Equals(CurrentCoin.Currency.SubunitName)) 
+                {
+                    CurrentCoin.SubunitString = value;
+                }
+                else
+                {
+                    CurrentCoin.SubunitString = "";
+                }
+                    OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
 
@@ -134,7 +134,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             _isUpdate = coin != null ? true : false;
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             Currencies = new ObservableCollection<CurrencyDataViewModel>();
-            CurrencyValue = new List<string>();
+            CurrencyUnitNames = new ObservableCollection<string>();
 
             AddCoinCommand = new RelayCommand(c => createCoin());
             AddCoinQualityCommand = new RelayCommand(c =>  addCoinQuality());
@@ -156,15 +156,15 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(SelectedCountry));
                 SelectedCurrency = Currencies.FirstOrDefault(c => c.Id == CurrentCoin.Currency.Id);
                 OnPropertyChanged(nameof(SelectedCurrency));
-                if (CurrentCoin.HundertPart == "")
+                if (CurrentCoin.SubunitString == "")
                 {
-                    SelectedCurrencyValue = CurrencyValue.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.Name));
+                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.MainUnitName));
                 }
                 else
                 {
-                    SelectedCurrencyValue = CurrencyValue.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.HunderthPartName));
+                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.SubunitName));
                 }
-                OnPropertyChanged(nameof(SelectedCurrencyValue));
+                OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
         private void getAllCountries()
@@ -186,8 +186,10 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
 
         private void getCurrencyValue(CurrencyDataViewModel currency)
         {
-            CurrencyValue.Add(currency.Name);
-            CurrencyValue.Add(currency.HunderthPartName);
+            CurrencyUnitNames   .Clear();
+            CurrencyUnitNames.Add(currency.MainUnitName);
+            CurrencyUnitNames.Add(currency.SubunitName);
+            OnPropertyChanged(nameof(CurrencyUnitNames));
         }
 
         private bool createCoin()

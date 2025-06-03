@@ -139,6 +139,8 @@
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="FontSize" Value="18"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="GridContainderStyle" TargetType="Grid">

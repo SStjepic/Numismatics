@@ -47,8 +47,8 @@
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}" />
                 <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True" Margin="5"
-                      ItemsSource="{Binding CoinCrudViewModel.Currencies}" DisplayMemberPath="Name"
-                      SelectedItem="{Binding CoinCrudViewModel.SelectedCurrency}"
+                      ItemsSource="{Binding CoinCrudViewModel.Currencies, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"
+                      SelectedItem="{Binding CoinCrudViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource ComboBoxInputStyle}"
                       />
 
@@ -59,8 +59,8 @@
                          Style="{DynamicResource TextBoxInputStyle}"></TextBox>
                 <ComboBox Margin="5" Grid.Row="3" Grid.Column="3"
                           Style="{DynamicResource ComboBoxInputStyle}"
-                          ItemsSource="{Binding CoinCrudViewModel.CurrencyValue, UpdateSourceTrigger=PropertyChanged}" 
-                          SelectedItem="{Binding CoinCrudViewModel.SelectedCurrencyValue}"></ComboBox>
+                          ItemsSource="{Binding CoinCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedItem="{Binding CoinCrudViewModel.SelectedCurrencyUnitName, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
 
 
                 <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" />

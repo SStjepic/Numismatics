@@ -38,6 +38,10 @@ namespace Numismatics.CORE.DTO
         public NationalCurrency ToNationalCurrency()
         {
             var countries = new List<long>();
+            if (CountryDTOs.Count == 0) 
+            {
+                return new NationalCurrency(Id, Currency.Id, countries);
+            }
             foreach (var country in CountryDTOs)
             { 
                 countries.Add(country.Id);

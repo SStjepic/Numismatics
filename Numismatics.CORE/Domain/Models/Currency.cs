@@ -10,17 +10,23 @@ namespace Numismatics.CORE.Domain.Models
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public string HunderthPartName { get; set; }
+        public string SubunitName { get; set; }
+        public string MainUnitName { get; set; }
+        public int SubunitToMainUnit { get; set; }
         public string Code { get; set; }
 
         public Currency() { }
-        public Currency(long id, string name, string hunderthPartName, string code)
+
+        public Currency(long id, string name, string mainUnitName, string subunitName, int subunitToMainUnit, string code)
         {
             Id = id;
             Name = name;
-            HunderthPartName = hunderthPartName;
+            SubunitName = subunitName;
+            MainUnitName = mainUnitName;
+            SubunitToMainUnit = subunitToMainUnit;
             Code = code;
         }
+
         public override bool Equals(object? obj)
         {
             return obj is Currency currency &&
