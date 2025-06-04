@@ -71,7 +71,11 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
         public CurrencyDataViewModel() { }
         public CurrencyDataViewModel(CurrencyDTO currencyDTO)
         {
-            if (currencyDTO.Id != -1)
+            if(currencyDTO == null || currencyDTO.Id == -1)
+            {
+                Id = -1;
+            }
+            else
             {
                 Id = currencyDTO.Id;
                 Name = currencyDTO.Name;
@@ -80,11 +84,6 @@ namespace Numismatics.WPF.ViewModel.CurrencyViewModel
                 SubunitToMainUnit = currencyDTO.SubunitToMainUnit;
                 Code = currencyDTO.Code;
             }
-            else
-            {
-                Id = -1;
-            }
-
         }
 
         public CurrencyDTO ToCurrencyDTO()

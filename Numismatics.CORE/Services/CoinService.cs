@@ -96,7 +96,7 @@ namespace Numismatics.CORE.Services
                         .ToList();
                 }
             }
-            var selectedCoins = coins.Skip((pageNumber) * pageSize).Take(pageSize).ToList();
+            var selectedCoins = coins.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             var coinDTOs = new List<CoinDTO>();
             foreach(var coin in coins)
             {
@@ -110,7 +110,7 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _coinRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
+            return Math.Max(1, (int)Math.Ceiling((double)totalItems / pageSize));
         }
 
         public CoinDTO? Update(CoinDTO entity)

@@ -68,7 +68,7 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _banknoteRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
+            return Math.Max(1,(int)Math.Ceiling((double)totalItems / pageSize));
         }
 
 
@@ -109,7 +109,7 @@ namespace Numismatics.CORE.Services
             } 
 
             var currentBanknotes = new List<BanknoteDTO>();
-            var selectedBanknotes = banknotes.Skip((pageNumber) * pageSize).Take(pageSize).ToList();
+            var selectedBanknotes = banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             CurrencyRepository _currencyRepository = new CurrencyRepository();
             CountryRepository _countryRepository = new CountryRepository();
             var countries = _countryRepository.GetAll();

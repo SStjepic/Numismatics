@@ -18,8 +18,8 @@ namespace Numismatics.CORE.Domain.Enum
 
     public enum Era
     {
-        BC,
-        AC
+        BCE,
+        CE
     }
 
     public enum Images

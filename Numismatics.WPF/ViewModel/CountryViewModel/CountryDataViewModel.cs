@@ -96,7 +96,11 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
         public CountryDataViewModel() { }
         public CountryDataViewModel(CountryDTO country)
         {
-            if (country.Id != -1)
+            if(country == null || country.Id == -1)
+            {
+                SetYears(-1, -1);
+            }
+            else
             {
                 Id = country.Id;
                 Name = country.Name;
@@ -106,10 +110,6 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                 StartYearEra = country.StartYear.Era;
                 EndYearEra = country.EndYear.Era;
 
-            }
-            else
-            {
-                SetYears(-1, -1);
             }
         }
         public CountryDTO ToCountryDTO()
@@ -158,7 +158,7 @@ namespace Numismatics.WPF.ViewModel.CountryViewModel
                     {
                         return "Enter a valid year.";
                     }
-                    else if (StartYearEra == Era.AC && year > DateTime.Now.Year)
+                    else if (StartYearEra == Era.CE && year > DateTime.Now.Year)
                     {
                         return "Enter a correct year.";
                     }

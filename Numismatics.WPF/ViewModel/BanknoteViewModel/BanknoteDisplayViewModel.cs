@@ -168,7 +168,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             if (PageNumber+1 <= TotalPages) 
             {
                 PageNumber++;
-                GetBanknotes(PageNumber, TotalPages, BanknoteSearchDataViewModel);
+                GetBanknotes(PageNumber, PageSize, BanknoteSearchDataViewModel);
             }
         }
 

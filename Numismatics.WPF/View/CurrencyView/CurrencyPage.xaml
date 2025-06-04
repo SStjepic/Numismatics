@@ -51,13 +51,13 @@
               >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
-                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Main unit name" Width="*" Binding="{Binding MainUnitName}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Subunit name" Width="*" Binding="{Binding SubunitName}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Code" Width="*" Binding="{Binding Code}"
-                                ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

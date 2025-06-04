@@ -49,15 +49,15 @@
                   >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Issue year" Width="*" Binding="{Binding Year}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Era" Width="*" Binding="{Binding Era}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}"></DataGridTextColumn>
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">

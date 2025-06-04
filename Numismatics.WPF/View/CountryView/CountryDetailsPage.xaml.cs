@@ -56,8 +56,8 @@ namespace Numismatics.WPF.View.CountryView
             }
             else
             {
-                StartYearEraComboBox.SelectedItem = Era.AC;
-                EndYearEraComboBox.SelectedItem = Era.AC;
+                StartYearEraComboBox.SelectedItem = Era.CE;
+                EndYearEraComboBox.SelectedItem = Era.CE;
             }
 
         }

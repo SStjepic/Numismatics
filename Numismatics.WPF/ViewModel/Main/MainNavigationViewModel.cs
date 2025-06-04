@@ -50,6 +50,8 @@ namespace Numismatics.WPF.ViewModel.Main
             DisplayCoinPageCommand = new RelayCommand(c => SetCoinPage());
             DisplayCountryPageCommand = new RelayCommand(c => SetCountryPage());
             DisplayCurrencyPageCommand = new RelayCommand(c => SetCurrencyPage());
+
+            this.SetBanknotePage();
         }
 
         private void SetBanknotePage()

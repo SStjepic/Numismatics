@@ -79,7 +79,7 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             var totalItems = _currencyRepository.GetAll().Count();
-            return (int)Math.Ceiling((double)totalItems / pageSize) + 1;
+            return Math.Max(1, (int)Math.Ceiling((double)totalItems / pageSize));
         }
 
 

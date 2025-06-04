@@ -192,7 +192,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
             else
             {
-                Era = Era.AC;
+                Era = Era.CE;
             }
         }
 
@@ -284,7 +284,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                         return null;
                     }
                     int year = StringToInt(Year);
-                    if (year == -1 || (year > DateTime.Now.Year && Era == Era.AC))
+                    if (year == -1 || (year > DateTime.Now.Year && Era == Era.CE))
                     {
                         return "Invalid year.";
                     }
@@ -369,6 +369,10 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             return banknotesDictionary;
         }
 
-        
+        public override bool Equals(object obj)
+        {
+            return obj is BanknoteDataViewModel model &&
+                   Id == model.Id;
+        }
     }
 }
