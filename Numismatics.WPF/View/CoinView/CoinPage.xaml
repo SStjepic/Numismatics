@@ -52,9 +52,11 @@
                                      ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
                                      ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="Unit" Width="*" Binding="{Binding UnitName}"
+                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Issue year" Width="*" Binding="{Binding Year}"
                                      ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Era" Width="*" Binding="{Binding Era}"
+                <DataGridTextColumn Header="Era" Width="0.2*" Binding="{Binding Era}"
                                      ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
                                      ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>

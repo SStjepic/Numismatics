@@ -80,11 +80,11 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 _selectedCurrencyUnitName = value;
                 if (CurrentCoin.Currency != null && value.Equals(CurrentCoin.Currency.SubunitName)) 
                 {
-                    CurrentCoin.SubunitString = value;
+                    CurrentCoin.UnitName = value;
                 }
                 else
                 {
-                    CurrentCoin.SubunitString = "";
+                    CurrentCoin.UnitName = CurrentCoin.Currency.MainUnitName;
                 }
                 OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
@@ -156,7 +156,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(SelectedCountry));
                 SelectedCurrency = Currencies.FirstOrDefault(c => c.Id == CurrentCoin.Currency.Id);
                 OnPropertyChanged(nameof(SelectedCurrency));
-                if (CurrentCoin.SubunitString == "")
+                if (CurrentCoin.UnitName == CurrentCoin.Currency.MainUnitName)
                 {
                     SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.MainUnitName));
                 }

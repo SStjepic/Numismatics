@@ -50,14 +50,14 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 OnPropertyChanged(nameof(Value));
             }
         }
-        private string _subunitString;
-        public string SubunitString
+        private string _unitName;
+        public string UnitName
         {
-            get { return _subunitString; }
+            get { return _unitName; }
             set
             {
-                _subunitString = value;
-                OnPropertyChanged(nameof(SubunitString));
+                _unitName = value;
+                OnPropertyChanged(nameof(UnitName));
             }
         }
 
@@ -155,7 +155,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
                 Year = coin.IssueDate.Year != 0? coin.IssueDate.Year.ToString(): "";
                 Era = coin.IssueDate.Era;
                 Value = coin.Value.ToString();
-                SubunitString = coin.IsSubunit == true ? Currency.SubunitName : "";
+                UnitName = coin.IsSubunit == true ? Currency.SubunitName : Currency.MainUnitName;
                 if (coin.Coins != null)
                 {
                     foreach (var coinQuality in coin.Coins)
@@ -192,7 +192,7 @@ namespace Numismatics.WPF.ViewModel.CoinViewModel
             {
                 issueDate.Year = int.Parse(Year);
             }
-            var isSubunit = SubunitString != "" ? true : false;
+            var isSubunit = string.Equals(UnitName, Currency.SubunitName) ? true : false;
             var coinDictionary = GetCoinsDictionary();
             int value = int.TryParse(Value, out var parsed) ? parsed : 0;
             var country = Country != null? Country.ToCountryDTO(): null;

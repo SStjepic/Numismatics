@@ -78,11 +78,11 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 _selectedCurrencyUnitName = value;
                 if (CurrentBanknote.Currency != null && value.Equals(CurrentBanknote.Currency.SubunitName))
                 {
-                    CurrentBanknote.SubunitString = value;
+                    CurrentBanknote.UnitName = value;
                 }
                 else
                 {
-                    CurrentBanknote.SubunitString = "";
+                    CurrentBanknote.UnitName = CurrentBanknote.Currency.MainUnitName;
                 }
                 OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
@@ -154,7 +154,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 OnPropertyChanged(nameof(SelectedCurrency));
                 if (SelectedCurrency != null)
                 {
-                    if (CurrentBanknote.SubunitString == "")
+                    if (CurrentBanknote.UnitName == CurrentBanknote.Currency.MainUnitName)
                     {
                         SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentBanknote.Currency.MainUnitName));
                     }

@@ -77,7 +77,7 @@ namespace Numismatics.CORE.Services
             var banknotes = _banknoteRepository.GetAll();
 
             var searchParams = param as BanknoteSearchDataDTO;
-            if (searchParams != null) 
+            if (searchParams != null)
             {
                 if (searchParams.Value > 0)
                 {
@@ -106,14 +106,22 @@ namespace Numismatics.CORE.Services
                         .Where(b => b.CurrencyId == searchParams.Currency.Id)
                         .ToList();
                 }
-            } 
+            }
+
+            banknotes = banknotes
+                .OrderByDescending(b => b.IssueDate)
+                .ThenBy(b => b.IsSubunit)
+                .ThenByDescending(b => b.Value)
+                .ToList();
+
+            var selectedBanknotes = banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
 
             var currentBanknotes = new List<BanknoteDTO>();
-            var selectedBanknotes = banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             CurrencyRepository _currencyRepository = new CurrencyRepository();
             CountryRepository _countryRepository = new CountryRepository();
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
+
             foreach (var banknote in selectedBanknotes)
             {
                 var country = countries.Find(c => c.Id == banknote.CountryId);
@@ -123,6 +131,7 @@ namespace Numismatics.CORE.Services
 
             return currentBanknotes;
         }
+
 
         public int GetTotalBanknotesNumber()
         {

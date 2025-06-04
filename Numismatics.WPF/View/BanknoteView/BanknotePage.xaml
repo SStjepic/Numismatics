@@ -51,9 +51,9 @@
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding IssueDate}"
+                <DataGridTextColumn Header="Unit" Width="*" Binding="{Binding UnitName}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Width="*" Binding="{Binding City}"
+                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding IssueDate}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>

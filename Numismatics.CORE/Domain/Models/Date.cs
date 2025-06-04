@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Domain.Models
 {
-    public class Date
+    public class Date: IComparable<Date>
     {
         public int Day {  get; set; }
         public int Month { get; set; }
@@ -37,6 +37,25 @@ namespace Numismatics.CORE.Domain.Models
             temp += Day == 0 ? "*" : Day.ToString() ;
 
             return temp;
+        }
+
+        public int CompareTo(Date? other)
+        {
+            if (other == null) return 1;
+
+            int eraComparison = Era.CompareTo(other.Era);
+            if (eraComparison != 0)
+                return eraComparison;
+
+            int yearComparison = Year.CompareTo(other.Year);
+            if (yearComparison != 0)
+                return yearComparison;
+
+            int monthComparison = Month.CompareTo(other.Month);
+            if (monthComparison != 0)
+                return monthComparison;
+
+            return Day.CompareTo(other.Day);
         }
 
     }

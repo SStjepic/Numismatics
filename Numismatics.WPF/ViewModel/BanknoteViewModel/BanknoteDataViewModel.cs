@@ -52,14 +52,14 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
             }
         }
 
-        private string _subunitString;
-        public string SubunitString
+        private string _unitName;
+        public string UnitName
         {
-            get { return _subunitString; }
+            get { return _unitName; }
             set
             {
-                _subunitString = value;
-                OnPropertyChanged(nameof(SubunitString));
+                _unitName = value;
+                OnPropertyChanged(nameof(UnitName));
             }
         }
 
@@ -172,7 +172,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 Country = new CountryDataViewModel(banknoteDTO.Country);
                 Currency = new CurrencyDataViewModel(banknoteDTO.Currency);
                 Value = banknoteDTO.Value != 0?banknoteDTO.Value.ToString():"";
-                SubunitString = banknoteDTO.IsSubunit == true ? Currency.SubunitName : "";
+                UnitName = banknoteDTO.IsSubunit == true ? Currency.SubunitName : Currency.MainUnitName;
                 Day = banknoteDTO.IssueDate.Day != 0 ? banknoteDTO.IssueDate.Day.ToString() : "";
                 Month = banknoteDTO.IssueDate.Month != 0 ? banknoteDTO.IssueDate.Month.ToString() : "";
                 Year = banknoteDTO.IssueDate.Year != 0 ? banknoteDTO.IssueDate.Year.ToString() : "";
@@ -352,7 +352,7 @@ namespace Numismatics.WPF.ViewModel.BanknoteViewModel
                 issueDate.Year = int.Parse(Year);
             }
             int value = int.TryParse(Value, out var parsed) ? parsed : 0;
-            var isSubunit = SubunitString != "" ? true : false;
+            var isSubunit = string.Equals(UnitName, Currency.SubunitName) ? true : false;
             var country = Country != null ? Country.ToCountryDTO() : null;
             var currency = Currency != null ? Currency.ToCurrencyDTO() : null;
             return new BanknoteDTO(Id, country, currency, value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);

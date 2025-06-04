@@ -96,6 +96,12 @@ namespace Numismatics.CORE.Services
                         .ToList();
                 }
             }
+
+            coins = coins
+               .OrderByDescending(b => b.IssueDate)
+               .ThenBy(b => b.IsSubunit)
+               .ThenByDescending(b => b.Value)
+               .ToList();
             var selectedCoins = coins.Skip(pageNumber * pageSize).Take(pageSize).ToList();
             var coinDTOs = new List<CoinDTO>();
             foreach(var coin in coins)
