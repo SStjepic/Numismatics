@@ -1,0 +1,104 @@
+﻿<Page x:Class="Numismatics.WPF.View.CurrencyView.CurrencyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Numismatics.WPF.View.CurrencyView"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Currency page">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.6*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Currency page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="70">
+                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CurrencyDisplayViewModel.AddCurrencyCommand}"/>
+                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CurrencyDisplayViewModel.UpdateCurrencyCommand}"/>
+                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CurrencyDisplayViewModel.DeleteCurrencyCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="{Binding CurrencyDisplayViewModel.TotalCurrenciesText, UpdateSourceTrigger=PropertyChanged}" 
+            Style="{DynamicResource LabelStyle}" Foreground="#FF151735"/>
+        </Grid>
+
+        <DataGrid Grid.Row="3"
+        ItemsSource="{Binding CurrencyDisplayViewModel.CurrentCurrencies, UpdateSourceTrigger=PropertyChanged}"
+        SelectedItem="{Binding CurrencyDisplayViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
+        MouseDoubleClick ="ShowCurrency"
+        HeadersVisibility="Column"
+         
+        AutoGenerateColumns="False"
+        IsReadOnly="True"
+        CanUserAddRows="False"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+              >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="Main unit name" Width="*" Binding="{Binding MainUnitName}"
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="Subunit name" Width="*" Binding="{Binding SubunitName}"
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="Code" Width="*" Binding="{Binding Code}"
+                                ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.35*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Name" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
+                        Text="{Binding CurrencyDisplayViewModel.CurrencySearchDataViewModel.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="0" Grid.Column="1" Content="Code" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
+                        Text="{Binding CurrencyDisplayViewModel.CurrencySearchDataViewModel.Code, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Grid Grid.Row="1" Grid.Column="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button  Grid.Row="0" Grid.Column="0" Background="White" Command="{Binding CurrencyDisplayViewModel.SearchCommand}">
+                    <Image Source="/Images/SearchIcon.png"/>
+                </Button>
+
+                <Button  Grid.Row="0" Grid.Column="1" Background="White" Command="{Binding CurrencyDisplayViewModel.RefreshSearchCommand}">
+                    <Image Source="/Images/RefreshIcon.png"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

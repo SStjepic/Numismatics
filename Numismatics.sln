@@ -1,9 +1,12 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numismatics", "Numismatics\Numismatics.csproj", "{1BBDA184-079E-44FB-96E6-B835C2CF751F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numismatics.CORE", "Numismatics.CORE\Numismatics.CORE.csproj", "{801A85E3-DB13-470C-BF4F-1F449181E120}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numismatics.WPF", "Numismatics.WPF\Numismatics.WPF.csproj", "{A6DA8DC9-9FCE-48C6-9413-7B15E5B2E5A2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Numismatics", "Numismatics\Numismatics.vdproj", "{BE8A37B6-B1BA-73A8-02C3-E96EC306143B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +14,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BBDA184-079E-44FB-96E6-B835C2CF751F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801A85E3-DB13-470C-BF4F-1F449181E120}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6DA8DC9-9FCE-48C6-9413-7B15E5B2E5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6DA8DC9-9FCE-48C6-9413-7B15E5B2E5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6DA8DC9-9FCE-48C6-9413-7B15E5B2E5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6DA8DC9-9FCE-48C6-9413-7B15E5B2E5A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE8A37B6-B1BA-73A8-02C3-E96EC306143B}.Debug|Any CPU.ActiveCfg = Debug
+		{BE8A37B6-B1BA-73A8-02C3-E96EC306143B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
