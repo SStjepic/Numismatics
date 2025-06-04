@@ -5,9 +5,14 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <ApplicationIcon>Images\icons8-coins-96.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\icons8-coins-96.ico" />
     <None Remove="Images\SearchIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\icons8-coins-96.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\SearchIcon.png">

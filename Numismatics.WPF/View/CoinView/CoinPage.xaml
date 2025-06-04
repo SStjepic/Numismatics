@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Numismatics.WPF.View.CoinView"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CoinPage">
+      Title="Coin page">
 
     <Grid Background="White">
         <Grid.RowDefinitions>

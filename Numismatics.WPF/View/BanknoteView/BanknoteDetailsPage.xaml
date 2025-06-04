@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.BanknoteView"
         mc:Ignorable="d"
-        Title="BanknoteDetailsView" Height="800" Width="1300">
+        Title="Banknote details" Height="800" Width="1300">
     <Window.Resources>
         <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="BanknoteTextBoxInputStyle">
             <Setter  Property="Margin" Value="6"/>
@@ -170,8 +170,9 @@
 
                 <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add obverse picture" Command="{Binding BanknoteCrudViewModel.AddObversePictureCommand}"  Style="{DynamicResource SaveButtonStyle}" FontSize="15"/>
                 <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Command="{Binding BanknoteCrudViewModel.DeleteObversePictureCommand}" Style="{DynamicResource ExitButtonStyle}" FontSize="15"  />
-                <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-                    <Image x:Name="ObversePicture" Source="{Binding BanknoteCrudViewModel.CurrentBanknote.ObversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="25">
+                    <Image x:Name="ObversePicture" 
+                           Source="{Binding BanknoteCrudViewModel.CurrentBanknote.ObversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
                 </Grid>
             </Grid>
 
@@ -187,7 +188,7 @@
 
                 <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add reverse picture" Command="{Binding BanknoteCrudViewModel.AddReversePictureCommand}" Style="{DynamicResource SaveButtonStyle}" FontSize="15"/>
                 <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Command="{Binding BanknoteCrudViewModel.DeleteReversePictureCommand}" Style="{DynamicResource ExitButtonStyle}" FontSize="15" />
-                <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+                <Grid Grid.Row="1" Grid.Column="0" Margin="25">
                     <Image x:Name="ReversePicture"  Source="{Binding BanknoteCrudViewModel.CurrentBanknote.ReversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
                 </Grid>
             </Grid>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Numismatics.WPF.View.CountryView"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CountryPage">
+      Title="Country page">
 
     <Grid Background="White">
         <Grid.RowDefinitions>

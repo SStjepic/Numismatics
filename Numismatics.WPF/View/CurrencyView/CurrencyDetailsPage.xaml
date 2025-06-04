@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CurrencyView"
         mc:Ignorable="d"
-        Title="Currency" Height="550" Width="810"
+        Title="Currency details" Height="550" Width="810"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CoinView"
         mc:Ignorable="d"
-        Title="Coin" Height="800" Width="1300" Background="#FF151735">
+        Title="Coin details" Height="800" Width="1300" Background="#FF151735">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -138,7 +138,7 @@
 
             <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add obverse picture" Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddObversePictureCommand}" />
             <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteObversePictureCommand}"/>
-            <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+            <Grid Grid.Row="1" Grid.Column="0" Margin="25">
                 <Image Source="{Binding CoinCrudViewModel.CurrentCoin.ObversePicture, Converter={StaticResource ImagePathToBitmapConverter}}" />
             </Grid>
         </Grid>
@@ -155,7 +155,7 @@
 
             <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add reverse picture"  Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddReversePictureCommand}" />
             <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteReversePictureCommand}" />
-            <Grid Grid.Row="1" Grid.Column="0" Margin="5">
+            <Grid Grid.Row="1" Grid.Column="0" Margin="25">
                 <Image x:Name="ReversePicture"  Source="{Binding CoinCrudViewModel.CurrentCoin.ReversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
             </Grid>
         </Grid>

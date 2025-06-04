@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Numismatics.WPF.View.CurrencyView"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CurrencyPage">
+      Title="Currency page">
 
     <Grid Background="White">
         <Grid.RowDefinitions>

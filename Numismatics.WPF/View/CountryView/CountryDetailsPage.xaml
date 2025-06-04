@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CountryView"
         mc:Ignorable="d"
-        Title="CountryDetailsPage" Height="450" Width="800">
+        Title="Country details" Height="450" Width="800">
     <Grid Background="#FF151735">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
