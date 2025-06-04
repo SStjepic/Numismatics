@@ -65,7 +65,9 @@
                   Style="{DynamicResource TextBoxInputStyle}"
                   Text="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                   Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
-            <ComboBox x:Name="StartYearEraComboBox" Grid.Column="1"  SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
+            <ComboBox x:Name="StartYearEraComboBox" Grid.Column="1"
+                      Style="{DynamicResource ComboBoxInputStyle}"
+                      SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
         </Grid>
 
         <!-- End Year -->
@@ -80,7 +82,9 @@
                   Style="{DynamicResource TextBoxInputStyle}"
                   Text="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                   Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
-            <ComboBox x:Name="EndYearEraComboBox" Grid.Column="1" SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
+            <ComboBox x:Name="EndYearEraComboBox" Grid.Column="1" 
+                      Style="{DynamicResource ComboBoxInputStyle}"
+                      SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
         </Grid>
 
         <!-- Buttons -->
