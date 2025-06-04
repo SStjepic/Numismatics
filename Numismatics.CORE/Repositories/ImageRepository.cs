@@ -11,8 +11,11 @@ namespace Numismatics.CORE.Repositories
 {
     public class ImageRepository
     {
-        private readonly string _baseFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
-
+        private readonly string _baseFolder = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "NumismaticsAppData",
+            "Images"
+        );
         public ImageRepository()
         {
             Directory.CreateDirectory(_baseFolder);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Repositories
 {
-    public class CurrencyRepository : Repository<Currency>, IRepository<Currency>
+    public class CurrencyRepository : JSONRepository<Currency>, IRepository<Currency>
     {
         public CurrencyRepository() 
         {

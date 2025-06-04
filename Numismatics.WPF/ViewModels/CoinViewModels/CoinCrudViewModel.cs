@@ -156,15 +156,18 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 OnPropertyChanged(nameof(SelectedCountry));
                 SelectedCurrency = Currencies.FirstOrDefault(c => c.Id == CurrentCoin.Currency.Id);
                 OnPropertyChanged(nameof(SelectedCurrency));
-                if (CurrentCoin.UnitName == CurrentCoin.Currency.MainUnitName)
+                if(SelectedCurrency != null)
                 {
-                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.MainUnitName));
+                    if (CurrentCoin.UnitName == CurrentCoin.Currency.MainUnitName)
+                    {
+                        SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.MainUnitName));
+                    }
+                    else
+                    {
+                        SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.SubunitName));
+                    }
+                    OnPropertyChanged(nameof(SelectedCurrencyUnitName));
                 }
-                else
-                {
-                    SelectedCurrencyUnitName = CurrencyUnitNames.FirstOrDefault(cv => cv.Equals(CurrentCoin.Currency.SubunitName));
-                }
-                OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
         }
         private void getAllCountries()

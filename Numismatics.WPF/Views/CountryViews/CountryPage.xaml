@@ -34,7 +34,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="{Binding CountryDisplayViewModel.TotalCountriesText, UpdateSourceTrigger=PropertyChanged}" 
-                    Style="{DynamicResource LabelStyle}" Foreground="#FF151735"/>
+                    Style="{DynamicResource LabelTitleStyle}" Foreground="#FF151735"/>
         </Grid>
 
         <DataGrid Grid.Row="3"

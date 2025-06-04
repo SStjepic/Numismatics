@@ -352,7 +352,11 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 issueDate.Year = int.Parse(Year);
             }
             int value = int.TryParse(Value, out var parsed) ? parsed : 0;
-            var isSubunit = string.Equals(UnitName, Currency.SubunitName) ? true : false;
+            var isSubunit = false;
+            if (UnitName != null && Currency != null) 
+            {
+                isSubunit = string.Equals(UnitName, Currency.SubunitName) ? true : false;
+            }
             var country = Country != null ? Country.ToCountryDTO() : null;
             var currency = Currency != null ? Currency.ToCurrencyDTO() : null;
             return new BanknoteDTO(Id, country, currency, value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);

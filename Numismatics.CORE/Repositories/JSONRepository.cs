@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Repositories
 {
-    public class Repository<T> where T : new()
+    public class JSONRepository<T> where T : new()
     {
-        private readonly string _dataFolderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+        private readonly string _dataFolderPath = System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "NumismaticsAppData",
+            "Data"
+        );
         private string _filePath;
         protected readonly Serializer _serializer = new();
         protected void SetFileName(string fileName)

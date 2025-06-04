@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="{Binding BanknoteDisplayViewModel.TotalBanknotesText, UpdateSourceTrigger=PropertyChanged}" 
-                   Style="{DynamicResource LabelStyle}" Foreground="#FF151735"/>
+                   Style="{DynamicResource LabelTitleStyle}" Foreground="#FF151735"/>
         </Grid>
 
         <DataGrid Grid.Row="3"

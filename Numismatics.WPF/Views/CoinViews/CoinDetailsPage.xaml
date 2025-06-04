@@ -6,8 +6,16 @@
         xmlns:local="clr-namespace:Numismatics.WPF.View.CoinView"
         mc:Ignorable="d"
         Title="Coin details" Height="800" Width="1300" Background="#FF151735">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="CoinTextBoxInputStyle">
+            <Setter  Property="Margin" Value="7"/>
+        </Style>
 
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="CoinComboBoxInputStyle">
+            <Setter  Property="Margin" Value="7"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -39,40 +47,41 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Country"  Style="{DynamicResource LabelStyle}"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True" Margin="5"
+                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True"
                       ItemsSource="{Binding CoinCrudViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" DisplayMemberPath="Name"
                       SelectedItem="{Binding CoinCrudViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource ComboBoxInputStyle}"
+                      Style="{DynamicResource CoinComboBoxInputStyle}"
                      />
 
                 <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}" />
-                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True" Margin="5"
+                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True"
                       ItemsSource="{Binding CoinCrudViewModel.Currencies, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"
                       SelectedItem="{Binding CoinCrudViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource ComboBoxInputStyle}"
+                      Style="{DynamicResource CoinComboBoxInputStyle}"
                       />
 
                 <Label Grid.Row="3" Grid.Column="0" Content="Value" Style="{DynamicResource LabelStyle}" />
-                <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
+                <TextBox Margin="7,7,7,8" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
-                         Style="{DynamicResource TextBoxInputStyle}"></TextBox>
-                <ComboBox Margin="5" Grid.Row="3" Grid.Column="3"
-                          Style="{DynamicResource ComboBoxInputStyle}"
+                         Style="{DynamicResource CoinTextBoxInputStyle}"></TextBox>
+                <ComboBox Margin="7,7,7,8" Grid.Row="3" Grid.Column="3"
+                          Style="{DynamicResource CoinComboBoxInputStyle}"
                           ItemsSource="{Binding CoinCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
                           SelectedItem="{Binding CoinCrudViewModel.SelectedCurrencyUnitName, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
 
 
                 <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" />
-                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox" Margin="5"
+                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox"
                      Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Year, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{DynamicResource TextBoxInputStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
+                     Style="{DynamicResource CoinTextBoxInputStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
                          />
 
 
                 <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}" />
-                <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Name="EraComboBox"
-                          Style="{DynamicResource ComboBoxInputStyle}"
+                <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="EraComboBox"
+                          Margin="7,10,7,7"
+                          Style="{DynamicResource CoinComboBoxInputStyle}"
                       SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.Era}">
                 </ComboBox>
 

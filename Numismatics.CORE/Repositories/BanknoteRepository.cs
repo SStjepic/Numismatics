@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Numismatics.CORE.Repositories
 {
-    public class BanknoteRepository: Repository<Banknote>, IRepository<Banknote>
+    public class BanknoteRepository: JSONRepository<Banknote>, IRepository<Banknote>
     {
         private readonly string _fileName = "BanknoteData.json";
 

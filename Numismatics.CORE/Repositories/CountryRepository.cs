@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Repositories
 {
-    public class CountryRepository : Repository<Country>, IRepository<Country>
+    public class CountryRepository : JSONRepository<Country>, IRepository<Country>
     {
         public CountryRepository() 
         {
