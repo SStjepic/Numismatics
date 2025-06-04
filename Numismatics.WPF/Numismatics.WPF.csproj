@@ -29,7 +29,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\BanknoteView\BanknoteDetailsPage.xaml.cs">
+    <Compile Update="Views\BanknoteViews\BanknoteDetailsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

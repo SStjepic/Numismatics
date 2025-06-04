@@ -1,5 +1,5 @@
-﻿using Numismatics.CORE.Domain.Models;
-using Numismatics.CORE.DTO;
+﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services.Interface;
 using System;

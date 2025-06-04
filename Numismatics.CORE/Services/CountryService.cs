@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Numismatics.CORE.DTO;
 using Numismatics.CORE.Repositories;
+using Numismatics.CORE.DTOs;
 
 namespace Numismatics.CORE.Services
 {

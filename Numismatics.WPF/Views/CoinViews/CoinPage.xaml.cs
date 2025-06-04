@@ -1,4 +1,4 @@
-﻿using Numismatics.WPF.ViewModels.Main;
+﻿using Numismatics.WPF.ViewModels.CoinViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +14,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Numismatics.WPF
+namespace Numismatics.WPF.View.CoinView
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CoinPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CoinPage : Page
     {
-        public MainNavigationViewModel MainNavigationViewModel { get; set; }
-        public MainWindow()
+        public CoinDisplayViewModel CoinDisplayViewModel { get; set; }
+        public CoinPage()
         {
             InitializeComponent();
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DataContext = this;
 
-            MainNavigationViewModel = new MainNavigationViewModel();
+            CoinDisplayViewModel = new CoinDisplayViewModel();
+            DataContext = this;
+        }
+
+        private void ShowCoin(object sender, MouseButtonEventArgs e)
+        {
+            CoinDisplayViewModel.UpdateCoinCommand.Execute(this);
         }
     }
 }

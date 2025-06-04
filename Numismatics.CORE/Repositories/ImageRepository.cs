@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualBasic;
-using Numismatics.CORE.Domain.Enum;
-using Numismatics.CORE.Domain.Models;
+using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.Domains.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

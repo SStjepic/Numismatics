@@ -1,4 +1,4 @@
-﻿using Numismatics.CORE.Domain.Models;
+﻿using Numismatics.CORE.Domains.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
