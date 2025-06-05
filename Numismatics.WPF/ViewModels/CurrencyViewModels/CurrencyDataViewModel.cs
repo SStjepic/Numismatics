@@ -63,8 +63,11 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModels
             get { return _code; }
             set
             {
-                _code = value.ToUpper();
-                OnPropertyChanged(nameof(Code));
+                if(value != null)
+                {
+                    _code = value.ToUpper();
+                    OnPropertyChanged(nameof(Code));
+                }
             }
         }
 

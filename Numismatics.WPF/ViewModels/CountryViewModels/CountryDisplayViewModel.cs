@@ -139,6 +139,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
                     _countryService.Delete(SelectedCountry.ToCountryDTO());
                     TotalPages = _countryService.GetTotalPageNumber(PageSize);
                     GetCountries(PageNumber, PageSize, CountrySearchDataViewModel);
+                    MessageBox.Show("You successfully deleted a country.", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else

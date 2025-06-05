@@ -146,6 +146,7 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModels
                     _currencyService.Delete(SelectedCurrency.ToCurrencyDTO());
                     TotalPages = _currencyService.GetTotalPageNumber(PageSize);
                     GetCurrencies(PageNumber, PageSize, CurrencySearchDataViewModel);
+                    MessageBox.Show("You successfully deleted a currency.", "Update", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
