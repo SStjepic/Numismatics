@@ -9,7 +9,7 @@ namespace Numismatics.CORE.Services.Interface
 {
     public interface IBanknoteService: IService<BanknoteDTO>
     {
-        List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, BanknoteSearchDataDTO searchData);
+        List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, BanknoteSearchDataDTO searchParams);
         int GetTotalBanknotesNumber();
     }
 }

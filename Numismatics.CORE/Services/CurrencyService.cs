@@ -49,26 +49,9 @@ namespace Numismatics.CORE.Services
 
         public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, CurrencySearchDataDTO searchParams)
         {
-            var currencies = _currencyRepository.GetAll().Skip(pageNumber * pageSize).Take(pageSize);
-
-            if (searchParams != null)
-            {
-                if (!string.IsNullOrEmpty(searchParams.Name))
-                {
-                    currencies = currencies
-                        .Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()))
-                        .ToList();
-                }
-
-                if (!string.IsNullOrEmpty(searchParams.Code))
-                {
-                    currencies = currencies
-                        .Where(c => c.Code.ToLower().Contains(searchParams.Code.ToLower()))
-                        .ToList();
-                }
-            }
-            var selectedCurrencies = currencies.Skip(pageNumber * pageSize).Take(pageSize);
+            
             var currenciesDTO = new List<CurrencyDTO>();
+            var selectedCurrencies = _currencyRepository.GetByPage(pageNumber, pageSize, searchParams);
             foreach (Currency currency in selectedCurrencies)
             {
                 currenciesDTO.Add(new CurrencyDTO(currency));

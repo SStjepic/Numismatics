@@ -63,48 +63,10 @@ namespace Numismatics.CORE.Services
         {
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
-
-            var coins = _coinRepository.GetAll();
-
-            if (searchParams != null)
-            {
-                if (searchParams.Value > 0)
-                {
-                    coins = coins
-                        .Where(b => b.Value == searchParams.Value)
-                        .ToList();
-                }
-
-                if (searchParams.Year > 0)
-                {
-                    coins = coins
-                        .Where(b => b.IssueDate.Year == searchParams.Year)
-                        .ToList();
-                }
-
-                if (searchParams.Country.Id > 0)
-                {
-                    coins = coins
-                        .Where(b => b.CountryId == searchParams.Country.Id)
-                        .ToList();
-                }
-
-                if (searchParams.Currency.Id > 0)
-                {
-                    coins = coins
-                        .Where(b => b.CurrencyId == searchParams.Currency.Id)
-                        .ToList();
-                }
-            }
-
-            coins = coins
-               .OrderByDescending(b => b.IssueDate)
-               .ThenBy(b => b.IsSubunit)
-               .ThenByDescending(b => b.Value)
-               .ToList();
-            var selectedCoins = coins.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            var selectedCoins = _coinRepository.GetByPage(pageNumber, pageSize, searchParams);
+           
             var coinDTOs = new List<CoinDTO>();
-            foreach(var coin in coins)
+            foreach(var coin in selectedCoins)
             {
                 var country = countries.Find(c => c.Id == coin.CountryId);
                 var currency = currencies.Find(c => c.Id == coin.CurrencyId);

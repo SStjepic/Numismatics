@@ -9,7 +9,7 @@ namespace Numismatics.CORE.Services.Interface
 {
     public interface ICountryService: IService<CountryDTO>
     {
-        public List<CountryDTO> GetByPage(int pageNumber, int pageSize, CountrySearchDataDTO param);
+        public List<CountryDTO> GetByPage(int pageNumber, int pageSize, CountrySearchDataDTO searchParams);
         public int GetTotalCountriesNumber();
     }
 }

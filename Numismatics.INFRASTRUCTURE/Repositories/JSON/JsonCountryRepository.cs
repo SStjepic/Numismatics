@@ -1,4 +1,5 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Repositories;
 using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
@@ -57,6 +58,20 @@ namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
         public int GetTotalCountriesNumber()
         {
             return this.GetAll().Count;
+        }
+
+        public List<Country> GetByPage(int pageNumber, int pageSize, CountrySearchDataDTO searchParams)
+        {
+            var countries = this.GetAll().AsEnumerable();
+
+            if (searchParams != null)
+            {
+                if (!string.IsNullOrEmpty(searchParams.Name))
+                {
+                    countries = countries.Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()));
+                }
+            }
+            return countries.Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
     }
 }

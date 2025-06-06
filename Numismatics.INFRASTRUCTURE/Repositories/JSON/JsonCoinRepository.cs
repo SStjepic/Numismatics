@@ -1,4 +1,5 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Repositories;
 using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
@@ -57,6 +58,45 @@ namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
         public int GetTotalCoinsNumber()
         {
             return this.GetAll().Count();
+        }
+
+        public List<Coin> GetByPage(int pageNumber, int pageSize, CoinSearchDataDTO searchParams)
+        {
+            var coins = this.GetAll().AsEnumerable();
+
+            if (searchParams != null)
+            {
+                if (searchParams.Value > 0)
+                {
+                    coins = coins
+                        .Where(b => b.Value == searchParams.Value);
+                }
+
+                if (searchParams.Year > 0)
+                {
+                    coins = coins
+                        .Where(b => b.IssueDate.Year == searchParams.Year);
+                }
+
+                if (searchParams.Country.Id > 0)
+                {
+                    coins = coins
+                        .Where(b => b.CountryId == searchParams.Country.Id);
+                }
+
+                if (searchParams.Currency.Id > 0)
+                {
+                    coins = coins
+                        .Where(b => b.CurrencyId == searchParams.Currency.Id);
+                }
+            }
+
+            coins = coins
+               .OrderByDescending(b => b.IssueDate)
+               .ThenBy(b => b.IsSubunit)
+               .ThenByDescending(b => b.Value);
+
+            return coins.Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
     }
 }

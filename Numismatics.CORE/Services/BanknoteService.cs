@@ -76,47 +76,7 @@ namespace Numismatics.CORE.Services
 
         public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, BanknoteSearchDataDTO searchParams)
         {
-            var banknotes = _banknoteRepository.GetAll();
-
-            if (searchParams != null)
-            {
-                if (searchParams.Value > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.Value == searchParams.Value)
-                        .ToList();
-                }
-
-                if (searchParams.Year > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.IssueDate.Year == searchParams.Year)
-                        .ToList();
-                }
-
-                if (searchParams.Country.Id > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.CountryId == searchParams.Country.Id)
-                        .ToList();
-                }
-
-                if (searchParams.Currency.Id > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.CurrencyId == searchParams.Currency.Id)
-                        .ToList();
-                }
-            }
-
-            banknotes = banknotes
-                .OrderByDescending(b => b.IssueDate)
-                .ThenBy(b => b.IsSubunit)
-                .ThenByDescending(b => b.Value)
-                .ToList();
-
-            var selectedBanknotes = banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
-
+            var selectedBanknotes = _banknoteRepository.GetByPage(pageNumber, pageSize, searchParams);
             var currentBanknotes = new List<BanknoteDTO>();
             
             var countries = _countryRepository.GetAll();
