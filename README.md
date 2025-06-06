@@ -7,7 +7,7 @@
 ## 🧾 Description
 
 **Numismatics** is a personal hobby project designed to help numismatists manage and keep track of their coin and banknote collections.  
-The desktop application was developed using **C#** and **WPF** on the **.NET 8** platform, following the **MVVM architectural pattern**.
+The project is structured following the MVVM (Model-View-ViewModel) architectural pattern and utilizes Dependency Injection (DI) for improved modularity, maintainability, and testability.
 
 The primary goal of this project was to deepen my understanding of desktop application development with C# and WPF, while also improving my skills in software architecture, UI design, and problem solving.
 
