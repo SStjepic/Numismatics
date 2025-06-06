@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Services
 {
-    public class CurrencyService : IService<CurrencyDTO>
+    public class CurrencyService : ICurrencyService
     {
-        private CurrencyRepository _currencyRepository;
-        public CurrencyService() 
+        private ICurrencyRepository _currencyRepository;
+        public CurrencyService(ICurrencyRepository currencyRepository)
         {
-            _currencyRepository = new CurrencyRepository();
+            _currencyRepository = currencyRepository;
         }
+
         public CurrencyDTO? Create(CurrencyDTO entity)
         {
             entity.Id = DateTime.UtcNow.Ticks;
@@ -46,11 +47,10 @@ namespace Numismatics.CORE.Services
             return currenciesDTO;
         }
 
-        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, CurrencySearchDataDTO searchParams)
         {
             var currencies = _currencyRepository.GetAll().Skip(pageNumber * pageSize).Take(pageSize);
 
-            var searchParams = param as CurrencySearchDataDTO;
             if (searchParams != null)
             {
                 if (!string.IsNullOrEmpty(searchParams.Name))

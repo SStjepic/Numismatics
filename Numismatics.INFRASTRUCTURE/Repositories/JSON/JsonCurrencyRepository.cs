@@ -1,16 +1,18 @@
 ﻿using Numismatics.CORE.Domains.Models;
-using Numismatics.CORE.DTOs;
+using Numismatics.CORE.Repositories;
+using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class CurrencyRepository : JSONRepository<Currency>, IRepository<Currency>
+    public class JsonCurrencyRepository : JSONRepository<Currency>, ICurrencyRepository
     {
-        public CurrencyRepository() 
+        public JsonCurrencyRepository() : base(new JSONSerialization())
         {
             SetFileName("CurrencyData.json");
         }
@@ -26,7 +28,7 @@ namespace Numismatics.CORE.Repositories
         {
             var currencies = GetAll();
             var oldCurrency = Get(currencyId);
-            if(oldCurrency == null) { return null; }
+            if (oldCurrency == null) { return null; }
             currencies.Remove(oldCurrency);
             Save(currencies);
             return oldCurrency;

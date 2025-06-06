@@ -1,16 +1,18 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.Repositories;
+using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class CoinRepository : JSONRepository<Coin>, IRepository<Coin>
+    public class JsonCoinRepository : JSONRepository<Coin>, ICoinRepository
     {
-        public CoinRepository() 
+        public JsonCoinRepository(): base(new JSONSerialization())
         {
             SetFileName("CoinData.json");
         }
@@ -26,7 +28,7 @@ namespace Numismatics.CORE.Repositories
         {
             var coins = GetAll();
             var oldCoin = Get(coinId);
-            if(oldCoin == null) { return null; }
+            if (oldCoin == null) { return null; }
             coins.Remove(oldCoin);
             Save(coins);
             return oldCoin;

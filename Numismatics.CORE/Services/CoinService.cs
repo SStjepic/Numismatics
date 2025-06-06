@@ -1,5 +1,4 @@
-﻿using Numismatics.CORE.Domains.Models;
-using Numismatics.CORE.DTOs;
+﻿using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services.Interface;
 using System;
@@ -10,15 +9,21 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Services
 {
-    public class CoinService : IService<CoinDTO>
+    public class CoinService : ICoinService
     {
-        private CoinRepository _coinRepository;
-        private ImageRepository _imageRepository;
-        public CoinService() 
+        private ICoinRepository _coinRepository;
+        private IImageRepository _imageRepository;
+        private ICurrencyRepository _currencyRepository;
+        private ICountryRepository _countryRepository;
+
+        public CoinService(ICoinRepository coinRepository, IImageRepository imageRepository, ICurrencyRepository currencyRepository, ICountryRepository countryRepository)
         {
-            _coinRepository = new CoinRepository();
-            _imageRepository = new ImageRepository();
+            _coinRepository = coinRepository;
+            _imageRepository = imageRepository;
+            _currencyRepository = currencyRepository;
+            _countryRepository = countryRepository;
         }
+
         public CoinDTO? Create(CoinDTO newCoin)
         {
             newCoin.Id = DateTime.UtcNow.Ticks;
@@ -41,8 +46,6 @@ namespace Numismatics.CORE.Services
 
         public List<CoinDTO> GetAll()
         {
-            CurrencyRepository _currencyRepository = new CurrencyRepository();
-            CountryRepository _countryRepository = new CountryRepository();
             var coins = _coinRepository.GetAll();
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
@@ -56,16 +59,13 @@ namespace Numismatics.CORE.Services
             return coinDTOs;
         }
 
-        public List<CoinDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public List<CoinDTO> GetByPage(int pageNumber, int pageSize, CoinSearchDataDTO searchParams)
         {
-            CurrencyRepository _currencyRepository = new CurrencyRepository();
-            CountryRepository _countryRepository = new CountryRepository();
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
 
             var coins = _coinRepository.GetAll();
 
-            var searchParams = param as CoinSearchDataDTO;
             if (searchParams != null)
             {
                 if (searchParams.Value > 0)

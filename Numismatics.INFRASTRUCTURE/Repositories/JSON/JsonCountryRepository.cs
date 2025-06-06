@@ -1,15 +1,18 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.Repositories;
+using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class CountryRepository : JSONRepository<Country>, IRepository<Country>
+    public class JsonCountryRepository : JSONRepository<Country>, ICountryRepository
     {
-        public CountryRepository() 
+        public JsonCountryRepository(): base(new JSONSerialization())
         {
             SetFileName("CountryData.json");
         }
@@ -25,7 +28,7 @@ namespace Numismatics.CORE.Repositories
         {
             var countries = GetAll();
             var oldCountry = Get(countryId);
-            if(oldCountry == null) { return null; }
+            if (oldCountry == null) { return null; }
             countries.Remove(oldCountry);
             Save(countries);
             return oldCountry;

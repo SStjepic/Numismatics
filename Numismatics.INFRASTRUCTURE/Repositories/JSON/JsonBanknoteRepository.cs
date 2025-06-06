@@ -1,19 +1,20 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.Repositories;
+using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class BanknoteRepository: JSONRepository<Banknote>, IRepository<Banknote>
+    public class JsonBanknoteRepository : JSONRepository<Banknote>, IBanknoteRepository
     {
         private readonly string _fileName = "BanknoteData.json";
 
-        public BanknoteRepository() 
+        public JsonBanknoteRepository(): base(new JSONSerialization())
         {
             SetFileName(_fileName);
         }

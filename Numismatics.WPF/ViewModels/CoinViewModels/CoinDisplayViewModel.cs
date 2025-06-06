@@ -10,18 +10,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Numismatics.WPF.View.CoinView;
-using Numismatics.WPF.ViewModels.BanknoteViewModels;
 using Numismatics.WPF.Utils;
 using Numismatics.WPF.ViewModels.CurrencyViewModels;
 using Numismatics.WPF.ViewModels.CountryViewModels;
+using Numismatics.CORE.Services.Interface;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Numismatics.WPF.ViewModels.CoinViewModels
 {
     public class CoinDisplayViewModel:DisplayViewMode
     {
-        private CoinService _coinService;
-        private readonly CountryService _countryService;
-        private readonly CurrencyService _currencyService;
+        private ICoinService _coinService;
+        private ICountryService _countryService;
+        private ICurrencyService _currencyService;
 
         private CoinDataViewModel _selectedCoin;
         public CoinDataViewModel SelectedCoin
@@ -117,9 +118,9 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
         public ICommand DeleteCoinCommand { get; set; }
         public CoinDisplayViewModel()
         {
-            _coinService = new CoinService();
-            _countryService = new CountryService();
-            _currencyService = new CurrencyService();
+            _coinService = App.AppHost.Services.GetRequiredService<ICoinService>();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
+            _currencyService = App.AppHost.Services.GetRequiredService<ICurrencyService>();
             CurrentCoins = new ObservableCollection<CoinDataViewModel>();
             AllCurrencies = new ObservableCollection<CurrencyDataViewModel>();
             AllCountries = new ObservableCollection<CountryDataViewModel>();

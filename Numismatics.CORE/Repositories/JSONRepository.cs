@@ -1,4 +1,5 @@
 ﻿using Numismatics.CORE.Serialization;
+using Numismatics.CORE.Serialization.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace Numismatics.CORE.Repositories
             "Data"
         );
         private string _filePath;
-        protected readonly Serializer _serializer = new();
+        protected readonly Serializer _serializer;
+
+
+        public JSONRepository(ISerialization serialization)
+        {
+            _serializer = new Serializer(serialization);
+        }
         protected void SetFileName(string fileName)
         {
             if (!System.IO.Directory.Exists(_dataFolderPath))

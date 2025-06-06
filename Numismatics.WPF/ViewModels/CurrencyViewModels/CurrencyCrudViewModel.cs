@@ -1,19 +1,18 @@
-﻿using Numismatics.CORE.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Numismatics.WPF.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.Services.Interface;
 
 namespace Numismatics.WPF.ViewModels.CurrencyViewModels
 {
     public class CurrencyCrudViewModel: INotifyPropertyChanged
     {
-        private CurrencyService _currencyService;
+        private ICurrencyService _currencyService;
 
         private CurrencyDataViewModel _currentCurrency;
         public CurrencyDataViewModel CurrentCurrency
@@ -31,7 +30,7 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModels
         public ICommand AddCurrencyCommand { get; set; }
         public CurrencyCrudViewModel(CurrencyDataViewModel currency)
         {
-            _currencyService = new CurrencyService();
+            _currencyService = App.AppHost.Services.GetRequiredService<ICurrencyService>();
 
             CurrentCurrency = currency != null ? currency : new CurrencyDataViewModel(null);
             _isUpdate = currency != null ? true : false;

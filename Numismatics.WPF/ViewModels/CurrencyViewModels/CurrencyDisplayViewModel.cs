@@ -1,6 +1,4 @@
-﻿using Numismatics.WPF.View.CountryView;
-using Numismatics.CORE.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,14 +8,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Numismatics.WPF.View.CurrencyView;
-using Numismatics.WPF.ViewModels.CoinViewModels;
 using Numismatics.WPF.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.Services.Interface;
 
 namespace Numismatics.WPF.ViewModels.CurrencyViewModels
 {
     public class CurrencyDisplayViewModel: DisplayViewMode
     {
-        private CurrencyService _currencyService;
+        private ICurrencyService _currencyService;
 
         private CurrencyDataViewModel _selectedCurrency;
         public CurrencyDataViewModel SelectedCurrency
@@ -71,7 +70,7 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModels
         public ICommand DeleteCurrencyCommand { get; set; }
         public CurrencyDisplayViewModel()
         {
-            _currencyService = new CurrencyService();
+            _currencyService = App.AppHost.Services.GetRequiredService<ICurrencyService>();
             CurrentCurrencies = new ObservableCollection<CurrencyDataViewModel>();
             CurrencySearchDataViewModel = new CurrencySearchDataViewModel();
 

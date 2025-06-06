@@ -14,14 +14,16 @@ using System.Windows.Input;
 using Numismatics.WPF.ViewModels.CurrencyViewModels;
 using Numismatics.WPF.ViewModels.CountryViewModels;
 using Numismatics.CORE.Domains.Enums;
+using Numismatics.CORE.Services.Interface;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 {
     public class BanknoteCrudViewModel: INotifyPropertyChanged
     {
-        private BanknoteService _banknoteService;
-        private CountryService _countryService;
-        private NationalCurrencyService _nationalCurrencyService;
+        private IBanknoteService _banknoteService;
+        private ICountryService _countryService;
+        private INationalCurrencyService _nationalCurrencyService;
 
         private BanknoteDataViewModel _currentBanknote;
         public BanknoteDataViewModel CurrentBanknote
@@ -123,9 +125,9 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         public ICommand DeleteReversePictureCommand { get; set; }
         public BanknoteCrudViewModel(BanknoteDataViewModel banknote)
         {
-            _banknoteService = new BanknoteService();
-            _countryService = new CountryService();
-            _nationalCurrencyService = new NationalCurrencyService();
+            _banknoteService = App.AppHost.Services.GetRequiredService<IBanknoteService>();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
+            _nationalCurrencyService = App.AppHost.Services.GetRequiredService<INationalCurrencyService>();
 
             CurrentBanknote = banknote != null ? banknote : new BanknoteDataViewModel(null);
             _isUpdate = banknote != null ? true : false;

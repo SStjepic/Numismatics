@@ -14,15 +14,17 @@ using Numismatics.WPF.Utils;
 using Numismatics.CORE.DTOs;
 using Numismatics.WPF.ViewModels.CurrencyViewModels;
 using Numismatics.WPF.ViewModels.CountryViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.Services.Interface;
 
 namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 {
     public class BanknoteDisplayViewModel : DisplayViewMode
     {
         
-        private readonly BanknoteService _banknoteService;
-        private readonly CountryService _countryService;
-        private readonly CurrencyService _currencyService;
+        private readonly IBanknoteService _banknoteService;
+        private readonly ICountryService _countryService;
+        private readonly ICurrencyService _currencyService;
 
         private ObservableCollection<BanknoteDataViewModel> _currentBanknotes;
         public ObservableCollection<BanknoteDataViewModel> CurrentBanknotes 
@@ -120,9 +122,9 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         public BanknoteDisplayViewModel()
         {
-            _banknoteService = new BanknoteService();
-            _countryService = new CountryService();
-            _currencyService = new CurrencyService();
+            _banknoteService = App.AppHost.Services.GetRequiredService<IBanknoteService>();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
+            _currencyService = App.AppHost.Services.GetRequiredService<ICurrencyService>();
             CurrentBanknotes = new ObservableCollection<BanknoteDataViewModel>();
             AllCurrencies = new ObservableCollection<CurrencyDataViewModel>();
             AllCountries = new ObservableCollection<CountryDataViewModel>();

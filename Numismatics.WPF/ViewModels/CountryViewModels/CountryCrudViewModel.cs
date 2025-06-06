@@ -1,4 +1,5 @@
-﻿using Numismatics.CORE.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.Services.Interface;
 using Numismatics.WPF.Utils;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
 {
     public class CountryCrudViewModel: INotifyPropertyChanged
     {
-        private CountryService _countryService;
+        private ICountryService _countryService;
 
         private CountryDataViewModel _currentCountry;
         public CountryDataViewModel CurrentCountry
@@ -31,7 +32,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
         public ICommand AddCountryCommand { get; set; }
         public CountryCrudViewModel(CountryDataViewModel country) 
         {
-            _countryService = new CountryService();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
 
             CurrentCountry = country != null? country : new CountryDataViewModel(null);
             _isUpdate = country != null? true : false;

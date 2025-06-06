@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
-using Numismatics.CORE.Domains.Models;
-using System.Drawing;
 using Microsoft.Win32;
-using System.Windows.Media.Imaging;
 using Numismatics.WPF.Utils;
 using Numismatics.WPF.ViewModels.CurrencyViewModels;
 using Numismatics.WPF.ViewModels.CountryViewModels;
 using Numismatics.CORE.Domains.Enums;
+using Numismatics.CORE.Services.Interface;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Numismatics.WPF.ViewModels.CoinViewModels
 {
     public class CoinCrudViewModel : INotifyPropertyChanged
     {
-        private CoinService _coinService;
-        private CountryService _countryService;
-        private NationalCurrencyService _nationalCurrencyService;
+        private ICoinService _coinService;
+        private ICountryService _countryService;
+        private INationalCurrencyService _nationalCurrencyService;
 
         private CoinDataViewModel _currentCoin;
         public CoinDataViewModel CurrentCoin
@@ -126,9 +125,9 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
         public ICommand DeleteReversePictureCommand { get; set; }
         public CoinCrudViewModel(CoinDataViewModel coin)
         {
-            _coinService = new CoinService();
-            _countryService = new CountryService();
-            _nationalCurrencyService = new NationalCurrencyService();
+            _coinService = App.AppHost.Services.GetRequiredService<ICoinService>();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
+            _nationalCurrencyService = App.AppHost.Services.GetRequiredService<INationalCurrencyService>();
 
             CurrentCoin = coin != null ? coin : new CoinDataViewModel(null);
             _isUpdate = coin != null ? true : false;
