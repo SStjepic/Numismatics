@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Services
 {
-    public class CurrencyService : IService<CurrencyDTO>
+    public class CurrencyService : ICurrencyService
     {
-        private CurrencyRepository _currencyRepository;
-        public CurrencyService() 
+        private ICurrencyRepository _currencyRepository;
+        public CurrencyService(ICurrencyRepository currencyRepository)
         {
-            _currencyRepository = new CurrencyRepository();
+            _currencyRepository = currencyRepository;
         }
+
         public CurrencyDTO? Create(CurrencyDTO entity)
         {
             entity.Id = DateTime.UtcNow.Ticks;
@@ -46,29 +47,11 @@ namespace Numismatics.CORE.Services
             return currenciesDTO;
         }
 
-        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public List<CurrencyDTO> GetByPage(int pageNumber, int pageSize, CurrencySearchDataDTO searchParams)
         {
-            var currencies = _currencyRepository.GetAll().Skip(pageNumber * pageSize).Take(pageSize);
-
-            var searchParams = param as CurrencySearchDataDTO;
-            if (searchParams != null)
-            {
-                if (!string.IsNullOrEmpty(searchParams.Name))
-                {
-                    currencies = currencies
-                        .Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()))
-                        .ToList();
-                }
-
-                if (!string.IsNullOrEmpty(searchParams.Code))
-                {
-                    currencies = currencies
-                        .Where(c => c.Code.ToLower().Contains(searchParams.Code.ToLower()))
-                        .ToList();
-                }
-            }
-            var selectedCurrencies = currencies.Skip(pageNumber * pageSize).Take(pageSize);
+            
             var currenciesDTO = new List<CurrencyDTO>();
+            var selectedCurrencies = _currencyRepository.GetByPage(pageNumber, pageSize, searchParams);
             foreach (Currency currency in selectedCurrencies)
             {
                 currenciesDTO.Add(new CurrencyDTO(currency));

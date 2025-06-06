@@ -10,15 +10,19 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Services
 {
-    public class BanknoteService: IService<BanknoteDTO>
+    public class BanknoteService: IBanknoteService
     {
-        private BanknoteRepository _banknoteRepository;
-        private ImageRepository _imageRepository;
+        private IBanknoteRepository _banknoteRepository;
+        private IImageRepository _imageRepository;
+        private ICurrencyRepository _currencyRepository;
+        private ICountryRepository _countryRepository;
 
-        public BanknoteService()
+        public BanknoteService(IBanknoteRepository banknoteRepository, IImageRepository imageRepository, ICurrencyRepository currencyRepository, ICountryRepository countryRepository)
         {
-            _banknoteRepository = new BanknoteRepository();
-            _imageRepository = new ImageRepository();
+            _banknoteRepository = banknoteRepository;
+            _imageRepository = imageRepository;
+            _currencyRepository = currencyRepository;
+            _countryRepository = countryRepository;
         }
 
         public BanknoteDTO? Create(BanknoteDTO banknoteDTO)
@@ -51,8 +55,6 @@ namespace Numismatics.CORE.Services
         public List<BanknoteDTO> GetAll()
         {
             var banknoteDTOs = new List<BanknoteDTO>();
-            CurrencyRepository _currencyRepository = new CurrencyRepository();
-            CountryRepository _countryRepository = new CountryRepository();
             var banknotes = _banknoteRepository.GetAll();
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
@@ -72,53 +74,11 @@ namespace Numismatics.CORE.Services
         }
 
 
-        public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public List<BanknoteDTO> GetByPage(int pageNumber, int pageSize, BanknoteSearchDataDTO searchParams)
         {
-            var banknotes = _banknoteRepository.GetAll();
-
-            var searchParams = param as BanknoteSearchDataDTO;
-            if (searchParams != null)
-            {
-                if (searchParams.Value > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.Value == searchParams.Value)
-                        .ToList();
-                }
-
-                if (searchParams.Year > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.IssueDate.Year == searchParams.Year)
-                        .ToList();
-                }
-
-                if (searchParams.Country.Id > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.CountryId == searchParams.Country.Id)
-                        .ToList();
-                }
-
-                if (searchParams.Currency.Id > 0)
-                {
-                    banknotes = banknotes
-                        .Where(b => b.CurrencyId == searchParams.Currency.Id)
-                        .ToList();
-                }
-            }
-
-            banknotes = banknotes
-                .OrderByDescending(b => b.IssueDate)
-                .ThenBy(b => b.IsSubunit)
-                .ThenByDescending(b => b.Value)
-                .ToList();
-
-            var selectedBanknotes = banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
-
+            var selectedBanknotes = _banknoteRepository.GetByPage(pageNumber, pageSize, searchParams);
             var currentBanknotes = new List<BanknoteDTO>();
-            CurrencyRepository _currencyRepository = new CurrencyRepository();
-            CountryRepository _countryRepository = new CountryRepository();
+            
             var countries = _countryRepository.GetAll();
             var currencies = _currencyRepository.GetAll();
 

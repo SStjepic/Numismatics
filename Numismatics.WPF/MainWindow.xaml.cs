@@ -21,14 +21,16 @@ namespace Numismatics.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainNavigationViewModel MainNavigationViewModel { get; set; }
-        public MainWindow()
+        public MainNavigationViewModel MainNavigationViewModel { get; }
+
+        public MainWindow(MainNavigationViewModel mainNavigationViewModel)
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DataContext = this;
 
-            MainNavigationViewModel = new MainNavigationViewModel();
+            MainNavigationViewModel = mainNavigationViewModel;
+
+            this.DataContext = this;
         }
     }
 }

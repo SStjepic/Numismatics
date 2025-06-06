@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace Numismatics.CORE.Services
 {
-    public class NationalCurrencyService: IService<NationalCurrencyDTO>
+    public class NationalCurrencyService: INationalCurrencyService
     {
-        private NationalCurrencyRepository _nationalCurrencyRepository;
-        private CurrencyRepository _currencyRepository;
-        private CountryRepository _countryRepository;
-        public NationalCurrencyService() 
+        private INationalCurrencyRepository _nationalCurrencyRepository;
+        private ICurrencyRepository _currencyRepository;
+        private ICountryRepository _countryRepository;
+        public NationalCurrencyService(INationalCurrencyRepository nationalCurrencyRepository, ICurrencyRepository currencyRepository, ICountryRepository countryRepository)
         {
-            _nationalCurrencyRepository = new NationalCurrencyRepository();
-            _currencyRepository = new CurrencyRepository();
-            _countryRepository = new CountryRepository();
+            _nationalCurrencyRepository = nationalCurrencyRepository;
+            _currencyRepository = currencyRepository;
+            _countryRepository = countryRepository;
         }
 
         public NationalCurrencyDTO? Create(NationalCurrencyDTO nationalCurrencyDTO)
@@ -90,7 +90,7 @@ namespace Numismatics.CORE.Services
             throw new NotImplementedException();
         }
 
-        public List<NationalCurrencyDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public int GetTotalPageNumber(int pageSize)
         {
             throw new NotImplementedException();
         }

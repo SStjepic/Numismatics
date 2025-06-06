@@ -1,5 +1,7 @@
-﻿using Numismatics.CORE.DTOs;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Services;
+using Numismatics.CORE.Services.Interface;
 using Numismatics.WPF.Utils;
 using Numismatics.WPF.ViewModels.CountryViewModels;
 using Numismatics.WPF.ViewModels.CurrencyViewModels;
@@ -8,8 +10,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,8 +17,8 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
 {
     public class NationalCurrencyCrudViewModel: INotifyPropertyChanged
     {
-        private NationalCurrencyService _nationalCurrencyService;
-        private CountryService _countryService;
+        private INationalCurrencyService _nationalCurrencyService;
+        private ICountryService _countryService;
 
         private ObservableCollection<CountryDataViewModel> _allCountries;
         public ObservableCollection<CountryDataViewModel> AllCountries
@@ -87,8 +87,8 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
 
         private void setup()
         {
-            _nationalCurrencyService = new NationalCurrencyService();
-            _countryService = new CountryService();
+            _nationalCurrencyService = App.AppHost.Services.GetRequiredService<INationalCurrencyService>();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             SelectedCountries = new ObservableCollection<CountryDataViewModel>();
             NationalCurrency = new NationalCurrencyDataViewModel();

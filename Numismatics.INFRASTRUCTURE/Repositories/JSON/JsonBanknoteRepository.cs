@@ -1,19 +1,21 @@
 ﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.DTOs;
+using Numismatics.CORE.Repositories;
+using Numismatics.INFRASTRUCTURE.Serialization;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class BanknoteRepository: JSONRepository<Banknote>, IRepository<Banknote>
+    public class JsonBanknoteRepository : JSONRepository<Banknote>, IBanknoteRepository
     {
         private readonly string _fileName = "BanknoteData.json";
 
-        public BanknoteRepository() 
+        public JsonBanknoteRepository(): base(new JSONSerialization())
         {
             SetFileName(_fileName);
         }
@@ -63,6 +65,41 @@ namespace Numismatics.CORE.Repositories
         public int GetTotalBanknotesNumber()
         {
             return GetAll().Count();
+        }
+
+        public List<Banknote> GetByPage(int pageNumber, int pageSize, BanknoteSearchDataDTO searchParams)
+        {
+            var banknotes = this.GetAll().AsEnumerable();
+
+            if (searchParams != null)
+            {
+                if (searchParams.Value > 0)
+                {
+                    banknotes = banknotes.Where(b => b.Value == searchParams.Value);
+                }
+
+                if (searchParams.Year > 0)
+                {
+                    banknotes = banknotes.Where(b => b.IssueDate.Year == searchParams.Year);
+                }
+
+                if (searchParams.Country?.Id > 0)
+                {
+                    banknotes = banknotes.Where(b => b.CountryId == searchParams.Country.Id);
+                }
+
+                if (searchParams.Currency?.Id > 0)
+                {
+                    banknotes = banknotes.Where(b => b.CurrencyId == searchParams.Currency.Id);
+                }
+            }
+
+            banknotes = banknotes
+                .OrderByDescending(b => b.IssueDate)
+                .ThenBy(b => b.IsSubunit)
+                .ThenByDescending(b => b.Value);
+
+            return banknotes.Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
     }
 }

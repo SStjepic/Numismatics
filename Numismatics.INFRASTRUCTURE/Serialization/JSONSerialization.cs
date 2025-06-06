@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Numismatics.CORE.Serialization.Interface;
 
-namespace Numismatics.CORE.Serialization.Type
+namespace Numismatics.INFRASTRUCTURE.Serialization
 {
     public class JSONSerialization: ISerialization
     {

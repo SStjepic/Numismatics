@@ -1,5 +1,4 @@
 ﻿using Numismatics.CORE.Serialization.Interface;
-using Numismatics.CORE.Serialization.Type;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace Numismatics.CORE.Serialization
     {
         private ISerialization _serialization;
 
-        public Serializer()
+        public Serializer(ISerialization serialization)
         {
-            _serialization = new JSONSerialization();
+            _serialization = serialization;
         }
         public void HandleFile(string path)
         {

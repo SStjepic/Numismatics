@@ -1,17 +1,16 @@
 ﻿using Numismatics.WPF.View.CountryView;
-using Numismatics.CORE.Services;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using Numismatics.WPF.ViewModels.CurrencyViewModels;
 using Numismatics.WPF.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Numismatics.CORE.Services.Interface;
 
 namespace Numismatics.WPF.ViewModels.CountryViewModels
 {
     public class CountryDisplayViewModel: DisplayViewMode
     {
-        private CountryService _countryService;
+        private ICountryService _countryService;
 
         private CountryDataViewModel _selectedCountry;
         public CountryDataViewModel SelectedCountry
@@ -64,7 +63,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
         public ICommand DeleteCountryCommand { get; set; }
         public CountryDisplayViewModel() 
         {
-            _countryService = new CountryService();
+            _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
             CurrentCountries = new ObservableCollection<CountryDataViewModel>();
             CountrySearchDataViewModel = new CountrySearchDataViewModel();
 

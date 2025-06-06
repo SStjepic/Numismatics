@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Numismatics.CORE.Repositories;
 
-namespace Numismatics.CORE.Repositories
+namespace Numismatics.INFRASTRUCTURE.Repositories.FileStorage
 {
-    public class ImageRepository
+    public class ImageRepository: IImageRepository
     {
-        private readonly string _baseFolder = System.IO.Path.Combine(
+        private readonly string _baseFolder = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "NumismaticsAppData",
             "Images"
@@ -113,7 +114,7 @@ namespace Numismatics.CORE.Repositories
             Directory.Delete(banknoteImageFolder);
         }
 
-        internal void DeleteCoin(long id)
+        public void DeleteCoin(long id)
         {
             string coinImageFolder = Path.Combine(_baseFolder, Images.CoinImages.ToString(), id.ToString());
             Directory.Delete(coinImageFolder);

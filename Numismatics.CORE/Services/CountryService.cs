@@ -9,14 +9,14 @@ using Numismatics.CORE.DTOs;
 
 namespace Numismatics.CORE.Services
 {
-    public class CountryService : IService<CountryDTO>
+    public class CountryService : ICountryService
     {
-        private CountryRepository _countryRepository;
-
-        public CountryService()
+        private ICountryRepository _countryRepository;
+        public CountryService(ICountryRepository countryRepository)
         {
-            _countryRepository = new CountryRepository();
+            _countryRepository = countryRepository;
         }
+
         public CountryDTO? Create(CountryDTO countryDTO)
         {
             countryDTO.Id = DateTime.UtcNow.Ticks;
@@ -47,21 +47,11 @@ namespace Numismatics.CORE.Services
             return countriesDTO;
         }
 
-        public List<CountryDTO> GetByPage(int pageNumber, int pageSize, object param)
+        public List<CountryDTO> GetByPage(int pageNumber, int pageSize, CountrySearchDataDTO searchParams)
         {
             var countryDTOs = new List<CountryDTO>();
-            var countries = _countryRepository.GetAll();
             
-            var searchParams = param as CountrySearchDataDTO;
-            if(searchParams != null)
-            {
-                if (!string.IsNullOrEmpty(searchParams.Name))
-                {
-                    countries = countries.Where(c => c.Name.ToLower().Contains(searchParams.Name.ToLower()))
-                        .ToList();
-                }
-            }
-            var selectedCountries = countries.Skip(pageNumber * pageSize).Take(pageSize).ToList();
+            var selectedCountries = this._countryRepository.GetByPage(pageNumber, pageSize, searchParams);
             foreach (var counrty in selectedCountries)
             {
                 countryDTOs.Add(new CountryDTO(counrty));
