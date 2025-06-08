@@ -184,6 +184,9 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 }
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;
+            }else if(CurrentBanknote.Banknotes.Count == 0)
+            {
+                MessageBox.Show("You must have at least one banknote.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return false;
         }
@@ -198,10 +201,10 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                     return;
                 }
                 MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknote.CurrentBanknoteQuality);
-                QualityKeyValuePair<string, MoneyQuality> pair = CurrentBanknote.Banknotes.FirstOrDefault(p => p.Key.Equals(CurrentBanknote.CurrentBanknoteCode));
-                if (pair == null)
+                OwnedBanknoteDataViewModel ownedBanknote = CurrentBanknote.Banknotes.FirstOrDefault(p => p.Code.Equals(CurrentBanknote.CurrentBanknoteCode));
+                if (ownedBanknote == null)
                 {
-                    CurrentBanknote.Banknotes.Add(new QualityKeyValuePair<string, MoneyQuality>(CurrentBanknote.CurrentBanknoteCode, banknoteQuality));
+                    CurrentBanknote.Banknotes.Add(new OwnedBanknoteDataViewModel(CurrentBanknote.CurrentBanknoteCode, banknoteQuality, CurrentBanknote.Id));
                     OnPropertyChanged(nameof(NumberOfBanknotes));
                 }
                 else
@@ -217,14 +220,14 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         private void deleteBanknote()
         {
-            if (CurrentBanknote.CurentBanknotePair != null)
+            if (CurrentBanknote.CurrentOwnedBanknote != null)
             {
-                CurrentBanknote.Banknotes.Remove(CurrentBanknote.CurentBanknotePair);
+                CurrentBanknote.Banknotes.Remove(CurrentBanknote.CurrentOwnedBanknote);
                 OnPropertyChanged(nameof(NumberOfBanknotes));
             }
             else
             {
-                MessageBox.Show("Please select coin <code,quality> pair", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select a owned banknote", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

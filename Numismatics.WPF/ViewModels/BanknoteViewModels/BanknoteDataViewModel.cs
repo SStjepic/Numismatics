@@ -151,21 +151,21 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         public string CurrentBanknoteQuality { get; set; }
         public string CurrentBanknoteCode {  get; set; }
 
-        private QualityKeyValuePair<string, MoneyQuality> _currentBanknotePair;
-        public QualityKeyValuePair<string, MoneyQuality> CurentBanknotePair
+        private OwnedBanknoteDataViewModel _currentOwnedBanknote;
+        public OwnedBanknoteDataViewModel CurrentOwnedBanknote
         {
-            get { return _currentBanknotePair; }
+            get { return _currentOwnedBanknote; }
             set
             {
-                _currentBanknotePair = value;
-                OnPropertyChanged(nameof(CurentBanknotePair));
+                _currentOwnedBanknote = value;
+                OnPropertyChanged(nameof(CurrentOwnedBanknote));
             }
         }
-        public ObservableCollection<QualityKeyValuePair<string, MoneyQuality>> Banknotes { get; set; }
+        public ObservableCollection<OwnedBanknoteDataViewModel> Banknotes { get; set; }
         public BanknoteDataViewModel() { }
         public BanknoteDataViewModel(BanknoteDTO banknoteDTO) 
         {
-            Banknotes = new ObservableCollection<QualityKeyValuePair<string, MoneyQuality>>();
+            Banknotes = new ObservableCollection<OwnedBanknoteDataViewModel>();
             if (banknoteDTO != null)
             {
                 Id = banknoteDTO.Id;
@@ -182,11 +182,11 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 Description = banknoteDTO.Description;
                 City = banknoteDTO.City;
                 Era = banknoteDTO.IssueDate.Era;
-                if (banknoteDTO.Banknotes != null)
+                if (banknoteDTO.OwnedBanknotes != null)
                 {
-                    foreach (var banknoteQuality in banknoteDTO.Banknotes)
+                    foreach (var banknote in banknoteDTO.OwnedBanknotes)
                     {
-                        Banknotes.Add(new QualityKeyValuePair<string, MoneyQuality>(banknoteQuality.Key, banknoteQuality.Value));
+                        Banknotes.Add(new OwnedBanknoteDataViewModel(banknote));
                     }
                 }
             }
@@ -198,7 +198,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         private bool IsBanknoteCodeExist()
         {
-            var item = Banknotes.FirstOrDefault(b => b.Key == CurrentBanknoteCode);
+            var item = Banknotes.FirstOrDefault(b => b.Code == CurrentBanknoteCode);
             if(item != null)
             {
                 return true;
@@ -227,10 +227,8 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 return;
             }
             MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknoteQuality);
-            QualityKeyValuePair<string, MoneyQuality> banknote = new QualityKeyValuePair<string, MoneyQuality>();
-            banknote.Key = CurrentBanknoteCode;
-            banknote.Value = banknoteQuality;
-            Banknotes.Add(banknote);
+            OwnedBanknoteDataViewModel ownedBanknote = new OwnedBanknoteDataViewModel(CurrentBanknoteCode, banknoteQuality, Id);
+            Banknotes.Add(ownedBanknote);
 
         }
 
@@ -336,7 +334,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         public BanknoteDTO ToBanknoteDTO()
         {
-            var banknotes = GetBanknotesDictionary();
+            var banknotes = ToBanknotesDTO();
             var issueDate = new Date();
             issueDate.Era = Era;
             if(Day != "" && Day != null)
@@ -362,15 +360,15 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
             return new BanknoteDTO(Id, country, currency, value, isSubunit, ObversePicture, ReversePicture, Description, issueDate, City, banknotes);
         }
 
-        private Dictionary<string, MoneyQuality> GetBanknotesDictionary()
+        private  List<OwnedBanknoteDTO> ToBanknotesDTO()
         {
-            var banknotesDictionary = new Dictionary<string, MoneyQuality>();
+            var ownedBanknotes = new List<OwnedBanknoteDTO>();
             foreach(var banknote in Banknotes)
             {
-                banknotesDictionary.Add(banknote.Key, banknote.Value);
+                ownedBanknotes.Add(banknote.ToOwnedBanknoteDTO());
             }
 
-            return banknotesDictionary;
+            return ownedBanknotes;
         }
 
         public override bool Equals(object obj)

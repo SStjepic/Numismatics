@@ -146,14 +146,14 @@
 
                     <DataGrid x:Name="BanknoteQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
                               ItemsSource="{Binding BanknoteCrudViewModel.CurrentBanknote.Banknotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
-                              SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurentBanknotePair}"
+                              SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentOwnedBanknote}"
                               SelectionMode="Single" AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               HeadersVisibility="Column">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Banknote code" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Banknote quality" Width="*" Binding="{Binding Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Banknote code" Width="*" Binding="{Binding Code}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Banknote quality" Width="*" Binding="{Binding Quality}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

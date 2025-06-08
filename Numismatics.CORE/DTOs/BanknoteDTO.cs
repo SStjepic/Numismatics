@@ -20,8 +20,8 @@ namespace Numismatics.CORE.DTOs
         public string ReversePicture { get; set; }
         public string Description { get; set; }
         public string City { get; set; }
-        public Dictionary<string, MoneyQuality> Banknotes { get; set; }
-        public BanknoteDTO(long id, CountryDTO country, CurrencyDTO currency, double value, bool isSubunit, string obversePicture, string reversePicture, string description, Date issueDate, string city, Dictionary<string, MoneyQuality> banknotes)
+        public List<OwnedBanknoteDTO> OwnedBanknotes { get; set; }
+        public BanknoteDTO(long id, CountryDTO country, CurrencyDTO currency, double value, bool isSubunit, string obversePicture, string reversePicture, string description, Date issueDate, string city, List<OwnedBanknoteDTO> ownedBanknotes)
         {
             Id = id;
             Country = country;
@@ -33,10 +33,9 @@ namespace Numismatics.CORE.DTOs
             Description = description;
             IssueDate = issueDate;
             City = city;
-            Banknotes = banknotes;
+            OwnedBanknotes = ownedBanknotes;
         }
-
-        public BanknoteDTO(Banknote banknote, Country country, Currency currency) 
+        public BanknoteDTO(Banknote banknote, Country country, Currency currency, List<OwnedBanknoteDTO> ownedBanknotes) 
         {
             Id = banknote.Id;
             Country = new CountryDTO(country);
@@ -47,7 +46,7 @@ namespace Numismatics.CORE.DTOs
             ReversePicture = banknote.ReversePicture;
             Description = banknote.Description;
             City = banknote.City;
-            Banknotes = banknote.Banknotes;
+            OwnedBanknotes = ownedBanknotes;
             IsSubunit = banknote.IsSubunit;
         }
 
@@ -61,7 +60,7 @@ namespace Numismatics.CORE.DTOs
         {
             long countryId = Country != null ? Country.Id : -1;
             long currencyId = Currency != null ? Currency.Id : -1;
-            return new Banknote(Id, countryId, currencyId, Value,IsSubunit, IssueDate, ObversePicture, ReversePicture, Description, City, Banknotes);
+            return new Banknote(Id, countryId, currencyId, Value,IsSubunit, IssueDate, ObversePicture, ReversePicture, Description, City);
         }
     }
 }
