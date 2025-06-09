@@ -35,7 +35,7 @@ namespace Numismatics.CORE.Services
             foreach (OwnedBanknoteDTO ownedBanknote in banknoteDTO.OwnedBanknotes) 
             {
                 ownedBanknote.Id = DateTime.UtcNow.Ticks;
-                ownedBanknote.banknoteId = banknoteDTO.Id;
+                ownedBanknote.BanknoteId = banknoteDTO.Id;
                 _ownedBanknotesRepository.Create(ownedBanknote.ToOwnedBanknote());
             }
             return banknoteDTO;
@@ -48,7 +48,7 @@ namespace Numismatics.CORE.Services
             var ownedBanknotes = banknoteDTO.OwnedBanknotes
                 .Select(dto => new OwnedBanknote
                 {
-                    Id = dto.Id,
+                    Id = dto.Id != 0 ? dto.Id : DateTime.UtcNow.Ticks,
                     BanknoteId = banknoteDTO.Id,
                     Code = dto.Code,
                     Quality = dto.Quality,

@@ -13,7 +13,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         public long Id { get; set; }
         public string Code { get; set; }
         public MoneyQuality Quality { get; set; }
-        public long banknoteId;
+        public long BanknoteId {  get; set; }
 
         public OwnedBanknoteDataViewModel() { }
         public OwnedBanknoteDataViewModel(long id, string code, MoneyQuality quality, long banknoteId)
@@ -21,14 +21,14 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
             Id = id;
             Code = code;
             Quality = quality;
-            this.banknoteId = banknoteId;
+            BanknoteId = banknoteId;
         }
 
         public OwnedBanknoteDataViewModel(string code, MoneyQuality quality, long banknoteId)
         {
             Code = code;
             Quality = quality;
-            this.banknoteId = banknoteId;
+            BanknoteId = banknoteId;
         }
 
         public OwnedBanknoteDataViewModel(OwnedBanknoteDTO ownedBanknote)
@@ -40,7 +40,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         public OwnedBanknoteDTO ToOwnedBanknoteDTO()
         {
-            return new OwnedBanknoteDTO(Code, Quality, banknoteId);
+            return new OwnedBanknoteDTO(Id,Code, Quality, BanknoteId);
         }
 
         public override bool Equals(object obj)
@@ -49,7 +49,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                    Id == model.Id &&
                    Code == model.Code &&
                    Quality == model.Quality &&
-                   banknoteId == model.banknoteId;
+                   BanknoteId == model.BanknoteId;
         }
     }
 }

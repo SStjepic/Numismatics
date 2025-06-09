@@ -13,15 +13,16 @@ namespace Numismatics.CORE.DTOs
         public long Id { get; set; }
         public string Code { get; set; }
         public MoneyQuality Quality { get; set; }
-        public long banknoteId;
+        public long BanknoteId { get; set; }
 
         public OwnedBanknoteDTO() { }
 
-        public OwnedBanknoteDTO(string key, MoneyQuality quality, long banknoteId)
+        public OwnedBanknoteDTO(long id, string key, MoneyQuality quality, long banknoteId)
         {
+            Id = id;
             Code = key;
             Quality = quality;
-            this.banknoteId = banknoteId;
+            this.BanknoteId = banknoteId;
         }
 
         public OwnedBanknoteDTO(OwnedBanknote ownedBanknote)
@@ -29,12 +30,12 @@ namespace Numismatics.CORE.DTOs
             Id = ownedBanknote.Id;
             Code = ownedBanknote.Code;
             Quality = ownedBanknote.Quality;
-            banknoteId = ownedBanknote.BanknoteId;
+            BanknoteId = ownedBanknote.BanknoteId;
         }
 
         public OwnedBanknote ToOwnedBanknote()
         {
-            return new OwnedBanknote(Id, Code, Quality, banknoteId);
+            return new OwnedBanknote(Id, Code, Quality, BanknoteId);
         }
     }
 }
