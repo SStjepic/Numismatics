@@ -119,7 +119,7 @@
 
                 <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2"
                       ItemsSource="{Binding CoinCrudViewModel.CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
-                      SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentCoinQualityPair, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                      SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentOwnedCoin, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                       SelectionMode="Single"             
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
@@ -129,8 +129,8 @@
                           HeadersVisibility="Column">        
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Key}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding Value}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Quality}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding NumberOfCoins}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

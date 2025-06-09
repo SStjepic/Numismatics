@@ -16,47 +16,45 @@ namespace Numismatics.CORE.DTOs
         public double Value { get; set; }
         public Date IssueDate { get; set; }
         public string Description { get; set; }
-        public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public bool IsSubunit {  get; set; }
-        public Dictionary<MoneyQuality, int> Coins { get; set; }
+        public List<OwnedCoinDTO> OwnedCoins { get; set; }
         public CoinDTO() { }
-        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool isSubunit, Dictionary<MoneyQuality, int> coins)
+
+        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, Date issueDate, string description, string obversePicture, string reversePicture, bool isSubunit, List<OwnedCoinDTO> ownedCoins)
         {
             Id = id;
             Country = country;
             Currency = currency;
             Value = value;
+            IssueDate = issueDate;
             Description = description;
-            NumberOfCoins = numberOfCoins;
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
-            IssueDate = issueDate;
             IsSubunit = isSubunit;
-            Coins = coins;
+            OwnedCoins = ownedCoins;
         }
 
-        public CoinDTO(Coin coin, Country country, Currency currency)
+        public CoinDTO(Coin coin, Country country, Currency currency, List<OwnedCoinDTO> ownedCoins)
         {
             Id = coin.Id;
             Value = coin.Value;
             Description = coin.Description;
-            NumberOfCoins = coin.NumberOfCoins;
             ObversePicture = coin.ObversePicture;
             ReversePicture = coin.ReversePicture;
             IssueDate = coin.IssueDate;
             Country = new CountryDTO(country);
             Currency = new CurrencyDTO(currency);
             IsSubunit = coin.IsSubunit;
-            Coins = coin.Coins;
+            OwnedCoins = ownedCoins;
         }
 
         public Coin ToCoin()
         {
             long countryId = Country != null ? Country.Id : -1;
             long currencyId = Currency != null ? Currency.Id : -1;
-            return new Coin(Id, countryId, currencyId, Value, Description, NumberOfCoins, ObversePicture, ReversePicture, IssueDate, IsSubunit, Coins);
+            return new Coin(Id, countryId, currencyId, Value, Description, ObversePicture, ReversePicture, IssueDate, IsSubunit);
         }
 
         public override bool Equals(object? obj)

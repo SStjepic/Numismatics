@@ -39,7 +39,7 @@ namespace Numismatics.WPF
                 services.AddTransient<INationalCurrencyRepository, JsonNationalCurrencyRepository>();
                 services.AddTransient<IImageRepository, ImageRepository>();
                 services.AddTransient<IOwnedBanknotesRepository, JsonOwnedBanknotesRepository>();
-
+                services.AddTransient<IOwnedCoinRepository, JsonOwnedCoinRepository>();
 
 
                 // Services

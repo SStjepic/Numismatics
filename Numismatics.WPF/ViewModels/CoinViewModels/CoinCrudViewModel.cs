@@ -112,7 +112,7 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 OnPropertyChanged(nameof(SelectedCurrency));
             }
         }
-        public string NumberOfCoins => $"Number of coins: {CurrentCoin.Coins.Sum(pair => pair.Value)}";
+        public string NumberOfCoins => $"Number of coins: {CurrentCoin.Coins.Sum(pair => pair.NumberOfCoins)}";
 
         private bool _isUpdate;
 
@@ -217,6 +217,10 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)!.DialogResult = true;
                 return true;
             }
+            else
+            {
+                MessageBox.Show("You must have at least one coin.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             return false;
         }
 
@@ -225,43 +229,40 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
             if (CurrentCoin.CurrentCoinQuality != null)
             {
                 MoneyQuality coinQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentCoin.CurrentCoinQuality);
-                QualityKeyValuePair<MoneyQuality, int> pair = CurrentCoin.Coins.FirstOrDefault(p => p.Key.Equals(coinQuality));
-                if (pair == null)
+                OwnedCoinDataViewModel ownedCoin = CurrentCoin.Coins.FirstOrDefault(p => p.Quality.Equals(coinQuality));
+                if (ownedCoin == null)
                 {
-                    CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, 1));
+                    CurrentCoin.Coins.Add(new OwnedCoinDataViewModel(0, 1, coinQuality,CurrentCoin.Id));
                 }
                 else
                 {
-                    var number = pair.Value;
-                    CurrentCoin.Coins.Remove(pair);
-                    CurrentCoin.Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality, number + 1));
+                    CurrentCoin.Coins.First(c => c.Quality.Equals(coinQuality)).NumberOfCoins++;
                 }
                 OnPropertyChanged(nameof(NumberOfCoins));
             }
             else
             {
-                MessageBox.Show("Choose coin quality", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Choose coin quality.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
         private void deleteCoinQuality()
         {
-            if (CurrentCoin.CurrentCoinQualityPair != null)
+            if (CurrentCoin.CurrentOwnedCoin != null)
             {
-                if (CurrentCoin.CurrentCoinQualityPair.Value > 1)
+                if (CurrentCoin.CurrentOwnedCoin.NumberOfCoins > 1)
                 {
-                    int indexAt = CurrentCoin.Coins.IndexOf(CurrentCoin.CurrentCoinQualityPair);
-                    CurrentCoin.Coins[indexAt].Value--;
+                    CurrentCoin.Coins.First(c => c.Quality.Equals(CurrentCoin.CurrentOwnedCoin.Quality)).NumberOfCoins--;
                 }
                 else
                 {
-                    CurrentCoin.Coins.Remove(CurrentCoin.CurrentCoinQualityPair);
+                    CurrentCoin.Coins.Remove(CurrentCoin.CurrentOwnedCoin);
                 }
                 OnPropertyChanged(nameof(NumberOfCoins));
             }
             else
             {
-                MessageBox.Show("Please select coin <quality,number> pair", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select a owned coin.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Numismatics.CORE.DTOs;
+﻿using Numismatics.CORE.Domains.Models;
+using Numismatics.CORE.DTOs;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services.Interface;
 using System;
@@ -15,13 +16,15 @@ namespace Numismatics.CORE.Services
         private IImageRepository _imageRepository;
         private ICurrencyRepository _currencyRepository;
         private ICountryRepository _countryRepository;
+        private IOwnedCoinRepository _ownedCoinRepository;
 
-        public CoinService(ICoinRepository coinRepository, IImageRepository imageRepository, ICurrencyRepository currencyRepository, ICountryRepository countryRepository)
+        public CoinService(ICoinRepository coinRepository, IImageRepository imageRepository, ICurrencyRepository currencyRepository, ICountryRepository countryRepository, IOwnedCoinRepository ownedCoinRepository)
         {
             _coinRepository = coinRepository;
             _imageRepository = imageRepository;
             _currencyRepository = currencyRepository;
             _countryRepository = countryRepository;
+            _ownedCoinRepository = ownedCoinRepository;
         }
 
         public CoinDTO? Create(CoinDTO newCoin)
@@ -29,6 +32,12 @@ namespace Numismatics.CORE.Services
             newCoin.Id = DateTime.UtcNow.Ticks;
             (newCoin.ObversePicture, newCoin.ReversePicture) = _imageRepository.SaveCoinImage(newCoin.Id, newCoin.ObversePicture, newCoin.ReversePicture); ;
             _coinRepository.Create(newCoin.ToCoin());
+            foreach (OwnedCoinDTO ownedCoin in newCoin.OwnedCoins)
+            {
+                ownedCoin.Id = DateTime.UtcNow.Ticks;
+                ownedCoin.CoinId = newCoin.Id;
+                _ownedCoinRepository.Create(ownedCoin.ToOwnedCoin());
+            }
             return newCoin;
         }
 
@@ -36,6 +45,10 @@ namespace Numismatics.CORE.Services
         {
             _imageRepository.DeleteCoin(coin.Id);
             _coinRepository.Delete(coin.Id);
+            foreach (OwnedCoinDTO ownedCoin in coin.OwnedCoins)
+            {
+                _ownedCoinRepository.Delete(ownedCoin.Id);
+            }
             return coin;
         }
 
@@ -52,11 +65,22 @@ namespace Numismatics.CORE.Services
             var coinDTOs = new List<CoinDTO>();
             foreach(var coin in coins)
             {
+                var ownedCoins = _ownedCoinRepository.GetByCoin(coin.Id);
                 var country = countries.Find(c => c.Id == coin.CountryId);
                 var currency = currencies.Find(c => c.Id == coin.CurrencyId);
-                coinDTOs.Add(new CoinDTO(coin, country, currency));
+                coinDTOs.Add(new CoinDTO(coin, country, currency, ToOwnedCoins(ownedCoins)));
             }
             return coinDTOs;
+        }
+
+        private List<OwnedCoinDTO> ToOwnedCoins(List<OwnedCoin> ownedCoins)
+        {
+            var DTOs = new List<OwnedCoinDTO>();
+            foreach (var coin in ownedCoins)
+            {
+                DTOs.Add(new OwnedCoinDTO(coin));
+            }
+            return DTOs;
         }
 
         public List<CoinDTO> GetByPage(int pageNumber, int pageSize, CoinSearchDataDTO searchParams)
@@ -68,9 +92,10 @@ namespace Numismatics.CORE.Services
             var coinDTOs = new List<CoinDTO>();
             foreach(var coin in selectedCoins)
             {
+                var ownedCoins = _ownedCoinRepository.GetByCoin(coin.Id);
                 var country = countries.Find(c => c.Id == coin.CountryId);
                 var currency = currencies.Find(c => c.Id == coin.CurrencyId);
-                coinDTOs.Add(new CoinDTO(coin, country, currency));
+                coinDTOs.Add(new CoinDTO(coin, country, currency, ToOwnedCoins(ownedCoins)));
             }
             return coinDTOs;
         }
@@ -85,6 +110,16 @@ namespace Numismatics.CORE.Services
         {
             (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
             _coinRepository.Update(entity.ToCoin());
+            var ownedBanknotes = entity.OwnedCoins
+                .Select(dto => new OwnedCoin
+                {
+                    Id = dto.Id != 0? dto.Id : DateTime.UtcNow.Ticks,
+                    CoinId = entity.Id,
+                    NumberOfCoins = dto.NumberOfCoins,
+                    Quality = dto.Quality,
+                })
+                .ToList();
+            _ownedCoinRepository.UpdateByCoin(entity.Id, ownedBanknotes);
             return entity;
         }
 

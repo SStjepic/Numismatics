@@ -16,27 +16,23 @@ namespace Numismatics.CORE.Domains.Models
         public double Value { get; set; }
         public Date IssueDate {  get; set; }
         public string Description { get; set; }
-        public int NumberOfCoins { get; set; }
         public string ObversePicture { get; set; }
         public string ReversePicture { get; set; }
         public bool IsSubunit {  get; set; }
-        public Dictionary<MoneyQuality, int> Coins;
 
         public Coin() { }
 
-        public Coin(long id, long countryId, long currencyId, double value, string description, int numberOfCoins, string obversePicture, string reversePicture, Date issueDate, bool isSubunit, Dictionary<MoneyQuality, int> coins)
+        public Coin(long id, long countryId, long currencyId, double value, string description, string obversePicture, string reversePicture, Date issueDate, bool isSubunit)
         {
             Id = id;
             CountryId = countryId;
             CurrencyId = currencyId;
             Value = value;
             Description = description;
-            NumberOfCoins = numberOfCoins;
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IssueDate = issueDate;
             IsSubunit = isSubunit;
-            Coins = coins;  
         }
 
         public override bool Equals(object? obj)

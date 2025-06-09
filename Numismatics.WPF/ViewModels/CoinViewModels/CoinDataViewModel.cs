@@ -121,8 +121,8 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 OnPropertyChanged(nameof(ReversePicture));
             }
         }
-        private ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> _coins;
-        public ObservableCollection<QualityKeyValuePair<MoneyQuality, int>> Coins
+        private ObservableCollection<OwnedCoinDataViewModel> _coins;
+        public ObservableCollection<OwnedCoinDataViewModel> Coins
         {
             get { return _coins; }
             set
@@ -132,21 +132,21 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
             }
         }
         public string CurrentCoinQuality { get; set; }
-        private QualityKeyValuePair<MoneyQuality, int> _currentCoinQualityPair;
-        public QualityKeyValuePair<MoneyQuality, int> CurrentCoinQualityPair
+        private OwnedCoinDataViewModel _currentOwnedCoin;
+        public OwnedCoinDataViewModel CurrentOwnedCoin
         {
-            get { return _currentCoinQualityPair; }
+            get { return _currentOwnedCoin; }
             set
             {
-                _currentCoinQualityPair = value;
-                OnPropertyChanged(nameof(CurrentCoinQualityPair));
+                _currentOwnedCoin = value;
+                OnPropertyChanged(nameof(CurrentOwnedCoin));
             }
         }
 
         public CoinDataViewModel() { }
         public CoinDataViewModel(CoinDTO coin)
         {
-            Coins = new ObservableCollection<QualityKeyValuePair<MoneyQuality, int>>();
+            Coins = new ObservableCollection<OwnedCoinDataViewModel>();
             if (coin != null)
             {
                 Id = coin.Id;
@@ -156,11 +156,11 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 Era = coin.IssueDate.Era;
                 Value = coin.Value != 0? coin.Value.ToString(): "";
                 UnitName = coin.IsSubunit == true ? Currency.SubunitName : Currency.MainUnitName;
-                if (coin.Coins != null)
+                if (coin.OwnedCoins != null)
                 {
-                    foreach (var coinQuality in coin.Coins)
+                    foreach (var ownedCoin in coin.OwnedCoins)
                     {
-                        Coins.Add(new QualityKeyValuePair<MoneyQuality, int>(coinQuality.Key, coinQuality.Value));
+                        Coins.Add(new OwnedCoinDataViewModel(ownedCoin));
                     }
                 }
                 Description = coin.Description;
@@ -172,17 +172,6 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 Era = Era.CE;
             }
 
-        }
-
-        private Dictionary<MoneyQuality, int> GetCoinsDictionary()
-        {
-            var coins = new Dictionary<MoneyQuality, int>();
-            foreach (var coinPair in Coins)
-            {
-                coins.Add(coinPair.Key, coinPair.Value);
-
-            }
-            return coins;
         }
         public CoinDTO ToCoinDTO()
         {
@@ -197,11 +186,22 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
             {
                 isSubunit = string.Equals(UnitName, Currency.SubunitName) ? true : false;
             }
-            var coinDictionary = GetCoinsDictionary();
             int value = int.TryParse(Value, out var parsed) ? parsed : 0;
             var country = Country != null? Country.ToCountryDTO(): null;
             var currency = Currency != null? Currency.ToCurrencyDTO(): null;
-            return new CoinDTO(Id, country, currency, value, Description, 0, ObversePicture, ReversePicture, issueDate, isSubunit, coinDictionary);
+            var ownedCoins = ToOwnedCoinDTOs();
+            return new CoinDTO(Id, country, currency, value, issueDate, Description, ObversePicture, ReversePicture, isSubunit, ownedCoins);
+        }
+
+        private List<OwnedCoinDTO> ToOwnedCoinDTOs()
+        {
+            var ownedCoins = new List<OwnedCoinDTO>();
+            foreach (var coin in Coins)
+            {
+                ownedCoins.Add(coin.ToOwnedCoinDTO());
+            }
+
+            return ownedCoins;
         }
 
         public string Error => null;
