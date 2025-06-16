@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services;
 using Numismatics.CORE.Services.Interface;
 using Numismatics.INFRASTRUCTURE.Repositories.FileStorage;
 using Numismatics.INFRASTRUCTURE.Repositories.JSON;
+using Numismatics.INFRASTRUCTURE.Repositories.SQLite;
 using Numismatics.WPF.ViewModels.BanknoteViewModels;
 using Numismatics.WPF.ViewModels.CoinViewModels;
 using Numismatics.WPF.ViewModels.CountryViewModels;
@@ -31,6 +33,9 @@ namespace Numismatics.WPF
             AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
+                services.AddDbContext<SQLRepositoryContext>(options =>
+                    options.UseSqlite("Data Source=numismatics.db"));
+
                 //Repositories
                 services.AddTransient<ICoinRepository, JsonCoinRepository>();
                 services.AddTransient<IBanknoteRepository, JsonBanknoteRepository>();

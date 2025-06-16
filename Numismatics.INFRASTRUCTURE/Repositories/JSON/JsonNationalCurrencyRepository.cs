@@ -34,15 +34,19 @@ namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
             return oldNationalCurrency;
         }
 
-        public NationalCurrency? Get(long currencyId)
+        public NationalCurrency? Get(long id)
         {
-            var nationalCurrencies = GetAll();
-            return nationalCurrencies.Find(nc => nc.CurrencyId == currencyId);
+            return GetAll().Find(nc => nc.Id == id);
         }
 
         public List<NationalCurrency> GetAll()
         {
             return Load();
+        }
+
+        public List<NationalCurrency> GetByCurrency(long currencyId)
+        {
+            return Load().Where(nc => nc.CurrencyId == currencyId).ToList();
         }
 
         public NationalCurrency? Update(NationalCurrency entity)

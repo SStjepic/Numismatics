@@ -9,5 +9,6 @@ namespace Numismatics.CORE.Repositories
 {
     public interface INationalCurrencyRepository : IRepository<NationalCurrency>
     {
+        public List<NationalCurrency> GetByCurrency(long currencyId);
     }
 }

@@ -13,18 +13,23 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
     {
         public long Id { get; set; }
         public CurrencyDataViewModel Currency { get; set; }
-        public List<CountryDataViewModel> Countries { get; set; }
+        public CountryDataViewModel Country { get; set; }
         public NationalCurrencyDataViewModel() 
         {
             Id = -1;
             Currency = new CurrencyDataViewModel();
-            Countries = new List<CountryDataViewModel>();
+            Country = new CountryDataViewModel();
         }
-        public NationalCurrencyDataViewModel(long id, CurrencyDataViewModel currency, List<CountryDataViewModel> countries)
+        public NationalCurrencyDataViewModel(long id, CurrencyDataViewModel currency, CountryDataViewModel country)
         {
             Id = id;
             Currency = currency;
-            Countries = countries;
+            Country = country;
+        }
+
+        public NationalCurrencyDTO ToNationalCurrencyDTO()
+        {
+            return new NationalCurrencyDTO(Id, Currency.ToCurrencyDTO(), Country.ToCountryDTO());
         }
     }
 }

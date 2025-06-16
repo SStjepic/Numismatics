@@ -12,10 +12,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\SQLite\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net8.0-windows7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

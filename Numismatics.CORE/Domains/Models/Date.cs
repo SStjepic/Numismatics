@@ -38,6 +38,17 @@ namespace Numismatics.CORE.Domains.Models
 
             return temp;
         }
+        public static Date Parse(string value)
+        {
+            var parts = value.Split('-');
+            int.TryParse(parts[0], out int year);
+            int.TryParse(parts[1], out int month);
+            int.TryParse(parts[2].TrimEnd('C', 'E', 'B'), out int day);
+
+            Era era = value.Contains("BCE") ? Era.BCE : Era.CE;
+
+            return new Date(day, month, year, era);
+        }
 
         public int CompareTo(Date? other)
         {

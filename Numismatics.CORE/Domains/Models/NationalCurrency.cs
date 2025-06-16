@@ -10,23 +10,28 @@ namespace Numismatics.CORE.Domains.Models
     {
         public long Id { get; set; } 
         public long CurrencyId;
-        public List<long> Countries;
+        public long CountryId;
 
         public NationalCurrency()
         {
         }
 
-        public NationalCurrency(long id, long currencyId, List<long> countries)
+        public NationalCurrency(long id, long currencyId, long countryId)
         {
             Id = id;
             CurrencyId = currencyId;
-            Countries = countries;
+            CountryId = countryId;
         }
 
         public override bool Equals(object? obj)
         {
-            return obj is NationalCurrency currency &&
-                   Id == currency.Id;
+            return obj is NationalCurrency nationalCurrency &&
+                   Id == nationalCurrency.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, CurrencyId, CountryId);
         }
     }
 }

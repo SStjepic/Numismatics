@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Numismatics.CORE.DTOs;
-using Numismatics.CORE.Services;
 using Numismatics.CORE.Services.Interface;
 using Numismatics.WPF.Utils;
 using Numismatics.WPF.ViewModels.CountryViewModels;
@@ -20,6 +19,7 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
         private INationalCurrencyService _nationalCurrencyService;
         private ICountryService _countryService;
 
+        public CurrencyDataViewModel CurrencyDataViewModel {  get; set; }
         private ObservableCollection<CountryDataViewModel> _allCountries;
         public ObservableCollection<CountryDataViewModel> AllCountries
         {
@@ -43,14 +43,14 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
         }
 
         private bool _isUpdate;
-        private NationalCurrencyDataViewModel _nationalCurrency;
-        public NationalCurrencyDataViewModel NationalCurrency
+        private List<NationalCurrencyDataViewModel> _nationalCurrencies;
+        public List<NationalCurrencyDataViewModel> NationalCurrencies
         {
-            get => _nationalCurrency;
+            get => _nationalCurrencies;
             set
             {
-                _nationalCurrency = value;
-                OnPropertyChanged(nameof(NationalCurrency));
+                _nationalCurrencies = value;
+                OnPropertyChanged(nameof(NationalCurrencies));
             }
         }
 
@@ -72,15 +72,18 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
         {
             setup();
             getAllCountries();
+            CurrencyDataViewModel = currencyData;
             _isUpdate = currencyData != null ? true : false;
             if (currencyData != null)
             {
-                var nationalCurrencyDTO = _nationalCurrencyService.Get(currencyData.Id);
-                if (nationalCurrencyDTO != null) 
+                var nationalCurrencyDTOs = _nationalCurrencyService.GetAll(currencyData.Id);
+                if (nationalCurrencyDTOs != null) 
                 {
-                    NationalCurrency.Id = currencyData.Id;
-                    NationalCurrency.Currency = new CurrencyDataViewModel(nationalCurrencyDTO.Currency);
-                    NationalCurrency.Countries = convertCountries(nationalCurrencyDTO.CountryDTOs);
+                    foreach(var nationalCurrency in nationalCurrencyDTOs)
+                    {
+                        NationalCurrencies.Add(new NationalCurrencyDataViewModel(nationalCurrency.Id, new CurrencyDataViewModel(nationalCurrency.Currency), new CountryDataViewModel(nationalCurrency.Country)));
+                        SelectedCountries.Add(new CountryDataViewModel(nationalCurrency.Country));
+                    }
                 }
             }
         }
@@ -91,33 +94,23 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
             _countryService = App.AppHost.Services.GetRequiredService<ICountryService>();
             AllCountries = new ObservableCollection<CountryDataViewModel>();
             SelectedCountries = new ObservableCollection<CountryDataViewModel>();
-            NationalCurrency = new NationalCurrencyDataViewModel();
+            NationalCurrencies = new List<NationalCurrencyDataViewModel>();
             SelectCountryCommand = new RelayCommand(c => SelectCountry());
             RemoveCountryCommand = new RelayCommand(c => RemoveCountry());
             SaveNationalCurrencyCommand = new RelayCommand(s => SaveNationalCurrency());
 
         }
-        private List<CountryDataViewModel> convertCountries(List<CountryDTO> countryDTOs)
-        {
-            List<CountryDataViewModel> result = new List<CountryDataViewModel>();
-            foreach (var country in countryDTOs) 
-            {
-                var countryDVM = new CountryDataViewModel(country);
-                result.Add(countryDVM);
-                SelectedCountries.Add(countryDVM);
-            }
-            return result;
-        }
+
         public void SelectCountry()
         {
             if (SelectedCountry == null)
             {
                 MessageBox.Show($"You must select a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (!NationalCurrency.Countries.Contains(SelectedCountry))
+            else if (!SelectedCountries.Contains(SelectedCountry))
             {
-                NationalCurrency.Countries.Add(SelectedCountry);
                 SelectedCountries.Add(SelectedCountry);
+                NationalCurrencies.Add(new NationalCurrencyDataViewModel(-1, CurrencyDataViewModel, SelectedCountry));
             }
             else
             {
@@ -131,10 +124,10 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
             {
                 MessageBox.Show($"You must select a country.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (NationalCurrency.Countries.Contains(SelectedCountry))
+            else if (SelectedCountries.Contains(SelectedCountry))
             {
-                NationalCurrency.Countries.Remove(SelectedCountry);
                 SelectedCountries.Remove(SelectedCountry);
+                NationalCurrencies.RemoveAll(x => x.Country.Id == SelectedCountry.Id);
             }
             else
             {
@@ -157,20 +150,10 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
 
         public void SaveNationalCurrency()
         {
-            NationalCurrencyDTO nationalCurrencyDTO = new NationalCurrencyDTO();
-            nationalCurrencyDTO.Id = _isUpdate? NationalCurrency.Id: -1;
-            nationalCurrencyDTO.Currency = NationalCurrency.Currency.ToCurrencyDTO();
-            nationalCurrencyDTO.CountryDTOs = NationalCurrency.Countries
-                .Select(c => c.ToCountryDTO())
+            var nationalCurrencies = NationalCurrencies
+                .Select(x => x.ToNationalCurrencyDTO())
                 .ToList();
-            if (_isUpdate) 
-            {
-                _nationalCurrencyService.Update(nationalCurrencyDTO);
-            }
-            else
-            {
-                _nationalCurrencyService.Create(nationalCurrencyDTO);
-            }
+            _nationalCurrencyService.UpdateAll(nationalCurrencies, CurrencyDataViewModel.ToCurrencyDTO());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

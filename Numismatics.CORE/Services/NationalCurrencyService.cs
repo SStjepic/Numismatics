@@ -42,11 +42,8 @@ namespace Numismatics.CORE.Services
             {
                 if (nationalCurrency.CurrencyId == currencyId)
                 {
-                    foreach (var countryId in nationalCurrency.Countries)
-                    {
-                        var country = _countryRepository.Get(countryId);
-                        countries.Add(new CountryDTO(country));
-                    }
+                    var country = _countryRepository.Get(nationalCurrency.CountryId);
+                    countries.Add(new CountryDTO(country));
                 }
             }
 
@@ -58,7 +55,7 @@ namespace Numismatics.CORE.Services
             var currencies = new List<CurrencyDTO>();
             foreach(var nationalCurrency in _nationalCurrencyRepository.GetAll())
             {
-                if (nationalCurrency.Countries.Contains(countryId))
+                if (nationalCurrency.CountryId == countryId)
                 {
                     var currency = _currencyRepository.Get(nationalCurrency.CurrencyId);
                     currencies.Add(new CurrencyDTO(currency));
@@ -68,16 +65,17 @@ namespace Numismatics.CORE.Services
             return currencies;
         }
 
-        public NationalCurrencyDTO? Get(long currencyId)
+        public List<NationalCurrencyDTO>? GetAll(long currencyId)
         {
-            var nationalCurrency = _nationalCurrencyRepository.Get(currencyId);
-            if(nationalCurrency == null)
-            {
-                return null;
-            }
-            var countriesDTO = GetCountries(currencyId);
+            var nationalCurrencyDTOs = new List<NationalCurrencyDTO>();
+            var nationalCurrencies = _nationalCurrencyRepository.GetByCurrency(currencyId);
             var currency = _currencyRepository.Get(currencyId);
-            return new NationalCurrencyDTO(nationalCurrency.Id, new CurrencyDTO(currency), countriesDTO);
+            foreach (var nationalCurrency in nationalCurrencies)
+            {
+                var country = _countryRepository.Get(nationalCurrency.CountryId);
+                nationalCurrencyDTOs.Add(new NationalCurrencyDTO(nationalCurrency.Id, new CurrencyDTO(currency), new CountryDTO(country)));
+            }
+            return nationalCurrencyDTOs;
         }
 
         public NationalCurrencyDTO? Delete(NationalCurrencyDTO entity)
@@ -93,6 +91,34 @@ namespace Numismatics.CORE.Services
         public int GetTotalPageNumber(int pageSize)
         {
             throw new NotImplementedException();
+        }
+
+        public NationalCurrencyDTO? Get(long entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<NationalCurrencyDTO> UpdateAll(List<NationalCurrencyDTO> nationalCurrencies, CurrencyDTO currency)
+        {
+            var oldNationalCurrencies = _nationalCurrencyRepository.GetByCurrency(currency.Id);
+            foreach (var nationalCurrency in nationalCurrencies)
+            {
+                if (nationalCurrency.Id == -1)
+                {
+                    this.Create(nationalCurrency);
+                }
+                else
+                {
+                    this.Update(nationalCurrency);
+                }
+            }
+
+            var old = oldNationalCurrencies.Except(nationalCurrencies.Select(x => x.ToNationalCurrency()).ToList()).ToList();
+            foreach(var nationalCurrency in old)
+            {
+                _nationalCurrencyRepository.Delete(nationalCurrency.Id);
+            }
+            return nationalCurrencies;
         }
     }
 }

@@ -11,42 +11,28 @@ namespace Numismatics.CORE.DTOs
     {
         public long Id {  get; set; }    
         public CurrencyDTO Currency { get; set; }
-        public List<CountryDTO> CountryDTOs { get; set; }
+        public CountryDTO Country { get; set; }
 
         public NationalCurrencyDTO()
         {
         }
 
-        public NationalCurrencyDTO(long id, CurrencyDTO currency, List<CountryDTO> countryDTOs)
+        public NationalCurrencyDTO(long id, CurrencyDTO currency, CountryDTO country)
         {
             Id = id;
             Currency = currency;
-            CountryDTOs = countryDTOs;
+            Country = country;
         }
 
-        public NationalCurrencyDTO( CurrencyDTO currency, List<CountryDTO> countryDTOs)
+        public NationalCurrencyDTO( CurrencyDTO currency, CountryDTO country)
         {
             Currency = currency;
-            CountryDTOs = countryDTOs;
-        }
-
-        public void AddCountry(CountryDTO countryDTO)
-        {
-            CountryDTOs.Add(countryDTO);
+            Country = country;
         }
 
         public NationalCurrency ToNationalCurrency()
         {
-            var countries = new List<long>();
-            if (CountryDTOs.Count == 0) 
-            {
-                return new NationalCurrency(Id, Currency.Id, countries);
-            }
-            foreach (var country in CountryDTOs)
-            { 
-                countries.Add(country.Id);
-            }
-            return new NationalCurrency(Id, Currency.Id, countries);
+            return new NationalCurrency(Id, Currency.Id, Country.Id);
         }
     }
 }
