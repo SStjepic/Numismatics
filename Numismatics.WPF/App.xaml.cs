@@ -37,14 +37,14 @@ namespace Numismatics.WPF
                     options.UseSqlite("Data Source=numismatics.db"));
 
                 //Repositories
-                services.AddTransient<ICoinRepository, JsonCoinRepository>();
-                services.AddTransient<IBanknoteRepository, JsonBanknoteRepository>();
-                services.AddTransient<ICurrencyRepository, JsonCurrencyRepository>();
-                services.AddTransient<ICountryRepository, JsonCountryRepository>();
-                services.AddTransient<INationalCurrencyRepository, JsonNationalCurrencyRepository>();
+                services.AddTransient<ICoinRepository, SQLiteCoinRepository>();
+                services.AddTransient<IBanknoteRepository, SQLiteBanknoteRepository>();
+                services.AddTransient<ICurrencyRepository, SQLiteCurrencyRepository>();
+                services.AddTransient<ICountryRepository, SQLiteCountryRepository>();
+                services.AddTransient<INationalCurrencyRepository, SQLiteNationalCurrencyRepository>();
                 services.AddTransient<IImageRepository, ImageRepository>();
-                services.AddTransient<IOwnedBanknotesRepository, JsonOwnedBanknotesRepository>();
-                services.AddTransient<IOwnedCoinRepository, JsonOwnedCoinRepository>();
+                services.AddTransient<IOwnedBanknotesRepository, SQLiteOwnedBanknoteRepository>();
+                services.AddTransient<IOwnedCoinRepository, SQLiteOwnedCoinRepository>();
 
 
                 // Services

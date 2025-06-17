@@ -11,9 +11,9 @@ namespace Numismatics.CORE.Domains.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Capital { get; set; }
-        public string Bank { get; set; }
-        public Date StartYear { get; set; }
-        public Date EndYear { get; set; }
+        public string? Bank { get; set; }
+        public Date? StartYear { get; set; }
+        public Date? EndYear { get; set; }
 
         public Country() { }
         public Country(long id, string name, string capital, string bank, Date startYear, Date endYear)

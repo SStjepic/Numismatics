@@ -11,14 +11,14 @@ namespace Numismatics.CORE.DTOs
     public class CoinDTO
     {
         public long Id { get; set; }
-        public CountryDTO Country { get; set; }
-        public CurrencyDTO Currency { get; set; }
-        public double Value { get; set; }
-        public Date IssueDate { get; set; }
-        public string Description { get; set; }
-        public string ObversePicture { get; set; }
-        public string ReversePicture { get; set; }
-        public bool IsSubunit {  get; set; }
+        public CountryDTO? Country { get; set; }
+        public CurrencyDTO? Currency { get; set; }
+        public double? Value { get; set; }
+        public Date? IssueDate { get; set; }
+        public string? Description { get; set; }
+        public string? ObversePicture { get; set; }
+        public string? ReversePicture { get; set; }
+        public bool? IsSubunit {  get; set; }
         public List<OwnedCoinDTO> OwnedCoins { get; set; }
         public CoinDTO() { }
 
@@ -54,7 +54,7 @@ namespace Numismatics.CORE.DTOs
         {
             long countryId = Country != null ? Country.Id : -1;
             long currencyId = Currency != null ? Currency.Id : -1;
-            return new Coin(Id, countryId, currencyId, Value, Description, ObversePicture, ReversePicture, IssueDate, IsSubunit);
+            return new Coin(Id, countryId, currencyId, Value, IssueDate, Description, ObversePicture, ReversePicture, IsSubunit);
         }
 
         public override bool Equals(object? obj)

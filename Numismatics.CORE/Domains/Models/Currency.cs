@@ -13,7 +13,7 @@ namespace Numismatics.CORE.Domains.Models
         public string SubunitName { get; set; }
         public string MainUnitName { get; set; }
         public int SubunitToMainUnit { get; set; }
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         public Currency() { }
 

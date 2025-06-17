@@ -12,20 +12,20 @@ namespace Numismatics.CORE.Domains.Models
     public class Banknote
     {
         public long Id { get; set; }
-        public long CountryId { get; set; }
-        public long CurrencyId { get; set; }
-        public double Value { get; set; }
-        public bool IsSubunit { get; set; }
-        public Date IssueDate { get; set; }
-        public string ObversePicture { get; set; }
-        public string ReversePicture { get; set; }
-        public string Description { get; set; }
-        public string City { get; set; }
+        public long? CountryId { get; set; }
+        public long? CurrencyId { get; set; }
+        public double? Value { get; set; }
+        public bool? IsSubunit { get; set; }
+        public Date? IssueDate { get; set; }
+        public string? ObversePicture { get; set; }
+        public string? ReversePicture { get; set; }
+        public string? Description { get; set; }
+        public string? City { get; set; }
         public Banknote() { }
 
-        public Banknote(long id, long countryId, long currencyId, double value, bool isSubunit,
-            Date issueDate, string obversePicture, string reversePicture,
-            string description, string city)
+        public Banknote(long id, long? countryId, long? currencyId, double? value, bool? isSubunit,
+            Date? issueDate, string? obversePicture, string? reversePicture,
+            string? description, string? city)
         {
             Id = id;
             CountryId = countryId;

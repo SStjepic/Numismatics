@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Numismatics.INFRASTRUCTURE.Repositories.JSON
 {
-    public class JsonOwnedBanknotesRepository :JSONRepository<OwnedBanknote>, IOwnedBanknotesRepository
+    public class JsonOwnedBanknoteRepository :JSONRepository<OwnedBanknote>, IOwnedBanknotesRepository
     {
         private readonly string _fileName = "OwnedBanknoteData.json";
 
-        public JsonOwnedBanknotesRepository(): base( new JSONSerialization()) 
+        public JsonOwnedBanknoteRepository(): base( new JSONSerialization()) 
         {
             SetFileName( _fileName );
         }

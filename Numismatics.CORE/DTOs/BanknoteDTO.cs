@@ -11,15 +11,15 @@ namespace Numismatics.CORE.DTOs
     public class BanknoteDTO
     {
         public long Id { get; set; }
-        public CountryDTO Country { get; set; }
-        public CurrencyDTO Currency { get; set; }
-        public double Value { get; set; }
-        public bool IsSubunit { get; set; }
-        public Date IssueDate { get; set; }
-        public string ObversePicture { get; set; }
-        public string ReversePicture { get; set; }
-        public string Description { get; set; }
-        public string City { get; set; }
+        public CountryDTO? Country { get; set; }
+        public CurrencyDTO? Currency { get; set; }
+        public double? Value { get; set; }
+        public bool? IsSubunit { get; set; }
+        public Date? IssueDate { get; set; }
+        public string? ObversePicture { get; set; }
+        public string? ReversePicture { get; set; }
+        public string? Description { get; set; }
+        public string? City { get; set; }
         public List<OwnedBanknoteDTO> OwnedBanknotes { get; set; }
         public BanknoteDTO(long id, CountryDTO country, CurrencyDTO currency, double value, bool isSubunit, string obversePicture, string reversePicture, string description, Date issueDate, string city, List<OwnedBanknoteDTO> ownedBanknotes)
         {
