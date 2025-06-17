@@ -110,14 +110,28 @@ namespace Numismatics.WPF.ViewModels.CurrencyViewModels
                 {
                     if (string.IsNullOrEmpty(Name))
                     {
-                        return "Currency must have a name";
+                        return "Currency must have a name.";
                     }
                 }
-                if (columnName == "Code")
+                else if(columnName == "MainUnitName")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                    {
+                        return "Currency must have a main unit name.";
+                    }
+                }
+                else if (columnName == "SubunitName")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                    {
+                        return "Currency must have a  subunit name.";
+                    }
+                }
+                else if (columnName == "Code")
                 {
                     if (!string.IsNullOrEmpty(Code))
                     {
-                        if(Code.Length != 3)
+                        if (Code.Length != 3)
                         {
                             return "Currency code must contain 3 letters";
                         }

@@ -29,7 +29,9 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
 
         public NationalCurrencyDTO ToNationalCurrencyDTO()
         {
-            return new NationalCurrencyDTO(Id, Currency.ToCurrencyDTO(), Country.ToCountryDTO());
+            var country = Country != null? Country.ToCountryDTO(): null;
+            var currency = Currency != null? Currency.ToCurrencyDTO(): null;
+            return new NationalCurrencyDTO(Id, currency, country);
         }
     }
 }

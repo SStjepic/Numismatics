@@ -151,7 +151,11 @@ namespace Numismatics.WPF.ViewModels.NationalCurrencyViewModels
         public void SaveNationalCurrency()
         {
             var nationalCurrencies = NationalCurrencies
-                .Select(x => x.ToNationalCurrencyDTO())
+                .Select(x =>
+                {
+                    x.Currency = CurrencyDataViewModel;
+                    return x.ToNationalCurrencyDTO();
+                })
                 .ToList();
             _nationalCurrencyService.UpdateAll(nationalCurrencies, CurrencyDataViewModel.ToCurrencyDTO());
         }
