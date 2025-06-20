@@ -98,7 +98,7 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
         {
             if(country == null || country.Id == -1)
             {
-                SetYears(-1, -1);
+                SetYears(0, 0);
             }
             else
             {
@@ -150,11 +150,11 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
                 else if (columnName == "StartYear")
                 {
                     var year = StringToInt(StartYear);
-                    if (StartYear != GlobalParams.EMPTY_VALUE && year == -1)
+                    if (StartYear != GlobalParams.EMPTY_VALUE && year == 0)
                     {
                         return "Enter a correct year.";
                     }
-                    else if (year <= 0 && year != -1)
+                    else if (year <= 0 && year != 0)
                     {
                         return "Enter a valid year.";
                     }
@@ -168,11 +168,11 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
                 else if (columnName == "EndYear")
                 {
                     var year = StringToInt(EndYear);
-                    if (EndYear != GlobalParams.EMPTY_VALUE && year == -1)
+                    if (EndYear != GlobalParams.EMPTY_VALUE && year == 0)
                     {
                         return "Enter a correct year";
                     }
-                    else if (year <= 0 && year != -1)
+                    else if (year <= 0 && year != 0)
                     {
                         return "Enter a valid year.";
                     }
@@ -206,14 +206,14 @@ namespace Numismatics.WPF.ViewModels.CountryViewModels
             }
             catch
             {
-                return -1;
+                return 0;
             }
         }
 
         private void SetYears(int startYear, int endYear)
         {
-            StartYear = startYear == -1 ? GlobalParams.EMPTY_VALUE : startYear.ToString();
-            EndYear = endYear == -1 ? GlobalParams.EMPTY_VALUE : endYear.ToString();
+            StartYear = startYear == 0 ? GlobalParams.EMPTY_VALUE : startYear.ToString();
+            EndYear = endYear == 0 ? GlobalParams.EMPTY_VALUE : endYear.ToString();
 
         }
 
