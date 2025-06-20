@@ -36,8 +36,8 @@ It includes full **CRUD** operations and **search functionality** by various par
 - Manage collections of coins and banknotes
 - Full CRUD operations (Create, Read, Update, Delete)
 - Support for uploading images of coins and banknotes
-- Search and filter by parameters like country, currency, year, condition, and denomination
-- Data persisted locally in JSON files
+- Search and filter by parameters like country, currency, year, condition, value
+- Data stored locally using SQLite database
 - Images copied and stored in a separate folder for easy management
 - Clean and intuitive WPF user interface
 
@@ -46,7 +46,6 @@ It includes full **CRUD** operations and **search functionality** by various par
 - Export and import collection data (CSV, Excel)
 - Reports and charts for better collection analysis
 - Advanced sorting options
-- Database connectivity for improved data management
 
 ## 📋 Requirements
 
