@@ -8,12 +8,15 @@ namespace Numismatics.CORE.Domains.Enums
 {
     public enum MoneyQuality
     {
-        G,
-        VG,
-        F,
-        VF,
+        UNC,
+        aUNC,
         XF,
-        UNC
+        VF,
+        F,
+        VG,
+        G,
+        FAIR,
+        PR
     }
 
     public enum Era
