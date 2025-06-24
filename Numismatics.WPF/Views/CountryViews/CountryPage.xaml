@@ -50,17 +50,17 @@
             VerticalAlignment="Stretch"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
+                <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Name}" 
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Bank" Width="*" Binding="{Binding Bank}"
+                <DataGridTextColumn Header="Bank" Width="2*" Binding="{Binding Bank}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Capital" Width="*" Binding="{Binding Capital}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start year" Width="*" Binding="{Binding StartYear}"
+                <DataGridTextColumn Header="Start year" Width="0.8*" Binding="{Binding StartYear}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding StartYearEra}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="End year" Width="*" Binding="{Binding EndYear}"
+                <DataGridTextColumn Header="End year" Width="0.8*" Binding="{Binding EndYear}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding EndYearEra}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>

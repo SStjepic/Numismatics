@@ -171,5 +171,8 @@
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
         <Setter Property="FontStyle" Value="Oblique"/>
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="4,2" />
     </Style>
 </ResourceDictionary>

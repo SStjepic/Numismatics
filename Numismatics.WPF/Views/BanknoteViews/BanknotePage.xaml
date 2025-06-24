@@ -53,7 +53,7 @@
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Unit" Width="*" Binding="{Binding UnitName}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding IssueDate}"
+                <DataGridTextColumn Header="Date" Width="0.5*" Binding="{Binding IssueDate}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>

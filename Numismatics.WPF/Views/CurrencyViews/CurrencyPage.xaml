@@ -50,11 +50,11 @@
         VerticalAlignment="Stretch"
               >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}" 
+                <DataGridTextColumn Header="Name" Width="3*" Binding="{Binding Name}" 
                                 ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Main unit name" Width="*" Binding="{Binding MainUnitName}"
+                <DataGridTextColumn Header="Main unit name" Width="2*" Binding="{Binding MainUnitName}"
                                 ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Subunit name" Width="*" Binding="{Binding SubunitName}"
+                <DataGridTextColumn Header="Subunit name" Width="2*" Binding="{Binding SubunitName}"
                                 ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Code" Width="*" Binding="{Binding Code}"
                                 ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
