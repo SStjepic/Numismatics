@@ -62,15 +62,20 @@ namespace Numismatics.INFRASTRUCTURE.Repositories.SQLite
 
         public List<OwnedBanknote> UpdateByBanknote(long banknoteId, List<OwnedBanknote> banknotes)
         {
-            var existing = _context.OwnedBanknotes.Where(o => o.BanknoteId == banknoteId).ToList();
-            _context.OwnedBanknotes.RemoveRange(existing);
-
-            foreach (var banknote in banknotes)
+            var newBanknotes = banknotes.Where(b => b.Id == 0).ToList();
+            foreach (var newOwned in newBanknotes)
             {
-                _context.OwnedBanknotes.Add(banknote);
+                newOwned.Id = DateTime.Now.Ticks;
             }
-
+            _context.AddRange(newBanknotes);
             _context.SaveChanges();
+
+            var banknoteIds = banknotes.Where(b => b.Id != 0).Select(b => b.Id).ToHashSet();
+            var toRemove = _context.OwnedBanknotes.Where(e => !banknoteIds.Contains(e.Id)).ToList();
+
+            _context.OwnedBanknotes.RemoveRange(toRemove);
+            _context.SaveChanges();
+
             return banknotes;
         }
     }

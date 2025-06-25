@@ -25,5 +25,11 @@ namespace Numismatics.CORE.Domains.Models
             Quality = quality;
             BanknoteId = banknoteId;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is OwnedBanknote banknote &&
+                   Id == banknote.Id;
+        }
     }
 }

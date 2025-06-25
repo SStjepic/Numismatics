@@ -48,7 +48,7 @@ namespace Numismatics.CORE.Services
             var ownedBanknotes = banknoteDTO.OwnedBanknotes
                 .Select(dto => new OwnedBanknote
                 {
-                    Id = dto.Id != 0 ? dto.Id : DateTime.UtcNow.Ticks,
+                    Id = dto.Id,
                     BanknoteId = banknoteDTO.Id,
                     Code = dto.Code,
                     Quality = dto.Quality,
