@@ -47,7 +47,7 @@
             HeadersVisibility="Column"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value}"
+                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value, Converter={StaticResource DecimalConverter}}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
                 <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
