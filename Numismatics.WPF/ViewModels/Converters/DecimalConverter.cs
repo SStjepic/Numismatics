@@ -25,7 +25,14 @@ namespace Numismatics.WPF.ViewModels.Converters
                 else
                     return value?.ToString();
 
-                return number.ToString("N2", this.culture);
+                if(number < 1000)
+                {
+                    return number;
+                }
+                else
+                {
+                    return number.ToString("N0", this.culture);
+                }
             }
             catch
             {

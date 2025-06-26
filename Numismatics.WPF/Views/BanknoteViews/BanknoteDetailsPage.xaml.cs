@@ -35,22 +35,8 @@ namespace Numismatics.WPF.View.BanknoteView
 
             BanknoteCrudViewModel = new BanknoteCrudViewModel(banknote);
             this.DataContext = this;
-
-            SetComboBox();
         }
 
-        private void SetComboBox()
-        {
-            foreach (Era era in Enum.GetValues(typeof(Era)))
-            {
-                EraComboBox.Items.Add(era);
-            }
-            foreach (MoneyQuality banknoteQuality in Enum.GetValues(typeof(MoneyQuality)))
-            {
-                BanknoteQualityComboBox.Items.Add(banknoteQuality);
-            }
-
-        }
         private void Exit(object sender, RoutedEventArgs e)
         {
             Close();

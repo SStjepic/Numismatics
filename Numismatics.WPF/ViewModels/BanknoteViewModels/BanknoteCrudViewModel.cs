@@ -115,6 +115,9 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         }
         public string NumberOfBanknotes => $"Number of banknotes: {CurrentBanknote.Banknotes.Count}";
 
+        public List<Era> EraList {  get; set; }
+        public List<String> MoneyQualities {  get; set; }
+
         private bool _isUpdate;
         public ICommand CreateBanknoteCommand { get; set; }
         public ICommand AddBanknoteCommand { get; set; }
@@ -167,6 +170,9 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 }
                 OnPropertyChanged(nameof(SelectedCurrencyUnitName));
             }
+
+            EraList = Enum.GetValues(typeof(Era)).Cast<Era>().ToList();
+            MoneyQualities = Enum.GetNames(typeof(MoneyQuality)).ToList();
         }
         private bool createBanknote()
         {
@@ -193,28 +199,30 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         private void addBanknote()
         {
-            if (CurrentBanknote.CurrentBanknoteQuality != null)
+            if (!string.IsNullOrEmpty(CurrentBanknote.CurrentBanknoteQuality))
             {
-                if(CurrentBanknote.CurrentBanknoteCode == null)
+                if(string.IsNullOrEmpty(CurrentBanknote.CurrentBanknoteSerialNumber))
                 {
-                    MessageBox.Show("Enter banknote code", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Enter a banknote serial number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknote.CurrentBanknoteQuality);
-                OwnedBanknoteDataViewModel ownedBanknote = CurrentBanknote.Banknotes.FirstOrDefault(p => p.Code.Equals(CurrentBanknote.CurrentBanknoteCode));
+                OwnedBanknoteDataViewModel ownedBanknote = CurrentBanknote.Banknotes.FirstOrDefault(p => p.SerialNumber.Equals(CurrentBanknote.CurrentBanknoteSerialNumber));
                 if (ownedBanknote == null)
                 {
-                    CurrentBanknote.Banknotes.Add(new OwnedBanknoteDataViewModel(CurrentBanknote.CurrentBanknoteCode, banknoteQuality, CurrentBanknote.Id));
+                    CurrentBanknote.Banknotes.Add(new OwnedBanknoteDataViewModel(CurrentBanknote.CurrentBanknoteSerialNumber, banknoteQuality, CurrentBanknote.Id));
+                    CurrentBanknote.CurrentBanknoteSerialNumber = null;
+                    OnPropertyChanged(nameof(CurrentBanknote));
                     OnPropertyChanged(nameof(NumberOfBanknotes));
                 }
                 else
                 {
-                    MessageBox.Show($"Already exist banknote with code: {CurrentBanknote.CurrentBanknoteCode}","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Already exist banknote with code: {CurrentBanknote.CurrentBanknoteSerialNumber}","Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Choose banknote quality", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Choose a banknote quality", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -11,22 +11,22 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
     public class OwnedBanknoteDataViewModel
     {
         public long Id { get; set; }
-        public string Code { get; set; }
+        public string SerialNumber { get; set; }
         public MoneyQuality Quality { get; set; }
         public long BanknoteId {  get; set; }
 
         public OwnedBanknoteDataViewModel() { }
-        public OwnedBanknoteDataViewModel(long id, string code, MoneyQuality quality, long banknoteId)
+        public OwnedBanknoteDataViewModel(long id, string serialNumber, MoneyQuality quality, long banknoteId)
         {
             Id = id;
-            Code = code;
+            SerialNumber = serialNumber;
             Quality = quality;
             BanknoteId = banknoteId;
         }
 
-        public OwnedBanknoteDataViewModel(string code, MoneyQuality quality, long banknoteId)
+        public OwnedBanknoteDataViewModel(string serialNumber, MoneyQuality quality, long banknoteId)
         {
-            Code = code;
+            SerialNumber = serialNumber;
             Quality = quality;
             BanknoteId = banknoteId;
         }
@@ -34,20 +34,20 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         public OwnedBanknoteDataViewModel(OwnedBanknoteDTO ownedBanknote)
         {
             Id = ownedBanknote.Id;
-            Code = ownedBanknote.Code;
+            SerialNumber = ownedBanknote.SerialNumber;
             Quality = ownedBanknote.Quality;
         }
 
         public OwnedBanknoteDTO ToOwnedBanknoteDTO()
         {
-            return new OwnedBanknoteDTO(Id,Code, Quality, BanknoteId);
+            return new OwnedBanknoteDTO(Id,SerialNumber, Quality, BanknoteId);
         }
 
         public override bool Equals(object obj)
         {
             return obj is OwnedBanknoteDataViewModel model &&
                    Id == model.Id &&
-                   Code == model.Code &&
+                   SerialNumber == model.SerialNumber &&
                    Quality == model.Quality &&
                    BanknoteId == model.BanknoteId;
         }

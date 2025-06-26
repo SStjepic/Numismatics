@@ -15,7 +15,7 @@
             <Setter  Property="Margin" Value="6"/>
         </Style>
     </Window.Resources>
-        <Grid Style="{DynamicResource GridContainderStyle}">
+    <Grid Style="{DynamicResource GridContainderStyle}">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -70,7 +70,7 @@
                     <ComboBox Grid.Row="3" Grid.Column="2"
                       Style="{DynamicResource BanknoteComboBoxInputStyle}"
                       ItemsSource="{Binding BanknoteCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
-                      SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrencyUnitName}"></ComboBox>  
+                      SelectedItem="{Binding BanknoteCrudViewModel.SelectedCurrencyUnitName}"></ComboBox>
 
 
                     <Label Grid.Row="4" Grid.Column="0" Content="Issue date" Style="{DynamicResource LabelStyle}"/>
@@ -104,8 +104,9 @@
 
                     <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}"/>
                     <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="EraComboBox"
+                          ItemsSource="{Binding BanknoteCrudViewModel.EraList}"
                           SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.Era, Mode=TwoWay}"
-                          Style="{DynamicResource BanknoteComboBoxInputStyle}"> 
+                          Style="{DynamicResource BanknoteComboBoxInputStyle}">
                     </ComboBox>
 
                     <Label Grid.Row="6" Grid.Column="0" Content="City" Style="{DynamicResource LabelStyle}"/>
@@ -139,11 +140,30 @@
 
                     <Label Content="{Binding BanknoteCrudViewModel.NumberOfBanknotes, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
 
-                    <ComboBox x:Name="BanknoteQualityComboBox" Style="{DynamicResource ComboBoxInputStyle}" SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteQuality}"  Grid.Row="3" Grid.Column="2" Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></ComboBox>
-                    <TextBox x:Name="BanknoteCodeTextBox" Style="{DynamicResource TextBoxInputStyle}" Text="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteCode}" Grid.Row="3" Grid.Column="2" Margin="0,36,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" Height="26"></TextBox>
-                    <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding BanknoteCrudViewModel.AddBanknoteCommand}" Grid.Row="3" Grid.Column="2" Margin="0,74,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" >Add banknote</Button>
-                    <Button Style="{DynamicResource ExitButtonStyle}" Command="{Binding BanknoteCrudViewModel.DeleteBanknoteCommand}" Grid.Row="3" Grid.Column="2" Margin="0,113,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" >Delete banknote</Button>
+                    <Grid Grid.Row="3" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Style="{DynamicResource LabelStyle}" Content="Banknote quality" Grid.Row="0" VerticalAlignment="Bottom" Padding="0" Margin="3,0,0,0"/>
+                        <ComboBox x:Name="BanknoteQualityComboBox" Style="{DynamicResource ComboBoxInputStyle}" ItemsSource="{Binding BanknoteCrudViewModel.MoneyQualities}" SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteQuality}"  Grid.Row="1" Margin="3"></ComboBox>
+                        <Label Style="{DynamicResource LabelStyle}" Content="Banknote serial number" Grid.Row="2" VerticalAlignment="Bottom" Padding="0" Margin="3,0,0,0"/>
+                        <TextBox x:Name="BanknoteCodeTextBox" Style="{DynamicResource TextBoxInputStyle}" Text="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentBanknoteSerialNumber, Mode=TwoWay}" Grid.Row="3" Margin="3"></TextBox>
+                        <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding BanknoteCrudViewModel.AddBanknoteCommand}" Grid.Row="4"  Margin="3">Add banknote</Button>
+                        <Button Style="{DynamicResource ExitButtonStyle}" Command="{Binding BanknoteCrudViewModel.DeleteBanknoteCommand}" Grid.Row="5" Margin="3">Delete banknote</Button>
+
+                    </Grid>
+                    
                     <DataGrid x:Name="BanknoteQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2" Margin="5" 
                               ItemsSource="{Binding BanknoteCrudViewModel.CurrentBanknote.Banknotes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
                               SelectedItem="{Binding BanknoteCrudViewModel.CurrentBanknote.CurrentOwnedBanknote}"
@@ -152,7 +172,7 @@
                               HeadersVisibility="Column">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Banknote code" Width="*" Binding="{Binding Code}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Banknote serial number" Width="*" Binding="{Binding SerialNumber}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Banknote quality" Width="*" Binding="{Binding Quality}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>

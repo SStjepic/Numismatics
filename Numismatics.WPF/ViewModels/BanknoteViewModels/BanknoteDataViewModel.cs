@@ -149,7 +149,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
         public Date IssueDate { get; set; }
 
         public string CurrentBanknoteQuality { get; set; }
-        public string CurrentBanknoteCode {  get; set; }
+        public string CurrentBanknoteSerialNumber {  get; set; }
 
         private OwnedBanknoteDataViewModel _currentOwnedBanknote;
         public OwnedBanknoteDataViewModel CurrentOwnedBanknote
@@ -198,7 +198,7 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
 
         private bool IsBanknoteCodeExist()
         {
-            var item = Banknotes.FirstOrDefault(b => b.Code == CurrentBanknoteCode);
+            var item = Banknotes.FirstOrDefault(b => b.SerialNumber == CurrentBanknoteSerialNumber);
             if(item != null)
             {
                 return true;
@@ -216,18 +216,18 @@ namespace Numismatics.WPF.ViewModels.BanknoteViewModels
                 MessageBox.Show("Please select a banknote quality", "Error");
                 return;
             }
-            if (string.IsNullOrEmpty(CurrentBanknoteCode))
+            if (string.IsNullOrEmpty(CurrentBanknoteSerialNumber))
             {
                 MessageBox.Show("Enter banknote code", "Error");
                 return;
             }
             if (IsBanknoteCodeExist())
             {
-                MessageBox.Show($"You already have banknote with this code {CurrentBanknoteCode}", "Notification");
+                MessageBox.Show($"You already have banknote with this code {CurrentBanknoteSerialNumber}", "Notification");
                 return;
             }
             MoneyQuality banknoteQuality = (MoneyQuality)Enum.Parse(typeof(MoneyQuality), CurrentBanknoteQuality);
-            OwnedBanknoteDataViewModel ownedBanknote = new OwnedBanknoteDataViewModel(CurrentBanknoteCode, banknoteQuality, Id);
+            OwnedBanknoteDataViewModel ownedBanknote = new OwnedBanknoteDataViewModel(CurrentBanknoteSerialNumber, banknoteQuality, Id);
             Banknotes.Add(ownedBanknote);
 
         }

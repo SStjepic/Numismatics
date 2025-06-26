@@ -50,7 +50,7 @@ namespace Numismatics.CORE.Services
                 {
                     Id = dto.Id,
                     BanknoteId = banknoteDTO.Id,
-                    Code = dto.Code,
+                    SerialNumber = dto.SerialNumber,
                     Quality = dto.Quality,
                 })
                 .ToList();

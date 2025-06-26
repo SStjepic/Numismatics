@@ -12,16 +12,16 @@ namespace Numismatics.CORE.Domains.Models
     public class OwnedBanknote
     {
         public long Id { get; set; }
-        public string Code { get; set; }
+        public string SerialNumber { get; set; }
         public MoneyQuality Quality { get; set; }
         public long BanknoteId { get; set; }
 
         public OwnedBanknote() { }
 
-        public OwnedBanknote(long id, string code, MoneyQuality quality, long banknoteId)
+        public OwnedBanknote(long id, string serialNumber, MoneyQuality quality, long banknoteId)
         {
             Id = id;
-            Code = code;
+            SerialNumber = serialNumber;
             Quality = quality;
             BanknoteId = banknoteId;
         }
