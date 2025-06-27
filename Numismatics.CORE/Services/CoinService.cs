@@ -106,21 +106,21 @@ namespace Numismatics.CORE.Services
             return Math.Max(1, (int)Math.Ceiling((double)totalItems / pageSize));
         }
 
-        public CoinDTO? Update(CoinDTO entity)
+        public CoinDTO? Update(CoinDTO coinDTO)
         {
-            (entity.ObversePicture, entity.ReversePicture) = _imageRepository.SaveCoinImage(entity.Id, entity.ObversePicture, entity.ReversePicture); ;
-            _coinRepository.Update(entity.ToCoin());
-            var ownedBanknotes = entity.OwnedCoins
+            (coinDTO.ObversePicture, coinDTO.ReversePicture) = _imageRepository.SaveCoinImage(coinDTO.Id, coinDTO.ObversePicture, coinDTO.ReversePicture); ;
+            _coinRepository.Update(coinDTO.ToCoin());
+            var ownedBanknotes = coinDTO.OwnedCoins
                 .Select(dto => new OwnedCoin
                 {
                     Id = dto.Id != 0? dto.Id : DateTime.UtcNow.Ticks,
-                    CoinId = entity.Id,
+                    CoinId = coinDTO.Id,
                     NumberOfCoins = dto.NumberOfCoins,
                     Quality = dto.Quality,
                 })
                 .ToList();
-            _ownedCoinRepository.UpdateByCoin(entity.Id, ownedBanknotes);
-            return entity;
+            _ownedCoinRepository.UpdateByCoin(coinDTO.Id, ownedBanknotes);
+            return coinDTO;
         }
 
         public int GetTotalCoinsNumber()

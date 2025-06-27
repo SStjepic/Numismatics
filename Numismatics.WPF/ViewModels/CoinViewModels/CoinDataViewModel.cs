@@ -121,6 +121,18 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 OnPropertyChanged(nameof(ReversePicture));
             }
         }
+
+        private string _city;
+        public string City
+        {
+            get { return _city; }
+            set
+            {
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
+
         private ObservableCollection<OwnedCoinDataViewModel> _coins;
         public ObservableCollection<OwnedCoinDataViewModel> Coins
         {
@@ -166,6 +178,7 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
                 Description = coin.Description;
                 ReversePicture = coin.ReversePicture;
                 ObversePicture = coin.ObversePicture;
+                City = coin.City;
             }
             else
             {
@@ -190,7 +203,7 @@ namespace Numismatics.WPF.ViewModels.CoinViewModels
             var country = Country != null? Country.ToCountryDTO(): null;
             var currency = Currency != null? Currency.ToCurrencyDTO(): null;
             var ownedCoins = ToOwnedCoinDTOs();
-            return new CoinDTO(Id, country, currency, value, issueDate, Description, ObversePicture, ReversePicture, isSubunit, ownedCoins);
+            return new CoinDTO(Id, country, currency, value, issueDate, Description, ObversePicture, ReversePicture, isSubunit, ownedCoins,City);
         }
 
         private List<OwnedCoinDTO> ToOwnedCoinDTOs()

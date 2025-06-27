@@ -37,6 +37,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="0.5*"></RowDefinition>
                 </Grid.RowDefinitions>
 
@@ -85,6 +86,12 @@
                       SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.Era}">
                 </ComboBox>
 
+                <Label Grid.Row="6" Grid.Column="0" Content="City" Style="{DynamicResource LabelStyle}"/>
+                <TextBox  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="CityTextBox"  TextWrapping="Wrap"
+                     Style="{DynamicResource CoinTextBoxInputStyle}"
+                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>  
+
 
             </Grid>
         </GroupBox>
@@ -111,12 +118,25 @@
                           />
                 <Label Content="{Binding CoinCrudViewModel.NumberOfCoins, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
 
-                <ComboBox SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentCoinQuality}" x:Name="CoinQualityComboBox" Grid.Row="3" Grid.Column="2"
-                          Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199"
-                          Style="{DynamicResource ComboBoxInputStyle}"></ComboBox>
-                <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddCoinQualityCommand}" Grid.Row="3" Grid.Column="2" Margin="0,46,0,131" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" >Add coin</Button>
-                <Button Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteCoinQualityCommand}" Grid.Row="3" Grid.Column="2" Margin="0,85,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="199" >Delete coin</Button>
+                <Grid Grid.Row="3" Grid.Column="2">
 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Style="{DynamicResource LabelStyle}" Content="Banknote quality" Grid.Row="0" VerticalAlignment="Bottom" Padding="0" Margin="8,0,0,0"/>
+                    <ComboBox SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentCoinQuality}" x:Name="CoinQualityComboBox" Grid.Row="1" Margin="8"
+                          Style="{DynamicResource ComboBoxInputStyle}"></ComboBox>
+                    <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddCoinQualityCommand}" Grid.Row="2" Margin="8" >Add coin</Button>
+                    <Button Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteCoinQualityCommand}" Grid.Row="3" Margin="8" >Delete coin</Button>
+
+                </Grid>
+                
+                
                 <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2"
                       ItemsSource="{Binding CoinCrudViewModel.CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
                       SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentOwnedCoin, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"

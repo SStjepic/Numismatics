@@ -19,10 +19,11 @@ namespace Numismatics.CORE.Domains.Models
         public string? ObversePicture { get; set; }
         public string? ReversePicture { get; set; }
         public bool? IsSubunit {  get; set; }
+        public string? City {  get; set; }
 
         public Coin() { }
 
-        public Coin(long id, long? countryId, long? currencyId, double? value, Date? issueDate, string? description, string? obversePicture, string? reversePicture, bool? isSubunit)
+        public Coin(long id, long? countryId, long? currencyId, double? value, Date? issueDate, string? description, string? obversePicture, string? reversePicture, bool? isSubunit, string? city)
         {
             Id = id;
             CountryId = countryId;
@@ -33,6 +34,7 @@ namespace Numismatics.CORE.Domains.Models
             ObversePicture = obversePicture;
             ReversePicture = reversePicture;
             IsSubunit = isSubunit;
+            City = city;
         }
 
         public override bool Equals(object? obj)

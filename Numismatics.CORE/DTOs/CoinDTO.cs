@@ -20,9 +20,11 @@ namespace Numismatics.CORE.DTOs
         public string? ReversePicture { get; set; }
         public bool? IsSubunit {  get; set; }
         public List<OwnedCoinDTO> OwnedCoins { get; set; }
+
+        public string? City {  get; set; }
         public CoinDTO() { }
 
-        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, Date issueDate, string description, string obversePicture, string reversePicture, bool isSubunit, List<OwnedCoinDTO> ownedCoins)
+        public CoinDTO(long id, CountryDTO country, CurrencyDTO currency, double value, Date issueDate, string description, string obversePicture, string reversePicture, bool isSubunit, List<OwnedCoinDTO> ownedCoins, string? city)
         {
             Id = id;
             Country = country;
@@ -34,6 +36,7 @@ namespace Numismatics.CORE.DTOs
             ReversePicture = reversePicture;
             IsSubunit = isSubunit;
             OwnedCoins = ownedCoins;
+            City = city;
         }
 
         public CoinDTO(Coin coin, Country country, Currency currency, List<OwnedCoinDTO> ownedCoins)
@@ -48,13 +51,14 @@ namespace Numismatics.CORE.DTOs
             Currency = new CurrencyDTO(currency);
             IsSubunit = coin.IsSubunit;
             OwnedCoins = ownedCoins;
+            City = coin.City;
         }
 
         public Coin ToCoin()
         {
             long countryId = Country != null ? Country.Id : -1;
             long currencyId = Currency != null ? Currency.Id : -1;
-            return new Coin(Id, countryId, currencyId, Value, IssueDate, Description, ObversePicture, ReversePicture, IsSubunit);
+            return new Coin(Id, countryId, currencyId, Value, IssueDate, Description, ObversePicture, ReversePicture, IsSubunit, City);
         }
 
         public override bool Equals(object? obj)
