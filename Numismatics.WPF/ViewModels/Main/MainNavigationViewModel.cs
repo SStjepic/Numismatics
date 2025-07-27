@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Numismatics.WPF.ViewModels;
+using Numismatics.WPF.ViewModels.CurrencyViewModels;
+using Numismatics.WPF.Views.ExportData;
 
 namespace Numismatics.WPF.ViewModels.Main
 {
@@ -18,6 +20,7 @@ namespace Numismatics.WPF.ViewModels.Main
         public ICommand DisplayCoinPageCommand { get; set; }
         public ICommand DisplayCountryPageCommand { get; set; }
         public ICommand DisplayCurrencyPageCommand { get; set; }
+        public ICommand DisplayExportDataDialogCommand { get; set; }
 
         public ICommand NextPageCommand { get; set; }
         public ICommand PreviousPageCommand { get; set; }
@@ -51,6 +54,7 @@ namespace Numismatics.WPF.ViewModels.Main
             DisplayCoinPageCommand = new RelayCommand(c => SetCoinPage());
             DisplayCountryPageCommand = new RelayCommand(c => SetCountryPage());
             DisplayCurrencyPageCommand = new RelayCommand(c => SetCurrencyPage());
+            DisplayExportDataDialogCommand = new RelayCommand(c => ShowExportDataDialog());
 
             SetBanknotePage();
         }
@@ -85,6 +89,16 @@ namespace Numismatics.WPF.ViewModels.Main
             DisplayViewModel = (CurrentPage as CurrencyPage).CurrencyDisplayViewModel;
             OnPropertyChanged(nameof(CurrentPage));
             OnPropertyChanged(nameof(DisplayViewModel));
+        }
+
+        private void ShowExportDataDialog()
+        {
+            ExportDataDialog exportDataDialog = new ExportDataDialog();
+            bool? result = exportDataDialog.ShowDialog();
+            if (result == true)
+            {
+                
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

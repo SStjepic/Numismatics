@@ -175,4 +175,20 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Padding" Value="4,2" />
     </Style>
+
+    <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+        <Setter Property="FontStyle" Value="Oblique"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="RadioButton" x:Key="RadioButtonStyle">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
+        <Setter Property="FontStyle" Value="Oblique"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
 </ResourceDictionary>

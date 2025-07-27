@@ -1,0 +1,98 @@
+﻿<Window x:Class="Numismatics.WPF.Views.ExportData.ExportDataDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Numismatics.WPF.Views.ExportData"
+        mc:Ignorable="d"
+        Title="Export data" Height="500" Width="850"
+        Background="#FF151735"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Style="{DynamicResource TitleStyle}" Grid.Row="0" Grid.Column="0" Content="Export data" Foreground="White" Grid.ColumnSpan="2"/>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Data" Foreground="White" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <CheckBox Grid.Row="0" Content="All" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportAll, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="1" Content="Banknotes" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportBanknotesData, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="2" Content="Coins" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportCoinsData, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="3" Content="Countries" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportCountriesData, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="4" Content="Currencies" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportCurrenciesData, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="5" Content="Owned banknotes" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportOwnedBanknotesData, UpdateSourceTrigger=PropertyChanged}" />
+                <CheckBox Grid.Row="6" Content="Owned coins" Style="{DynamicResource CheckBoxStyle}" Margin="2"
+                    IsChecked="{Binding ExportDataViewModel.ExportOwnedCoinsData, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Export data type" Foreground="White" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <RadioButton Grid.Row="0" Content="JSON" IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Json}" Style="{DynamicResource RadioButtonStyle}"/>
+                <RadioButton Grid.Row="1" Content="CSV" IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Csv}" Style="{DynamicResource RadioButtonStyle}"/>
+                </Grid>
+        </GroupBox>
+
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding ExportDataViewModel.ExportPath, UpdateSourceTrigger=PropertyChanged}" Margin="5" Style="{DynamicResource TextBoxInputStyle}" />
+            <Button Grid.Row="0" Grid.Column="1" Content="Choose path" Style="{DynamicResource SaveButtonStyle}" Margin="5"
+                Command="{Binding ExportDataViewModel.ChooseExportPathCommand}" />
+
+        </Grid>
+        
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Content="Export" Margin="10" Command="{Binding ExportDataViewModel.ExportDataCommand}"/>
+            <Button Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" Content="Close" Margin="10"/>
+        </Grid>
+        
+    </Grid>
+</Window>

@@ -36,4 +36,10 @@ namespace Numismatics.CORE.Domains.Enums
         Obverse,
         Reverse
     }
+
+    public enum ExportFormat
+    {
+        Json,
+        Csv
+    }
 }

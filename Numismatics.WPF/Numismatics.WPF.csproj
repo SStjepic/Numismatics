@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms> 
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <ApplicationIcon>Images\icons8-coins-96.ico</ApplicationIcon>
   </PropertyGroup>

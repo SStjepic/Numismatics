@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Numismatics.CORE.Repositories;
 using Numismatics.CORE.Services;
+using Numismatics.CORE.Services.Export;
 using Numismatics.CORE.Services.Interface;
 using Numismatics.INFRASTRUCTURE.Repositories.FileStorage;
 using Numismatics.INFRASTRUCTURE.Repositories.JSON;
@@ -65,6 +66,10 @@ namespace Numismatics.WPF
                 services.AddTransient<ICurrencyService, CurrencyService>();
                 services.AddTransient<ICountryService, CountryService>();
                 services.AddTransient<INationalCurrencyService, NationalCurrencyService>();
+                services.AddTransient<IExportDataService, JsonExportDataService>();
+                services.AddTransient<IExportDataService, CsvExportDataService>();
+                services.AddSingleton<ExportDataServiceFactory>();
+
 
                 //VW
                 services.AddSingleton<MainNavigationViewModel>();

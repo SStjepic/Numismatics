@@ -10,6 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <conv:ImagePathToBitmapConverter x:Key="ImagePathToBitmapConverter" />
+            <conv:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
             <conv:DecimalConverter x:Key="DecimalConverter" />
 
             <BitmapImage x:Key="SearchIcon" UriSource="/Images/SearchIcon.png"/>
