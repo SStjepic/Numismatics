@@ -31,6 +31,12 @@ namespace Numismatics.WPF
             MainNavigationViewModel = mainNavigationViewModel;
 
             this.DataContext = this;
+
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            this.Width = screenWidth * 0.8;   
+            this.Height = screenHeight * 0.8; 
         }
     }
 }

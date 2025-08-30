@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:Numismatics.WPF"
         mc:Ignorable="d"
         Title="Numismatics" 
-        
-        MinWidth="1600"
-        MinHeight="950"
+        MinWidth="1200" MinHeight="800"
+        WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow">
     <Grid>

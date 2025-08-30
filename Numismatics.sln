@@ -11,6 +11,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Numismatics", "Numismatics\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numismatics.INFRASTRUCTURE", "Numismatics.INFRASTRUCTURE\Numismatics.INFRASTRUCTURE.csproj", "{B4FECF51-6DE3-478F-A868-64E6AB0FBF4A}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Numismatics", "Numismatics\Numismatics.vdproj", "{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,12 @@ Global
 		{B4FECF51-6DE3-478F-A868-64E6AB0FBF4A}.Release|x64.Build.0 = Release|Any CPU
 		{B4FECF51-6DE3-478F-A868-64E6AB0FBF4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{B4FECF51-6DE3-478F-A868-64E6AB0FBF4A}.Release|x86.Build.0 = Release|Any CPU
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Debug|Any CPU.ActiveCfg = Debug
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Debug|x64.ActiveCfg = Debug
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Debug|x86.ActiveCfg = Debug
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Release|Any CPU.ActiveCfg = Release
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Release|x64.ActiveCfg = Release
+		{F7296D5E-D93A-489D-AFD3-3D1EB996DBC5}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
