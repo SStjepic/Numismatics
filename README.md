@@ -38,11 +38,11 @@ It includes full **CRUD** operations and **search functionality** by various par
 - Search and filter by parameters like country, currency, year, condition, value
 - Data stored locally using SQLite database
 - Images copied and stored in a separate folder for easy management
-- Clean and intuitive WPF user interface
+- Export collection data (CSV, JSON)
 
 ## Future Plans
 
-- Export and import collection data (CSV, Excel)
+- Import collection data (CSV, JSON)
 - Reports and charts for better collection analysis
 - Advanced sorting options
 
