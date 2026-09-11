@@ -5,193 +5,239 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CoinView"
         mc:Ignorable="d"
-        Title="Coin details" Height="800" Width="1300" Background="#FF151735">
+        Title="Coin details"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="CoinTextBoxInputStyle">
-            <Setter  Property="Margin" Value="7"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
 
         <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="CoinComboBoxInputStyle">
-            <Setter  Property="Margin" Value="7"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.15*"></RowDefinition>
-        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <GroupBox Grid.Row="0" Margin="5" Grid.Column="1" Foreground="White" Header="Basic informations" FontSize="16" >
-            <Grid>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="0.5*"></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Row="1" Grid.Column="0" Content="Country"  Style="{DynamicResource LabelStyle}"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CountryComboBox"  IsEditable="True"
-                      ItemsSource="{Binding CoinCrudViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" DisplayMemberPath="Name"
-                      SelectedItem="{Binding CoinCrudViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource CoinComboBoxInputStyle}"
-                     />
-
-                <Label Grid.Row="2" Grid.Column="0" Content="Currency" Style="{DynamicResource LabelStyle}" />
-                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="CurrencyTextBox" IsEditable="True"
-                      ItemsSource="{Binding CoinCrudViewModel.Currencies, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"
-                      SelectedItem="{Binding CoinCrudViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource CoinComboBoxInputStyle}"
-                      />
-
-                <Label Grid.Row="3" Grid.Column="0" Content="Value" Style="{DynamicResource LabelStyle}" />
-                <TextBox Margin="7,7,7,8" Grid.Row="3" Grid.Column="1" Name="ValueTextBox"  TextWrapping="Wrap"
-                    Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                    Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
-                         Style="{DynamicResource CoinTextBoxInputStyle}"></TextBox>
-                <ComboBox Margin="7,7,7,8" Grid.Row="3" Grid.Column="3"
-                          Style="{DynamicResource CoinComboBoxInputStyle}"
-                          ItemsSource="{Binding CoinCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}" 
-                          SelectedItem="{Binding CoinCrudViewModel.SelectedCurrencyUnitName, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-
-
-                <Label Grid.Row="4" Grid.Column="0" Content="Issue year" Style="{DynamicResource LabelStyle}" />
-                <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="IssueYearTextBox"
-                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Year, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Style="{DynamicResource CoinTextBoxInputStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"
-                         />
-
-
-                <Label Grid.Row="5" Grid.Column="0" Content="Era" Style="{DynamicResource LabelStyle}" />
-                <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="EraComboBox"
-                          Margin="7,10,7,7"
-                          Style="{DynamicResource CoinComboBoxInputStyle}"
-                      SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.Era}">
-                </ComboBox>
-
-                <Label Grid.Row="6" Grid.Column="0" Content="City" Style="{DynamicResource LabelStyle}"/>
-                <TextBox  Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="CityTextBox"  TextWrapping="Wrap"
-                     Style="{DynamicResource CoinTextBoxInputStyle}"
-                     Text="{Binding Path=CoinCrudViewModel.CurrentCoin.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                     Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>  
-
-
-            </Grid>
-        </GroupBox>
-
-
-        <GroupBox Grid.Row="1" Grid.Column="1" Margin="5" Foreground="White" Header="Additional informations" FontSize="16">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="5*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" Content="Description" Style="{DynamicResource LabelStyle}"  Margin="5"/>
-                <TextBox  Grid.Row="1" Grid.Column="1" Margin="5" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="DescriptionTextBox" 
-                          Text="{Binding CoinCrudViewModel.CurrentCoin.Description, UpdateSourceTrigger=PropertyChanged}"
-                          TextWrapping="Wrap"
-                          AcceptsReturn="True"
-                          />
-                <Label Content="{Binding CoinCrudViewModel.NumberOfCoins, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-
-                <Grid Grid.Row="3" Grid.Column="2">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Style="{DynamicResource LabelStyle}" Content="Banknote quality" Grid.Row="0" VerticalAlignment="Bottom" Padding="0" Margin="8,0,0,0"/>
-                    <ComboBox SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentCoinQuality}" x:Name="CoinQualityComboBox" Grid.Row="1" Margin="8"
-                          Style="{DynamicResource ComboBoxInputStyle}"></ComboBox>
-                    <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddCoinQualityCommand}" Grid.Row="2" Margin="8" >Add coin</Button>
-                    <Button Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteCoinQualityCommand}" Grid.Row="3" Margin="8" >Delete coin</Button>
-
-                </Grid>
-                
-                
-                <DataGrid x:Name="CoinQualityDataGrid" Grid.Row="3" Grid.ColumnSpan="2"
-                      ItemsSource="{Binding CoinCrudViewModel.CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}" 
-                      SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentOwnedCoin, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                      SelectionMode="Single"             
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      CanUserAddRows="False"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                          HeadersVisibility="Column">        
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Coin quality" Width="*" Binding="{Binding Quality}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Number of coins" Width="*" Binding="{Binding NumberOfCoins}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </GroupBox>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="5">
+    <Grid Style="{StaticResource GridContainderStyle}">
+        <Grid Margin="24">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="7*"></RowDefinition>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add obverse picture" Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddObversePictureCommand}" />
-            <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteObversePictureCommand}"/>
-            <Grid Grid.Row="1" Grid.Column="0" Margin="25">
-                <Image Source="{Binding CoinCrudViewModel.CurrentCoin.ObversePicture, Converter={StaticResource ImagePathToBitmapConverter}}" />
+            <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Margin="0,0,0,10" Style="{StaticResource CardOnDarkStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Obverse" Style="{StaticResource CardHeaderStyle}" Margin="0" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="Upload" Command="{Binding CoinCrudViewModel.AddObversePictureCommand}"
+                                    Style="{StaticResource SaveButtonStyle}" Width="90" Height="32" FontSize="12"/>
+                            <Button Grid.Column="2" Content="Remove" Command="{Binding CoinCrudViewModel.DeleteObversePictureCommand}"
+                                    Style="{StaticResource ExitButtonStyle}" Width="90" Height="32" FontSize="12" Margin="8,0,0,0"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" Background="{StaticResource BrushNavy}" CornerRadius="10" Padding="14">
+                            <Image x:Name="ObversePicture" Stretch="Uniform"
+                                   Source="{Binding CoinCrudViewModel.CurrentCoin.ObversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Style="{StaticResource CardOnDarkStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Reverse" Style="{StaticResource CardHeaderStyle}" Margin="0" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="Upload" Command="{Binding CoinCrudViewModel.AddReversePictureCommand}"
+                                    Style="{StaticResource SaveButtonStyle}" Width="90" Height="32" FontSize="12"/>
+                            <Button Grid.Column="2" Content="Remove" Command="{Binding CoinCrudViewModel.DeleteReversePictureCommand}"
+                                    Style="{StaticResource ExitButtonStyle}" Width="90" Height="32" FontSize="12" Margin="8,0,0,0"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" Background="{StaticResource BrushNavy}" CornerRadius="10" Padding="14">
+                            <Image x:Name="ReversePicture" Stretch="Uniform"
+                                   Source="{Binding CoinCrudViewModel.CurrentCoin.ReversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
+                        </Border>
+                    </Grid>
+                </Border>
             </Grid>
-        </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="7*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" Margin="5" Content="Add reverse picture"  Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddReversePictureCommand}" />
-            <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Delete" Style="{DynamicResource ExitButtonStyle}" Command="{Binding CoinCrudViewModel.DeleteReversePictureCommand}" />
-            <Grid Grid.Row="1" Grid.Column="0" Margin="25">
-                <Image x:Name="ReversePicture"  Source="{Binding CoinCrudViewModel.CurrentCoin.ReversePicture, Converter={StaticResource ImagePathToBitmapConverter}}"/>
+                <GroupBox Grid.Row="0" Margin="0,0,0,10" Header="Basic information"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,4">
+                            <Label Content="COUNTRY" Style="{StaticResource LabelStyleDark}"/>
+                            <ComboBox Name="CountryComboBox" IsEditable="True" Style="{StaticResource CoinComboBoxInputStyle}"
+                                  ItemsSource="{Binding CoinCrudViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                  DisplayMemberPath="Name"
+                                  SelectedItem="{Binding CoinCrudViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,4">
+                            <Label Content="CURRENCY" Style="{StaticResource LabelStyleDark}"/>
+                            <ComboBox x:Name="CurrencyTextBox" IsEditable="True" Style="{StaticResource CoinComboBoxInputStyle}"
+                                  ItemsSource="{Binding CoinCrudViewModel.Currencies, UpdateSourceTrigger=PropertyChanged}"
+                                  DisplayMemberPath="Name"
+                                  SelectedItem="{Binding CoinCrudViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,4">
+                            <Label Content="VALUE" Style="{StaticResource LabelStyleDark}"/>
+                            <TextBox Name="ValueTextBox" TextWrapping="Wrap" Style="{StaticResource CoinTextBoxInputStyle}"
+                                 Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Value, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,4">
+                            <Label Content="UNIT" Style="{StaticResource LabelStyleDark}"/>
+                            <ComboBox Style="{StaticResource CoinComboBoxInputStyle}"
+                                  ItemsSource="{Binding CoinCrudViewModel.CurrencyUnitNames, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding CoinCrudViewModel.SelectedCurrencyUnitName, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,8,4">
+                            <Label Content="ISSUE YEAR" Style="{StaticResource LabelStyleDark}"/>
+                            <TextBox x:Name="IssueYearTextBox" Style="{StaticResource CoinTextBoxInputStyle}"
+                                 Text="{Binding Path=CoinCrudViewModel.CurrentCoin.Year, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,4">
+                            <Label Content="ERA" Style="{StaticResource LabelStyleDark}"/>
+                            <ComboBox Name="EraComboBox" Style="{StaticResource CoinComboBoxInputStyle}"
+                                  SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.Era, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Label Content="CITY" Style="{StaticResource LabelStyleDark}"/>
+                            <TextBox Name="CityTextBox" TextWrapping="Wrap" Style="{StaticResource CoinTextBoxInputStyle}"
+                                 Text="{Binding Path=CoinCrudViewModel.CurrentCoin.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="1" Margin="0" Header="Additional information"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="1.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                            <Label Content="DESCRIPTION" Style="{StaticResource LabelStyleDark}"/>
+                            <TextBox x:Name="DescriptionTextBox" Height="70"
+                                 Style="{StaticResource TextBoxInputStyle}"
+                                 Text="{Binding CoinCrudViewModel.CurrentCoin.Description, UpdateSourceTrigger=PropertyChanged}"
+                                 TextWrapping="Wrap" AcceptsReturn="True"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                            <Label Content="{Binding CoinCrudViewModel.NumberOfCoins, UpdateSourceTrigger=PropertyChanged}"
+                               Style="{StaticResource LabelStyleDark}"/>
+                            <DataGrid x:Name="CoinQualityDataGrid" Height="150"
+                                  Style="{StaticResource ModernDataGridStyle}"
+                                  ItemsSource="{Binding CoinCrudViewModel.CurrentCoin.Coins, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=False}"
+                                  SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentOwnedCoin, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                  SelectionMode="Single" AutoGenerateColumns="False"
+                                  IsReadOnly="True" CanUserAddRows="False" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="COIN QUALITY" Width="*" Binding="{Binding Quality}"
+                                                    ElementStyle="{StaticResource DataGridTextStyle}"/>
+                                    <DataGridTextColumn Header="NUMBER OF COINS" Width="*" Binding="{Binding NumberOfCoins}"
+                                                    ElementStyle="{StaticResource DataGridTextStyle}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+
+                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            Background="{StaticResource BrushBg}" CornerRadius="10" Padding="14">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                    <Label Content="COIN QUALITY" Style="{StaticResource LabelStyleDark}"/>
+                                    <ComboBox x:Name="CoinQualityComboBox" Style="{StaticResource ComboBoxInputStyle}"
+                                          SelectedItem="{Binding CoinCrudViewModel.CurrentCoin.CurrentCoinQuality}"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" Content="Add" Style="{StaticResource SaveButtonStyle}"
+                                    Command="{Binding CoinCrudViewModel.AddCoinQualityCommand}"
+                                    Width="90" VerticalAlignment="Bottom" Margin="0,0,8,0"/>
+                                <Button Grid.Column="2" Content="Delete" Style="{StaticResource ExitButtonStyle}"
+                                    Command="{Binding CoinCrudViewModel.DeleteCoinQualityCommand}"
+                                    Width="90" VerticalAlignment="Bottom"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </GroupBox>
             </Grid>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button Style="{StaticResource SaveButtonStyle}" Content="Save" Width="160" Height="44" FontSize="14"
+                        Command="{Binding CoinCrudViewModel.AddCoinCommand}"/>
+                <Button Style="{StaticResource ExitButtonStyle}" Content="Exit" Width="140" Height="44" FontSize="14"
+                        Click="Exit" Margin="0,0,10,0"/>
+            </StackPanel>
+
         </Grid>
-
-        <Button Style="{DynamicResource SaveButtonStyle}" Command="{Binding CoinCrudViewModel.AddCoinCommand}" Grid.Row="2" Grid.Column="0" Content="Save"  Width="176"  FontSize="20" BorderBrush="{x:Null}"/>
-        <Button Style="{DynamicResource ExitButtonStyle}" Click="Exit"   Grid.Row="2" Grid.Column="0" Content="Exit" Width="176"  FontSize="20" BorderBrush="{x:Null}" Margin="450,0,0,0" />
-
-
     </Grid>
 </Window>

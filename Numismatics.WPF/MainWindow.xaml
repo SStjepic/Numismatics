@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF"
         mc:Ignorable="d"
-        Title="Numismatics" 
-        
+        Title="Numismatics"
+        Background="{StaticResource BrushBg}"
+
         MinWidth="1600"
         MinHeight="950"
         WindowState="Maximized"
@@ -22,67 +23,79 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
+        <Border Grid.Column="0" Grid.RowSpan="2"
+                Background="{StaticResource BrushSurface}"
+                BorderBrush="{StaticResource BrushBorder}"
+                BorderThickness="0,0,1,0">
+            <DockPanel>
 
-        <!-- Sidebar -->
-        <StackPanel Grid.Column="0" Grid.RowSpan="2" Background="#FF151735">
-            <Button Margin="5" Style="{DynamicResource SidebarButtonStyle}" IsEnabled="False"/>
-            <Button Margin="5" Content="Banknotes" Style="{DynamicResource SidebarButtonStyle}"  Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}"/>
-            <Button Margin="5" Content="Coins" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCoinPageCommand}" />
-            <Button Margin="5" Content="Countries" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCountryPageCommand}" />
-            <Button Margin="5" Content="Currencies" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayCurrencyPageCommand}"/>
-            <Button Margin="5" Content="Export data" Style="{DynamicResource SidebarButtonStyle}" Command="{Binding MainNavigationViewModel.DisplayExportDataDialogCommand}"/>
+                <StackPanel DockPanel.Dock="Top" Margin="20,26,20,20">
+                    <TextBlock Text="NUMISMATICS"
+                               FontFamily="{StaticResource AppFont}"
+                               FontSize="22"
+                               Foreground="{StaticResource BrushGold}"/>
+                    <TextBlock Text="Collection Manager"
+                               FontFamily="{StaticResource AppFont}"
+                               FontSize="12"
+                               Foreground="{StaticResource BrushTextMuted}"
+                               Margin="1,4,0,18"/>
+                    <Border Height="1" Background="{StaticResource BrushBorder}"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Margin="12,4" Content="Banknotes" Style="{StaticResource SidebarButtonStyle}"
+                            Command="{Binding MainNavigationViewModel.DisplayBanknotePageCommand}"/>
+                    <Button Margin="12,4" Content="Coins" Style="{StaticResource SidebarButtonStyle}"
+                            Command="{Binding MainNavigationViewModel.DisplayCoinPageCommand}"/>
+                    <Button Margin="12,4" Content="Countries" Style="{StaticResource SidebarButtonStyle}"
+                            Command="{Binding MainNavigationViewModel.DisplayCountryPageCommand}"/>
+                    <Button Margin="12,4" Content="Currencies" Style="{StaticResource SidebarButtonStyle}"
+                            Command="{Binding MainNavigationViewModel.DisplayCurrencyPageCommand}"/>
+                    <Button Margin="12,4" Content="Export data" Style="{StaticResource SidebarButtonStyle}"
+                            Command="{Binding MainNavigationViewModel.DisplayExportDataDialogCommand}"/>
+                </StackPanel>
+
+            </DockPanel>
+        </Border>
+
+        <Frame NavigationUIVisibility="Hidden"
+               Content="{Binding MainNavigationViewModel.CurrentPage, UpdateSourceTrigger=PropertyChanged}"
+               Grid.Column="1" Grid.Row="0" x:Name="MainFrame"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <Button Style="{StaticResource IconButtonStyle}"
+                    Content="&#x2190;"
+                    FontSize="16"
+                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetPreviousPageCommand}"
+                    ToolTip="Previous page"/>
+
+            <Border Background="{StaticResource BrushSurfaceRaised}"
+                    BorderBrush="{StaticResource BrushBorder}"
+                    BorderThickness="1"
+                    CornerRadius="18"
+                    Padding="18,0"
+                    Height="42"
+                    Margin="10,0"
+                    VerticalAlignment="Center">
+                <TextBlock Text="{Binding MainNavigationViewModel.DisplayViewModel.PageIndicatorText, UpdateSourceTrigger=PropertyChanged}"
+                           FontFamily="{StaticResource AppFont}"
+                           FontSize="15"
+                           Foreground="{StaticResource BrushTextPrimary}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </Border>
+
+            <Button Style="{StaticResource IconButtonStyle}"
+                    Content="&#x2192;"
+                    FontSize="16"
+                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetNextPageCommand}"
+                    ToolTip="Next page"/>
+
         </StackPanel>
-
-        <Frame NavigationUIVisibility="Hidden" Content="{Binding MainNavigationViewModel.CurrentPage, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" x:Name="MainFrame"/>
-
-        <!-- Pagination Control - Move to Row 1 -->
-        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Left Arrow Button -->
-                <Button Grid.Column="0"
-                    Width="40" Height="40"
-                    Margin="10,0"
-                    Background="LightGray"
-                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetPreviousPageCommand}">
-                    <TextBlock Text="←"
-                       FontSize="20"
-                       FontFamily="Consolas"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"/>
-                </Button>
-
-                <!-- Page Indicator -->
-                <TextBlock Grid.Column="1"
-                  Text="{Binding MainNavigationViewModel.DisplayViewModel.PageIndicatorText, UpdateSourceTrigger=PropertyChanged}"
-                   FontSize="18"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Margin="20,0" />
-
-
-                <!-- Right Arrow Button -->
-                <Button Grid.Column="2"
-                    Width="40" Height="40"
-                    Margin="10,0"
-                    Background="LightGray"
-                    Command="{Binding MainNavigationViewModel.DisplayViewModel.GetNextPageCommand}">
-                    <TextBlock Text="→"
-                       FontSize="20"
-                       FontFamily="Consolas"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"/>
-                </Button>
-            </Grid>
-        </Grid>
-
 
     </Grid>
 </Window>

@@ -5,94 +5,151 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.Views.ExportData"
         mc:Ignorable="d"
-        Title="Export data" Height="500" Width="850"
-        Background="#FF151735"
-        ResizeMode="NoResize">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        Title="Export data"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <Style x:Key="ModernCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle}">
+            <Setter Property="Margin" Value="2,6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="Box" Width="20" Height="20" CornerRadius="5"
+                                    Background="{StaticResource BrushSurfaceRaised}"
+                                    BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.4">
+                                <Path x:Name="Check" Data="M2,6 L6,10 L14,1" Stroke="{StaticResource BrushTextOnGold}"
+                                      StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round" Visibility="Collapsed"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="{StaticResource BrushGold}"/>
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource BrushGold}"/>
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource BrushGold}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <Label Style="{DynamicResource TitleStyle}" Grid.Row="0" Grid.Column="0" Content="Export data" Foreground="White" Grid.ColumnSpan="2"/>
+        <Style x:Key="ModernRadioButtonStyle" TargetType="RadioButton" BasedOn="{StaticResource RadioButtonStyle}">
+            <Setter Property="Margin" Value="2,6"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="Circle" Width="20" Height="20" CornerRadius="10"
+                                    Background="{StaticResource BrushSurfaceRaised}"
+                                    BorderBrush="{StaticResource BrushBorder}" BorderThickness="1.4">
+                                <Ellipse x:Name="Dot" Width="9" Height="9" Fill="{StaticResource BrushTextOnGold}" Visibility="Collapsed"
+                                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Circle" Property="Background" Value="{StaticResource BrushGold}"/>
+                                <Setter TargetName="Circle" Property="BorderBrush" Value="{StaticResource BrushGold}"/>
+                                <Setter TargetName="Dot" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Circle" Property="BorderBrush" Value="{StaticResource BrushGold}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Data" Foreground="White" Margin="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <CheckBox Grid.Row="0" Content="All" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportAll, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="1" Content="Banknotes" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportBanknotesData, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="2" Content="Coins" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportCoinsData, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="3" Content="Countries" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportCountriesData, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="4" Content="Currencies" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportCurrenciesData, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="5" Content="Owned banknotes" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportOwnedBanknotesData, UpdateSourceTrigger=PropertyChanged}" />
-                <CheckBox Grid.Row="6" Content="Owned coins" Style="{DynamicResource CheckBoxStyle}" Margin="2"
-                    IsChecked="{Binding ExportDataViewModel.ExportOwnedCoinsData, UpdateSourceTrigger=PropertyChanged}" />
-            </Grid>
-        </GroupBox>
+    <Grid Style="{StaticResource GridContainderStyle}">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Export data type" Foreground="White" Margin="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,20">
+                <Label Content="Export data" Style="{StaticResource TitleStyle}" Padding="0"
+                       HorizontalContentAlignment="Left" HorizontalAlignment="Left"/>
+                <Label Content="Choose what to export and in which format" Style="{StaticResource LabelTitleStyle}"
+                       HorizontalContentAlignment="Left" HorizontalAlignment="Left" Padding="2,2,0,0"/>
+            </StackPanel>
 
-                <RadioButton Grid.Row="0" Content="JSON" IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Json}" Style="{DynamicResource RadioButtonStyle}"/>
-                <RadioButton Grid.Row="1" Content="CSV" IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Csv}" Style="{DynamicResource RadioButtonStyle}"/>
+            <GroupBox Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" Header="Data"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                <StackPanel>
+                    <CheckBox Content="All" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportAll, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Border Height="1" Background="{StaticResource BrushBorder}" Margin="0,4,0,10"/>
+                    <CheckBox Content="Banknotes" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportBanknotesData, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Coins" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportCoinsData, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Countries" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportCountriesData, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Currencies" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportCurrenciesData, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Owned banknotes" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportOwnedBanknotesData, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="Owned coins" Style="{StaticResource ModernCheckBoxStyle}"
+                        IsChecked="{Binding ExportDataViewModel.ExportOwnedCoinsData, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Header="Export format"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                <StackPanel>
+                    <RadioButton Content="JSON" Style="{StaticResource ModernRadioButtonStyle}"
+                        IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Json}"/>
+                    <RadioButton Content="CSV" Style="{StaticResource ModernRadioButtonStyle}"
+                        IsChecked="{Binding ExportDataViewModel.SelectedExportFormat, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Csv}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,16,0,0"
+                    Style="{StaticResource CardOnDarkStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <Label Content="EXPORT PATH" Style="{StaticResource LabelStyleDark}"/>
+                        <TextBox Style="{StaticResource TextBoxInputStyle}"
+                                 Text="{Binding ExportDataViewModel.ExportPath, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Content="Choose path" Style="{StaticResource CrudButtonStyle}"
+                            Width="140" VerticalAlignment="Top"
+                            Command="{Binding ExportDataViewModel.ChooseExportPathCommand}" Margin="10,21,8,0"/>
                 </Grid>
-        </GroupBox>
+            </Border>
 
-        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding ExportDataViewModel.ExportPath, UpdateSourceTrigger=PropertyChanged}" Margin="5" Style="{DynamicResource TextBoxInputStyle}" />
-            <Button Grid.Row="0" Grid.Column="1" Content="Choose path" Style="{DynamicResource SaveButtonStyle}" Margin="5"
-                Command="{Binding ExportDataViewModel.ChooseExportPathCommand}" />
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button Style="{StaticResource SaveButtonStyle}" Content="Export" Width="160" Height="44" FontSize="14"
+                        Command="{Binding ExportDataViewModel.ExportDataCommand}"/>
+                <Button Style="{StaticResource ExitButtonStyle}" Content="Exit" Width="140" Height="44" FontSize="14"
+                        Click="Exit" Margin="0,0,10,0"/>
+            </StackPanel>
 
         </Grid>
-        
-
-        <Grid Grid.Row="3" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Content="Export" Margin="10" Command="{Binding ExportDataViewModel.ExportDataCommand}"/>
-            <Button Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" Content="Close" Margin="10"/>
-        </Grid>
-        
     </Grid>
 </Window>

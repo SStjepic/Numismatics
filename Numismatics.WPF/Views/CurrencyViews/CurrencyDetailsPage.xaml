@@ -5,122 +5,204 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CurrencyView"
         mc:Ignorable="d"
-        Title="Currency details" Height="550" Width="810"
+        Title="Currency details"
+        WindowState="Maximized"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="CurrencyTextBoxInputStyle">
-            <Setter  Property="Margin" Value="9"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
 
         <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="CurrencyComboBoxInputStyle">
-            <Setter  Property="Margin" Value="9"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
 
-        <Style TargetType="ListBox" x:Key="CurrencyListBoxStyle">
-            <Setter  Property="Margin" Value="9,0,9,9"/>
-            <Setter Property="FontFamily" Value="Berlin Sans FB Demi"/>
-            <Setter Property="FontSize" Value="18"/>
+        <Style x:Key="CurrencyListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8" Margin="0,0,0,4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource BrushSurfaceAlt}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource BrushGoldOverlay}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <Style TargetType="Button" BasedOn="{StaticResource SaveButtonStyle}" x:Key="CurrencySaveButtonStyle" >
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="50" />
-                </Style>
-            </Style.Resources>
-            <Setter Property="Margin" Value="10,0,10,0"/>
+        <Style x:Key="CurrencyListBoxStyle" TargetType="ListBox">
+            <Setter Property="Background" Value="{StaticResource BrushSurfaceRaised}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource CurrencyListBoxItemStyle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ScrollViewer Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
+        <Style x:Key="CurrencyAddCountryButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushGold}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="20" Background="{StaticResource BrushSurfaceRaised}"
+                                BorderBrush="{StaticResource BrushGold}" BorderThickness="1.4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="{StaticResource BrushGold}"/>
+                                <Setter Property="Foreground" Value="{StaticResource BrushTextOnGold}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <Style TargetType="Button" BasedOn="{StaticResource ExitButtonStyle}" x:Key="CurrencyExitButtonStyle" >
-            <Style.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="40" />
-                </Style>
-            </Style.Resources>
-            <Setter Property="Margin" Value="10,0,10,0"/>
+        <Style x:Key="CurrencyRemoveCountryButtonStyle" TargetType="Button" BasedOn="{StaticResource CurrencyAddCountryButtonStyle}">
+            <Setter Property="Foreground" Value="{StaticResource BrushDanger}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="20" Background="{StaticResource BrushSurfaceRaised}"
+                                BorderBrush="{StaticResource BrushDanger}" BorderThickness="1.4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="{StaticResource BrushDanger}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
-    <Grid  Background="#FF151735">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1.8*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="3.5*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.Column="1" Content="Currency" Style="{DynamicResource LabelTitleStyle}"></Label>
-
-        <Label Content="Name" Grid.Row="1" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
-             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
-
-        <Label Content="Main unit name" Grid.Row="2" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-        <TextBox Grid.Row="2" Grid.Column="1"  Style="{DynamicResource CurrencyTextBoxInputStyle}"
-              Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.MainUnitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
-        
-        <Label Content="Subunit name" Grid.Row="3" Grid.Column="0" Style="{DynamicResource LabelStyle}"/>
-        <TextBox Grid.Row="3" Grid.Column="1"  Style="{DynamicResource CurrencyTextBoxInputStyle}" 
-             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-             Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
-
-        <Label Content="Subunit to unit" Grid.Row="4" Grid.Column="0" Style="{DynamicResource LabelStyle}"></Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
-             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitToMainUnit, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
-        
-        <Label Content="Code" Grid.Row="5" Grid.Column="0" Style="{DynamicResource LabelStyle}" ></Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource CurrencyTextBoxInputStyle}"
-             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Code, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"></TextBox>
-
-        <Label Content="Country" Grid.Row="6" Grid.Column="0" Style="{DynamicResource LabelStyle}" ></Label>
-        <ComboBox Name="CountryComboBox" Style="{DynamicResource CurrencyComboBoxInputStyle}" IsEditable="True" Grid.Column="1" Grid.Row="6" SelectedItem="{Binding NationalCurrencyCrudViewModel.SelectedCountry}" ItemsSource="{Binding NationalCurrencyCrudViewModel.AllCountries}" DisplayMemberPath="Name" ></ComboBox>
-        <Grid Grid.Column="2" Grid.Row="6" >
+    <Grid Style="{StaticResource GridContainderStyle}">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button  x:Name="SelectCountryButton" Grid.Row="0" Grid.Column="0"
-                 Style="{DynamicResource CurrencySaveButtonStyle}"  
-                 Command="{Binding NationalCurrencyCrudViewModel.SelectCountryCommand}"
-                 FontFamily="Segoe MDL2 Assets" FontSize="16">&#xE710;</Button>
-            
-            <Button  x:Name="RemoveCountryButton" Grid.Row="0" Grid.Column="1"
-                 Style="{DynamicResource CurrencyExitButtonStyle}" 
-                 Command="{Binding NationalCurrencyCrudViewModel.RemoveCountryCommand}"
-                 FontFamily="Segoe MDL2 Assets" FontSize="16">&#xE74D;</Button>
-        </Grid>
 
-        <ListBox x:Name="CountryLB" Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" 
-             ItemsSource="{Binding NationalCurrencyCrudViewModel.SelectedCountries, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="Name" Style="{DynamicResource CurrencyListBoxStyle}" Validation.ErrorTemplate="{DynamicResource ValidationTemplate}">
-        </ListBox>
+            <GroupBox Grid.Row="0" Grid.Column="0" Margin="0,0,10,0" Header="Currency information"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                <StackPanel>
+                    <Label Content="NAME" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CurrencyTextBoxInputStyle}"
+                             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
-        <Grid Grid.Row="10" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+                    <Label Content="MAIN UNIT NAME" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CurrencyTextBoxInputStyle}"
+                             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.MainUnitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
-            <Button Content="Save" Grid.Row="0" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Click="Save"/>
-            <Button Content="Exit" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit"></Button>
+                    <Label Content="SUBUNIT NAME" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CurrencyTextBoxInputStyle}"
+                             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+
+                    <Label Content="SUBUNIT TO UNIT" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CurrencyTextBoxInputStyle}"
+                             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.SubunitToMainUnit, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+
+                    <Label Content="CODE" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Margin="0" Style="{StaticResource CurrencyTextBoxInputStyle}"
+                             Text="{Binding Path=CurrencyCrudViewModel.CurrentCurrency.Code, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Header="Linked countries"
+                      Style="{StaticResource ModernGroupBoxStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                            <Label Content="COUNTRY" Style="{StaticResource LabelStyleDark}"/>
+                            <ComboBox x:Name="CountryComboBox" IsEditable="True"
+                                      Style="{StaticResource CurrencyComboBoxInputStyle}"
+                                      SelectedItem="{Binding NationalCurrencyCrudViewModel.SelectedCountry}"
+                                      ItemsSource="{Binding NationalCurrencyCrudViewModel.AllCountries}"
+                                      DisplayMemberPath="Name"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <Button x:Name="SelectCountryButton"
+                                    Style="{StaticResource CurrencyAddCountryButtonStyle}"
+                                    Command="{Binding NationalCurrencyCrudViewModel.SelectCountryCommand}"
+                                    FontFamily="Segoe MDL2 Assets" FontSize="16" ToolTip="Link country"
+                                    Content="&#xE710;"/>
+                            <Button x:Name="RemoveCountryButton"
+                                    Style="{StaticResource CurrencyRemoveCountryButtonStyle}"
+                                    Command="{Binding NationalCurrencyCrudViewModel.RemoveCountryCommand}"
+                                    FontFamily="Segoe MDL2 Assets" FontSize="16" ToolTip="Unlink country"
+                                    Content="&#xE74D;" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <ListBox x:Name="CountryLB" Grid.Row="1"
+                             ItemsSource="{Binding NationalCurrencyCrudViewModel.SelectedCountries, UpdateSourceTrigger=PropertyChanged}"
+                             DisplayMemberPath="Name"
+                             Style="{StaticResource CurrencyListBoxStyle}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                </Grid>
+            </GroupBox>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                        HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button Style="{StaticResource SaveButtonStyle}" Content="Save" Width="160" Height="44" FontSize="14"
+                        Click="Save"/>
+                <Button Style="{StaticResource ExitButtonStyle}" Content="Exit" Width="140" Height="44" FontSize="14"
+                        Click="Exit" Margin="0,0,10,0"/>
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Window>

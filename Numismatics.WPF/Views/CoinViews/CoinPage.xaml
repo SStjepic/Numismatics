@@ -5,39 +5,97 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Numismatics.WPF.View.CoinView"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Background="{StaticResource BrushBg}"
       Title="Coin page">
 
-    <Grid Background="White">
+    <Grid Style="{StaticResource GridContainderStyle}" Margin="24">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Coin page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="70">
-                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CoinDisplayViewModel.AddCoinCommand}"/>
-                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.UpdateCoinCommand}"/>
-                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CoinDisplayViewModel.DeleteCoinCommand}"/>
+            <StackPanel Grid.Column="0">
+                <Label Content="Coins page" Style="{StaticResource TitleStyle}" Padding="0"/>
+                <Label Content="{Binding CoinDisplayViewModel.TotalCoinsText, UpdateSourceTrigger=PropertyChanged}"
+                       Style="{StaticResource LabelTitleStyle}" Padding="2,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="+ Add" Style="{StaticResource CrudButtonStyle}" Width="110"
+                        Command="{Binding CoinDisplayViewModel.AddCoinCommand}"/>
+                <Button Content="Update" Style="{StaticResource SaveButtonStyle}" Width="110" Height="42"
+                        Command="{Binding CoinDisplayViewModel.UpdateCoinCommand}"/>
+                <Button Content="Delete" Style="{StaticResource ExitButtonStyle}" Width="110" Height="42"
+                        Command="{Binding CoinDisplayViewModel.DeleteCoinCommand}"/>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="1" Style="{StaticResource CardOnDarkStyle}" Margin="0,20,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Content="{Binding CoinDisplayViewModel.TotalCoinsText, UpdateSourceTrigger=PropertyChanged}" 
-           Style="{DynamicResource LabelTitleStyle}" Foreground="#FF151735"/>
-        </Grid>
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <Label Content="VALUE" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource TextBoxInputStyle}"
+                             Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Value, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                    <Label Content="COUNTRY" Style="{StaticResource LabelStyleDark}"/>
+                    <ComboBox IsEditable="True" Style="{StaticResource ComboBoxInputStyle}"
+                              ItemsSource="{Binding CoinDisplayViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding CoinDisplayViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                    <Label Content="CURRENCY" Style="{StaticResource LabelStyleDark}"/>
+                    <ComboBox IsEditable="True" Style="{StaticResource ComboBoxInputStyle}"
+                              ItemsSource="{Binding CoinDisplayViewModel.AllCurrencies, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding CoinDisplayViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Margin="0,0,10,0">
+                    <Label Content="YEAR" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource TextBoxInputStyle}"
+                             Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Year, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CoinDisplayViewModel.SearchCommand}"
+                            ToolTip="Search">
+                        <Image Source="/Images/SearchIcon.png" Width="16" Height="16"/>
+                    </Button>
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CoinDisplayViewModel.RefreshSearchCommand}"
+                            ToolTip="Reset filters" Margin="8,0,0,0">
+                        <Image Source="/Images/RefreshIcon.png" Width="16" Height="16"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="Collection" Style="{StaticResource CardHeaderStyle}" Margin="4,22,0,0"/>
 
         <DataGrid Grid.Row="3"
+            Style="{StaticResource ModernDataGridStyle}"
+            Margin="0,6,0,0"
             ItemsSource="{Binding CoinDisplayViewModel.CurrentCoins, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding CoinDisplayViewModel.SelectedCoin, UpdateSourceTrigger=PropertyChanged}"
             AutoGenerateColumns="False"
@@ -45,73 +103,24 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch" 
             MouseDoubleClick="ShowCoin"
-            HeadersVisibility="Column"
-                  >
+            HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding Value, Converter={StaticResource DecimalConverter}}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Currency" Width="*" Binding="{Binding Currency.Name}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Unit" Width="*" Binding="{Binding UnitName}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Issue year" Width="0.5*" Binding="{Binding Year}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Era" Width="0.2*" Binding="{Binding Era}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Country" Width="*" Binding="{Binding Country.Name}"
-                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="VALUE" Width="*" Binding="{Binding Value, Converter={StaticResource DecimalConverter}}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="CURRENCY" Width="*" Binding="{Binding Currency.Name}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="UNIT" Width="*" Binding="{Binding UnitName}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="ISSUE YEAR" Width="0.6*" Binding="{Binding Year}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="ERA" Width="0.5*" Binding="{Binding Era}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
+                <DataGridTextColumn Header="COUNTRY" Width="*" Binding="{Binding Country.Name}"
+                                    ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.6*"/>
-                <RowDefinition Height="0.6*"/>
-                <RowDefinition Height="0.35*"/>
-            </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Content="Value" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
-                 Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Value, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Label Grid.Row="0" Grid.Column="1" Content="Country" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Width="auto" IsEditable="True" Style="{DynamicResource ComboBoxInputStyle}" Margin="10,0,10,0"
-                   ItemsSource="{Binding CoinDisplayViewModel.AllCountries, UpdateSourceTrigger=PropertyChanged}" 
-                   DisplayMemberPath="Name"
-                   SelectedItem="{Binding CoinDisplayViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Label Grid.Row="0" Grid.Column="2" Content="Currency" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
-            <ComboBox Grid.Row="1" Grid.Column="2" Width="auto" IsEditable="True" Style="{DynamicResource ComboBoxInputStyle}" Margin="10,0,10,0"
-                   ItemsSource="{Binding CoinDisplayViewModel.AllCurrencies, UpdateSourceTrigger=PropertyChanged}"
-                   DisplayMemberPath="Name"
-                   SelectedItem="{Binding CoinDisplayViewModel.SelectedCurrency, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Label Grid.Row="0" Grid.Column="3" Content="Year" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
-            <TextBox Grid.Row="1" Grid.Column="3" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0" 
-                 Text="{Binding CoinDisplayViewModel.CoinSearchDataViewModel.Year, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Grid Grid.Row="1" Grid.Column="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.35*"/>
-                    <ColumnDefinition Width="0.35*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button  Grid.Row="0" Grid.Column="0" Background="White" Command="{Binding CoinDisplayViewModel.SearchCommand}">
-                    <Image Source="/Images/SearchIcon.png"/>
-                </Button>
-
-                <Button  Grid.Row="0" Grid.Column="1" Background="White" Command="{Binding CoinDisplayViewModel.RefreshSearchCommand}">
-                    <Image Source="/Images/RefreshIcon.png"/>
-                </Button>
-            </Grid>
-        </Grid>
+        <TextBlock Grid.Row="4" Text="Double-click a row to open coin details" 
+                   Foreground="{StaticResource BrushTextMuted}" FontSize="11" Margin="4,10,0,0"/>
     </Grid>
 </Page>

@@ -5,96 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Numismatics.WPF.View.CountryView"
         mc:Ignorable="d"
-        Title="Country details" Height="450" Width="800">
-    <Grid Background="#FF151735">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="0.5*" />
-        </Grid.ColumnDefinitions>
+        Title="Country details" Height="680" Width="620"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxInputStyle}" x:Key="CountryTextBoxInputStyle">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1.8*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxInputStyle}" x:Key="CountryComboBoxInputStyle">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </Window.Resources>
 
-        <!-- Header -->
-        <Label Grid.Row="0" Grid.Column="1" Content="Country" 
-            Style="{DynamicResource LabelTitleStyle}" HorizontalAlignment="Center" Margin="0,0,0,20" />
+    <Grid Style="{StaticResource GridContainderStyle}">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- Country Name -->
-        <Label Content="Name:" Grid.Column="0" Grid.Row="1"
-            Style="{DynamicResource LabelStyle}" VerticalAlignment="Top"/>
-        <TextBox Grid.Column="1" Margin="0,0,0,19" Grid.Row="1"
-              Style="{DynamicResource TextBoxInputStyle}"
-              Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-              Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
+            <GroupBox Grid.Row="0" Header="Country information" Style="{StaticResource ModernGroupBoxStyle}">
+                <StackPanel>
 
-        <!-- Capital -->
-        <Label Content="Capital:" Grid.Row="2" Grid.Column="0" 
-            Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,19" 
-              Style="{DynamicResource TextBoxInputStyle}"
-              Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Capital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-              Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
+                    <Label Content="NAME" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CountryTextBoxInputStyle}"
+                             Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
-        <!-- Bank -->
-        <Label Content="Bank:" Grid.Row="3" Grid.Column="0" 
-            Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,19"
-              Style="{DynamicResource TextBoxInputStyle}"
-              Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-              Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
+                    <Label Content="CAPITAL" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CountryTextBoxInputStyle}"
+                             Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Capital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
-        <!-- Start Year -->
-        <Label Content="Start Year:" Grid.Row="4" Grid.Column="0" 
-            Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <Grid Grid.Row="4" Grid.Column="1" Margin="0,0,0,19">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="0,0,2,0"
-                  Style="{DynamicResource TextBoxInputStyle}"
-                  Text="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                  Validation.ErrorTemplate="{DynamicResource ValidationTemplate}" />
-            <ComboBox x:Name="StartYearEraComboBox" Grid.Column="1"
-                      Style="{DynamicResource ComboBoxInputStyle}"
-                      SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
-        </Grid>
+                    <Label Content="BANK" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource CountryTextBoxInputStyle}"
+                             Text="{Binding Path=CountryCrudViewModel.CurrentCountry.Bank, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
-        <!-- End Year -->
-        <Label Content="End Year:" Grid.Row="5" Grid.Column="0" 
-            Style="{DynamicResource LabelStyle}" VerticalAlignment="Top" />
-        <Grid Grid.Row="5" Grid.Column="1" Margin="0,0,0,19">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"  Margin="0,0,2,0"
-                  Style="{DynamicResource TextBoxInputStyle}"
-                  Text="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                  Validation.ErrorTemplate="{DynamicResource ValidationTemplate}"/>
-            <ComboBox x:Name="EndYearEraComboBox" Grid.Column="1" 
-                      Style="{DynamicResource ComboBoxInputStyle}"
-                      SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
-        </Grid>
+                    <Label Content="START YEAR" Style="{StaticResource LabelStyleDark}"/>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Margin="0,0,8,0"
+                                 Style="{StaticResource TextBoxInputStyle}"
+                                 Text="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        <ComboBox Grid.Column="1" x:Name="StartYearEraComboBox"
+                                  Style="{StaticResource ComboBoxInputStyle}"
+                                  SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.StartYearEra, Mode=OneWayToSource}"/>
+                    </Grid>
 
-        <!-- Buttons -->
-        <Grid Grid.Row="7" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Margin="10" Content="Save" Grid.Column="0" Style="{DynamicResource SaveButtonStyle}" Command="{Binding CountryCrudViewModel.AddCountryCommand}" />
-            <Button Margin="10" Content="Exit" Grid.Column="1" Style="{DynamicResource ExitButtonStyle}" Click="Exit" />
+                    <Label Content="END YEAR" Style="{StaticResource LabelStyleDark}"/>
+                    <Grid Margin="0,0,0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Margin="0,0,8,0"
+                                 Style="{StaticResource TextBoxInputStyle}"
+                                 Text="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        <ComboBox Grid.Column="1" x:Name="EndYearEraComboBox"
+                                  Style="{StaticResource ComboBoxInputStyle}"
+                                  SelectedIndex="{Binding Path=CountryCrudViewModel.CurrentCountry.EndYearEra, Mode=OneWayToSource}"/>
+                    </Grid>
+
+                </StackPanel>
+            </GroupBox>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button Style="{StaticResource SaveButtonStyle}" Content="Save" Width="160" Height="44" FontSize="14"
+                        Command="{Binding CountryCrudViewModel.AddCountryCommand}"/>
+                <Button Style="{StaticResource ExitButtonStyle}" Content="Exit" Width="140" Height="44" FontSize="14"
+                        Click="Exit" Margin="0,0,10,0"/>
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Window>

@@ -5,102 +5,100 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Numismatics.WPF.View.CountryView"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Background="{StaticResource BrushBg}"
       Title="Country page">
 
-    <Grid Background="White">
+    <Grid Style="{StaticResource GridContainderStyle}" Margin="24">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Country page" Grid.Row="0" Grid.Column="0" Style="{DynamicResource TitleStyle}"></Label>
-        
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="70">
-                <Button  Content="Add" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}"  Width="130" Command="{Binding CountryDisplayViewModel.AddCountryCommand}"/>
-                <Button  Content="Update" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CountryDisplayViewModel.UpdateCountryCommand}"/>
-                <Button Content="Delete" HorizontalContentAlignment="Center" Style="{DynamicResource CrudButtonStyle}" Width="130" Command="{Binding CountryDisplayViewModel.DeleteCountryCommand}"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Label Content="Countries page" Style="{StaticResource TitleStyle}" Padding="0"/>
+                <Label Content="{Binding CountryDisplayViewModel.TotalCountriesText, UpdateSourceTrigger=PropertyChanged}"
+                       Style="{StaticResource LabelTitleStyle}" Padding="2,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="+ Add" Style="{StaticResource CrudButtonStyle}" Width="110"
+                        Command="{Binding CountryDisplayViewModel.AddCountryCommand}"/>
+                <Button Content="Update" Style="{StaticResource SaveButtonStyle}" Width="110" Height="42"
+                        Command="{Binding CountryDisplayViewModel.UpdateCountryCommand}"/>
+                <Button Content="Delete" Style="{StaticResource ExitButtonStyle}" Width="110" Height="42"
+                        Command="{Binding CountryDisplayViewModel.DeleteCountryCommand}"/>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.35*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="1" Style="{StaticResource CardOnDarkStyle}" Margin="0,20,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Content="{Binding CountryDisplayViewModel.TotalCountriesText, UpdateSourceTrigger=PropertyChanged}" 
-                    Style="{DynamicResource LabelTitleStyle}" Foreground="#FF151735"/>
-        </Grid>
+                <StackPanel Grid.Column="0" MaxWidth="320" HorizontalAlignment="Left">
+                    <Label Content="NAME" Style="{StaticResource LabelStyleDark}"/>
+                    <TextBox Style="{StaticResource TextBoxInputStyle}"
+                             Text="{Binding CountryDisplayViewModel.CountrySearchDataViewModel.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CountryDisplayViewModel.SearchCommand}"
+                            ToolTip="Search">
+                        <Image Source="/Images/SearchIcon.png" Width="16" Height="16"/>
+                    </Button>
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CountryDisplayViewModel.RefreshSearchCommand}"
+                            ToolTip="Reset filters" Margin="8,0,0,0">
+                        <Image Source="/Images/RefreshIcon.png" Width="16" Height="16"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="Collection" Style="{StaticResource CardHeaderStyle}" Margin="4,22,0,0"/>
 
         <DataGrid Grid.Row="3"
+            Style="{StaticResource ModernDataGridStyle}"
+            Margin="0,6,0,0"
             ItemsSource="{Binding CountryDisplayViewModel.CurrentCountries, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding CountryDisplayViewModel.SelectedCountry, UpdateSourceTrigger=PropertyChanged}"
-            MouseDoubleClick ="ShowCountry"
+            MouseDoubleClick="ShowCountry"
             HeadersVisibility="Column"
-             
             AutoGenerateColumns="False"
             IsReadOnly="True"
             CanUserAddRows="False"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-                  >
+            VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Name}" 
+                <DataGridTextColumn Header="NAME" Width="2*" Binding="{Binding Name}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Bank" Width="2*" Binding="{Binding Bank}"
+                <DataGridTextColumn Header="BANK" Width="2*" Binding="{Binding Bank}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Capital" Width="*" Binding="{Binding Capital}"
+                <DataGridTextColumn Header="CAPITAL" Width="*" Binding="{Binding Capital}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Start year" Width="0.8*" Binding="{Binding StartYear}"
+                <DataGridTextColumn Header="START YEAR" Width="0.8*" Binding="{Binding StartYear}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding StartYearEra}"
+                <DataGridTextColumn Header="ERA" Width="0.4*" Binding="{Binding StartYearEra}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="End year" Width="0.8*" Binding="{Binding EndYear}"
+                <DataGridTextColumn Header="END YEAR" Width="0.8*" Binding="{Binding EndYear}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
-                <DataGridTextColumn Header="Era" Width="0.3*" Binding="{Binding EndYearEra}"
+                <DataGridTextColumn Header="ERA" Width="0.4*" Binding="{Binding EndYearEra}"
                                     ElementStyle="{StaticResource DataGridTextStyle}" CanUserSort="False"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="4" Grid.Column="1" Background="#FF151735">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.6*"/>
-                <RowDefinition Height="0.6*"/>
-                <RowDefinition Height="0.35*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Content="Name" Style="{DynamicResource LabelStyle}" Margin="10,0,10,0"/>
-            <TextBox Grid.Row="1" Grid.Column="0" Style="{DynamicResource TextBoxInputStyle}" Margin="10,0,10,0"
-                    Text="{Binding CountryDisplayViewModel.CountrySearchDataViewModel.Name, UpdateSourceTrigger=PropertyChanged}"/>
-
-            <Grid Grid.Row="1" Grid.Column="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.35*"/>
-                    <ColumnDefinition Width="0.35*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button  Grid.Row="0" Grid.Column="0" Background="White" Command="{Binding CountryDisplayViewModel.SearchCommand}">
-                    <Image Source="/Images/SearchIcon.png"/>
-                </Button>
-
-                <Button  Grid.Row="0" Grid.Column="1" Background="White" Command="{Binding CountryDisplayViewModel.RefreshSearchCommand}">
-                    <Image Source="/Images/RefreshIcon.png"/>
-                </Button>
-            </Grid>
-        </Grid>
+        <TextBlock Grid.Row="4" Text="Double-click a row to open country details" 
+                   Foreground="{StaticResource BrushTextMuted}" FontSize="11" Margin="4,10,0,0"/>
     </Grid>
 </Page>
