@@ -37,10 +37,15 @@ namespace Numismatics.WPF
             {
                 services.AddDbContext<SQLRepositoryContext>(options =>
                 {
-                    string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                    string folderPath = Path.Combine(localAppData, "NumismaticsApp", "Data");
+                    string folderPath;
 
-                    // Kreiraj folder ako ne postoji
+                    #if DEBUG
+                        string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                        folderPath = Path.Combine(localAppData, "NumismaticsApp-Dev", "Data");
+                    #else
+                        string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                        folderPath = Path.Combine(documents, "NumismaticsApp");
+                    #endif
                     Directory.CreateDirectory(folderPath);
 
                     string dbPath = Path.Combine(folderPath, "numismatics.db");
@@ -72,9 +77,9 @@ namespace Numismatics.WPF
 
 
                 //VW
-                services.AddSingleton<MainNavigationViewModel>();
+                services.AddTransient<MainNavigationViewModel>();
 
-                services.AddSingleton<MainWindow>();
+                services.AddTransient<MainWindow>();
             })
             .Build();
         }

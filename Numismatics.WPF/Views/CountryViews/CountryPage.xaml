@@ -44,16 +44,19 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" MaxWidth="320" HorizontalAlignment="Left">
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
                     <Label Content="NAME" Style="{StaticResource LabelStyleDark}"/>
                     <TextBox Style="{StaticResource TextBoxInputStyle}"
                              Text="{Binding CountryDisplayViewModel.CountrySearchDataViewModel.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0,0,10,0" MaxWidth="220" HorizontalAlignment="Left">
+                </StackPanel>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CountryDisplayViewModel.SearchCommand}"
                             ToolTip="Search">
                         <Image Source="/Images/SearchIcon.png" Width="16" Height="16"/>
