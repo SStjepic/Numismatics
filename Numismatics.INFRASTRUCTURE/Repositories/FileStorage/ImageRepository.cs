@@ -12,11 +12,28 @@ namespace Numismatics.INFRASTRUCTURE.Repositories.FileStorage
 {
     public class ImageRepository: IImageRepository
     {
-        private readonly string _baseFolder = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "NumismaticsAppData",
-            "Images"
-        );
+        private readonly string _baseFolder = GetBaseFolder();
+
+        private static string GetBaseFolder()
+        {
+            #if DEBUG
+                string localAppData = Environment.GetFolderPath(
+                    Environment.SpecialFolder.LocalApplicationData);
+
+                return Path.Combine(
+                    localAppData,
+                    "NumismaticsApp-Dev",
+                    "Images");
+            #else
+                string documents = Environment.GetFolderPath(
+                    Environment.SpecialFolder.MyDocuments);
+
+                return Path.Combine(
+                    documents,
+                    "NumismaticsApp",
+                    "Images");
+            #endif
+        }
         public ImageRepository()
         {
             Directory.CreateDirectory(_baseFolder);
