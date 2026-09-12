@@ -114,18 +114,20 @@ namespace Numismatics.WPF.ViewModels.ExportDataViewModel
             get => _exportAll;
             set
             {
-                if (value) 
-                {
-                    ExportBanknotesData = value;
-                    ExportCoinsData = value;
-                    ExportCountriesData = value;
-                    ExportCurrenciesData = value;
-                    ExportOwnedBanknotesData = value;
-                    ExportOwnedCoinsData = value;
-                }
-
+                _exportBanknotesData = value;
+                _exportCoinsData = value;
+                _exportCountriesData = value;
+                _exportCurrenciesData = value;
+                _exportOwnedBanknotesData = value;
+                _exportOwnedCoinsData = value;
                 _exportAll = value;
 
+                OnPropertyChanged(nameof(ExportBanknotesData));
+                OnPropertyChanged(nameof(ExportCoinsData));
+                OnPropertyChanged(nameof(ExportCountriesData));
+                OnPropertyChanged(nameof(ExportCurrenciesData));
+                OnPropertyChanged(nameof(ExportOwnedBanknotesData));
+                OnPropertyChanged(nameof(ExportOwnedCoinsData));
                 OnPropertyChanged(nameof(ExportAll));
             }
         }
