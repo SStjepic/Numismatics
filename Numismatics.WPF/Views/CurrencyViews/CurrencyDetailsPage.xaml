@@ -173,7 +173,7 @@
                                       DisplayMemberPath="Name"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,15,10,0">
                             <Button x:Name="SelectCountryButton"
                                     Style="{StaticResource CurrencyAddCountryButtonStyle}"
                                     Command="{Binding NationalCurrencyCrudViewModel.SelectCountryCommand}"

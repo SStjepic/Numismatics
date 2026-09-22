@@ -220,10 +220,10 @@
 
                                 <Button Grid.Column="1" Content="Add" Style="{StaticResource SaveButtonStyle}"
                                     Command="{Binding CoinCrudViewModel.AddCoinQualityCommand}"
-                                    Width="90" VerticalAlignment="Bottom" Margin="0,0,8,0"/>
+                                    Width="90" VerticalAlignment="Bottom" Margin="0,0,5,0"/>
                                 <Button Grid.Column="2" Content="Delete" Style="{StaticResource ExitButtonStyle}"
                                     Command="{Binding CoinCrudViewModel.DeleteCoinQualityCommand}"
-                                    Width="90" VerticalAlignment="Bottom"/>
+                                    Width="90" VerticalAlignment="Bottom" Margin="0,0,5,0"/>
                             </Grid>
                         </Border>
                     </Grid>
